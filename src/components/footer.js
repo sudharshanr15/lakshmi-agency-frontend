@@ -1,9 +1,9 @@
-export function Graph(){
+export function Footer(){
+
     return (
         <>
-
-        <div>
-        graph
+        <div>   
+        Footer
         </div>
         
         </>
