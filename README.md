@@ -2,7 +2,21 @@
 
 <b> Template structure. </b>
 
-``` page.js  ``` - main file for index
+``` page.js  ``` - main file for inside the app folder
 
-Every directory will have the same file for index.
+### Src Folder
+
+- app
+    - home (@/container/home/main.js)
+    - page.js (index file)
+
+- components
+    - navbar.js
+    - footer.js
+
+- container 
+    - home
+        - main.js
+
+
 
