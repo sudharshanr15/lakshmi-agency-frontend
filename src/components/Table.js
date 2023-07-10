@@ -1,0 +1,105 @@
+export function Table() {
+  return (
+    <div className="lg:mx-24 mx-6 lg:mt-10 mt-4 p-5 rounded-md">
+      <div className="flex justify-between">
+        <h1 className="text-black text-1xl md:text-2xl font-semibold">
+          Recent Orders
+        </h1>
+      </div>
+      <div class="relative overflow-x-auto shadow-md md:mt-8 mt-5">
+        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+          <thead class="text-xs text-gray-700 uppercase bg-[#e4eef1] dark:text-gray-400  md:mx-6">
+            <tr>
+              <th scope="col" class="px-6 py-3">
+                ID
+              </th>
+              <th scope="col" class="px-6 py-3">
+                Date
+              </th>
+              <th scope="col" class="px-6 py-3">
+                Product name
+              </th>
+              <th scope="col" class="px-6 py-3">
+                Amount
+              </th>
+              <th scope="col" class="px-6 py-3">
+                Delivery status
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="bg-white border-b   hover:bg-gray-50 dark:hover:bg-gray-600 md:mx-8">
+              <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap">
+                1223456QEA
+              </th>
+              <td class="px-6 py-4">12 Jan23</td>
+              <td class="px-6 py-4">Astral CPVC Pro - 40mm pipe,3mtr</td>
+              <td class="px-6 py-4">₹14,0000</td>
+              <td class="px-6 py-4 text-right">
+                <button className="float-left bg-[#ecf7e7] text-[#50e364] p-2">
+                  Delivered
+                </button>
+              </td>
+            </tr>
+
+            <tr class="bg-white border-b   hover:bg-gray-50 dark:hover:bg-gray-600 md:mx-8">
+              <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap">
+                1223456QEA
+              </th>
+              <td class="px-6 py-4">12 Jan23</td>
+              <td class="px-6 py-4">Astral CPVC Pro - 40mm pipe,3mtr</td>
+              <td class="px-6 py-4">₹14,0000</td>
+              <td class="px-6 py-4 text-right">
+                <button className="float-left bg-[#ecf7e7] text-[#50e364] p-2">
+                  Delivered
+                </button>
+              </td>
+            </tr>
+
+            <tr class="bg-white border-b   hover:bg-gray-50 dark:hover:bg-gray-600 md:mx-8">
+              <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap">
+                1223456QEA
+              </th>
+              <td class="px-6 py-4">12 Jan23</td>
+              <td class="px-6 py-4">Astral CPVC Pro - 40mm pipe,3mtr</td>
+              <td class="px-6 py-4">₹14,0000</td>
+              <td class="px-6 py-4 text-right">
+                <button className="float-left bg-[#ecf7e7] text-[#50e364] p-2">
+                  Delivered
+                </button>
+              </td>
+            </tr>
+
+            <tr class="bg-white border-b   hover:bg-gray-50 dark:hover:bg-gray-600 md:mx-8">
+              <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap">
+                1223456QEA
+              </th>
+              <td class="px-6 py-4">12 Jan23</td>
+              <td class="px-6 py-4">Astral CPVC Pro - 40mm pipe,3mtr</td>
+              <td class="px-6 py-4">₹14,0000</td>
+              <td class="px-6 py-4 text-right">
+                <button className="float-left bg-[#ecf7e7] text-[#50e364] p-2">
+                  Delivered
+                </button>
+              </td>
+            </tr>
+
+            <tr class="bg-white border-b   hover:bg-gray-50 dark:hover:bg-gray-600 md:mx-8">
+              <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap">
+                1223456QEA
+              </th>
+              <td class="px-6 py-4">12 Jan23</td>
+              <td class="px-6 py-4">Astral CPVC Pro - 40mm pipe,3mtr</td>
+              <td class="px-6 py-4">₹14,0000</td>
+              <td class="px-6 py-4 text-right">
+                <button className="float-left bg-[#ecf7e7] text-[#50e364] p-2">
+                  Delivered
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  );
+}

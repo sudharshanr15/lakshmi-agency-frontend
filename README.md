@@ -7,16 +7,18 @@
 ### Src Folder
 
 - app
-    - home (@/container/home/main.js)
-    - page.js (index file)
-
-- components
-    - navbar.js
-    - footer.js
-
+    - dashboard (@/container/dashboard)
+    - category
+    - quote
+    - profile
+- componets
 - container 
-    - home
-        - main.js
-
+    - dashboard
+        - card.js
+        - graph.js 
+        - index.js
+    - profile
+    - quote
+    - category
 
 
