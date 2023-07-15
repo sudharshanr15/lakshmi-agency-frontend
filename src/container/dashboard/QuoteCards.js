@@ -6,10 +6,10 @@ export function QuoteCards(){
               <div className="ml-4">
                 <h1 className="text-[#555961] text-2-xl">Outstanding amount</h1>
                 <div className="flex">
-                  <p className="mt-1 text-[#155f80] font-bold text-1xl md:text-2xl">₹1,30,000</p>
+                  <p className="mt-1 text-[#155f80] font-bold text-1xl md:text-2xl">₹10</p>
                   <div className="flex ">
                    
-                    <p className="mt-2  text-[#b9babc] md:text-1xl ">(Till date)</p>
+                    <p className="mt-1 text-[#b9babc] md:text-1xl "> &nbsp; (Till date)</p>
                   </div>
                 </div>
               </div>
@@ -21,10 +21,10 @@ export function QuoteCards(){
               <div className="ml-4">
                 <h1 className="text-[#555961] text-2-xl">Over due</h1>
                 <div className="flex">
-                  <p className="mt-1 text-[#ff081d] font-bold text-1xl md:text-2xl">₹30,000</p>
+                  <p className="mt-1 text-[#ff081d] font-bold text-1xl md:text-2xl">₹30</p>
                   <div className="flex  ">
                    
-                    <p className="mt-2  text-[#b9babc] md:text-1xl ">(Till date)</p>
+                    <p className="mt-1 text-[#b9babc] md:text-1xl "> &nbsp; (Till date)</p>
                   </div>
                 </div>
               </div>
@@ -39,7 +39,7 @@ export function QuoteCards(){
                   <p className="mt-1 text-[#155f80] font-bold text-1xl md:text-2xl">120</p>
                   <div className="flex  text-lime-600 ">
                    
-                    <p className="mt-2  text-[#b9babc] md:text-1xl ">(12 Jan23)</p>
+                    <p className="mt-1 text-[#b9babc] md:text-1xl "> &nbsp; (12 Jan23)</p>
                   </div>
                 </div>
               </div>
@@ -51,10 +51,10 @@ export function QuoteCards(){
               <div className="ml-4">
                 <h1 className="text-[#555961] text-2-xl">Bounced check</h1>
                 <div className="flex">
-                  <p className="mt-1 text-[#ff081d] font-bold text-1xl md:text-2xl">₹30,000</p>
+                  <p className="mt-1 text-[#ff081d] font-bold text-1xl md:text-2xl">₹30</p>
                   <div className="flex  ">
                    
-                    <p className="mt-2  text-[#b9babc] md:text-1xl ">(12 Jan23)</p>
+                    <p className="mt-1 text-[#b9babc] md:text-1xl "> &nbsp; (12 Jan23)</p>
                   </div>
                 </div>
               </div>

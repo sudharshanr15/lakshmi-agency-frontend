@@ -1,6 +1,6 @@
 'use client'
 import "../globals.css"
-import { Nav } from "@/components/"
+import { Nav , Footer} from "@/components/"
 import { Card,List } from "@/container/quote"
 
 export default function Page() {
@@ -9,6 +9,7 @@ export default function Page() {
     <Nav/>
     <Card/>
     <List/>
+    <Footer/>
     </>
     
   )

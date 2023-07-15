@@ -12,7 +12,7 @@ export function Card() {
     <>
       <div className="">
         <div className="lg:mx-5 mx-2 lg:mt-44 md:mt-16">
-          <div className="flex justify-between">
+          <div className="flex justify-between mt-3">
             <h1 className="text-black text-2xl font-bold">Statics</h1>
 
             <div className="mr-0">
@@ -170,7 +170,7 @@ export function Card() {
               <div className="ml-4">
                 <h1 className="text-[#555961] text-2-xl">Savings</h1>
                 <div className="flex">
-                  <p className="mt-1 font-bold text-1xl md:text-2xl">30,000</p>
+                  <p className="mt-1 font-bold text-1xl md:text-2xl">30</p>
                   <div className="flex text-[#fd517e]">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -214,7 +214,7 @@ export function Card() {
                 <h1 className="text-[#555961] text-2-xl">Purchased</h1>
                 <div className="flex">
                   <p className="mt-1 font-bold text-1xl md:text-2xl">
-                    1,30,000
+                    150
                   </p>
                   <div className="flex text-[#fd517e]">
                     <svg

@@ -113,7 +113,7 @@ export function LineChart() {
           </div>
         </div>
         <div className=' flex justify-center items-center'>
-          <div className='w-full p-20'>
+          <div className='w-full p-10 md:p-20'>
             <ChartDiagram chartData={chartData} />
           </div>
         </div>
