@@ -1,4 +1,4 @@
-import { FaFacebookF,FaLinkedinIn,FaInstagram,FaTwitterz} from 'react-icons/fa';
+import { FaFacebookF,FaLinkedinIn,FaInstagram,FaTwitter } from 'react-icons/fa';
 
 export function Footer() {
   return (
@@ -55,41 +55,54 @@ export function Footer() {
         </div>
       </div>
 
-      {/* <div className="lg:mt-10 mt-2 bg-[#004b71] p-2 rounded-md">
-        <div className="flex justify-between  lg:mx-24">
-          <span className="text-white font-normal mt-1">
-            Copyrights@2022. All rights reserved by Lakshmi Agency
-          </span>
-          <span className="text-white font-normal mt-1">
-            Privacy poliy
-          </span>
-          <span className="text-white font-normal mt-1">
-            Cookie policy
-          </span>
-          <span className="text-white font-normal mt-1">
-            Terms of use
-          </span>
+      <footer className="hidden md:block shadow bg-[#0A4E71]">
+        <div className="w-full p-4 md:flex md:items-center md:justify-between">
 
-          <div className="mr-0">
-            <div className="flex">
-              
-              
-              <div className="text-center bg-white h-8 w-8 flex items-center justify-center rounded-md">
-                <FaFacebookF className="h-5 w-5"/>
-              </div>
-              <div className="text-center bg-white h-8 w-8 flex items-center justify-center rounded-md mr-2">
-                <FaLinkedinIn className="h-5 w-5"/>
-              </div>
-              <div className="text-center bg-white h-8 w-8 flex items-center justify-center rounded-md">
-                <FaInstagram className="h-5 w-5"/>
-              </div>
-              <div className="text-center bg-white h-8 w-8 flex items-center justify-center rounded-md">
-                <FaTwitterz className="h-5 w-5"/>
-              </div>
-            </div>
-          </div>
+          <ul className="flex flex-wrap items-center mt-3 text-sm font-medium text-white  sm:mt-0">
+            <li>
+              <a href="#" className="mr-4 hover:underline md:mr-6">Copyrights@2022.All rights reserved by Lakshmi Agency</a>
+            </li>
+            <li>
+              <span href="#" className="mr-4 hover:underline md:mr-6">|</span>
+            </li>
+            <li>
+              <a href="#" className="mr-4 hover:underline md:mr-6">Privacy Policy</a>
+            </li>
+            <li>
+              <span href="#" className="mr-4 hover:underline md:mr-6">|</span>
+            </li>
+            <li>
+              <a href="#" className="mr-4 hover:underline md:mr-6">Cookie policy</a>
+            </li>
+            <li>
+              <span href="#" className="mr-4 hover:underline md:mr-6">|</span>
+            </li>
+            <li>
+              <a href="#" className="hover:underline">Terms of use</a>
+            </li>
+          </ul>
+
+          <span className="text-sm text-gray-500 sm:text-center dark:text-gray-400 flex items-center space-x-4">
+            <span className="flex items-center justify-center h-10 w-10 bg-[#356c88] rounded-md">
+              <FaFacebookF className="h-6 w-6 text-white" />
+            </span>
+            <span className="flex items-center justify-center h-10 w-10 bg-[#356c88] rounded-md">
+              <FaTwitter className="h-6 w-6 text-white" />
+            </span>
+            <span className="flex items-center justify-center h-10 w-10 bg-[#356c88] rounded-md">
+              <FaLinkedinIn className="h-6 w-6 text-white" />
+            </span>
+            <span className="flex items-center justify-center h-10 w-10 bg-[#356c88] rounded-md">
+              <FaLinkedinIn className="h-6 w-6 text-white" />
+            </span>
+            <span className="flex items-center justify-center h-10 w-10 bg-[#356c88] rounded-md">
+              <FaLinkedinIn className="h-6 w-6 text-white" />
+            </span>
+          </span>
         </div>
-      </div> */}
+      </footer>
+
+
     </div>
 
 
