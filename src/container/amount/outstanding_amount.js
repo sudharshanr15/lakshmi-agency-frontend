@@ -1,6 +1,40 @@
 export function Payments() {
   return (
-    <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 w-auto mx-2 gap-2 lg:gap-2 md:mx-auto justify-between lg:mx-20 lg:mt-40 mt-4  p-5 rounded-md mb-32">
+
+    <div className="lg:mt-40 ">
+    <div className="lg:mx-24 mx-6  p-5 rounded-md">
+      <div className="flex justify-">
+        <h1 className="text-black text-1xl text-2xl font-semibold ">
+          Outstanding amount
+        </h1>
+      </div>
+    </div>
+    <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 w-auto mx-2 gap-2 lg:gap-2 md:mx-auto justify-between lg:mx-20   p-5 rounded-md ">
+      <div className="rounded-lg   bg-[#e7eef1]">
+        <div className="flex justify-between p-4 mt-2">
+          <div className="ml-4">
+            <h1 className="text-[#0a4e71] text-1xl">
+              Outstanding amount(till date)
+            </h1>
+          </div>
+          <div className="ml-4 justify-end">
+            <h1 className="text-[#0a4e71] font-bold text-2-xl text-right">
+              ₹1,30,000
+            </h1>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div className="lg:mx-24  p-5 rounded-md">
+      <div className="flex justify-">
+        <h1 className="text-black text-1xl text-2xl font-semibold lg:-mb-7">
+          Pending Payment list
+        </h1>
+      </div>
+    </div>
+
+    <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 w-auto mx-2 gap-2 lg:gap-2 md:mx-auto justify-between lg:mx-20 mt-4  p-5 rounded-md mb-32">
       <div className="border rounded-lg mt-2">
         <div className="flex justify-between p-4 mt-2">
           <div className="ml-4">
@@ -273,6 +307,7 @@ export function Payments() {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 }
