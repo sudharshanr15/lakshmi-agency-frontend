@@ -6,10 +6,7 @@ const baseURL = "https://test01.lakshmiagency.com/api/method/lakshmiagency.v1.st
 const headers = {
   "Content-Type": "application/json",
   "Authorization": "token 69e0234a0664f91:35470717fb585f3",
-  "Cookie": "sid=Guest"
-};
-const requestData = {
-  id: "lalit@apiusers.com-proj-1"
+  "Cookie": "full_name=Guest; sid=Guest; system_user=no; user_id=Guest; user_image=",
 };
 
 export default function App() {
@@ -17,7 +14,7 @@ export default function App() {
 
   useEffect(() => {
     axios
-      .post(baseURL, requestData, { headers })
+      .get(baseURL, { headers})
       .then((response) => {
         setData(response.data);
       })
@@ -27,10 +24,11 @@ export default function App() {
   }, []);
 
   if (!data) return null;
-
+  const totalData = data.length
   return (
     <div>
-      <p>{data}</p>
+      <p>{JSON.stringify(data)}</p>
+      <p>Total data : {totalData}</p>
     </div>
   );
 }
