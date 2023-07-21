@@ -1,4 +1,4 @@
-export function Projects() {
+export function Project() {
   return (
     <div className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 w-auto mx-2 gap-2 lg:gap-7 md:mx-auto justify-between lg:mx-20 lg:mt-10 mt-4  p-5 rounded-md">
       <div className="border rounded-lg">

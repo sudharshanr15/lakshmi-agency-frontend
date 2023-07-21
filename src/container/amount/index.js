@@ -1,1 +1,1 @@
-export { Payments } from './outstanding_amount'
+export { Payment } from './outstandAmount'

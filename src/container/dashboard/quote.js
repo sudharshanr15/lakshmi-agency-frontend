@@ -1,3 +1,5 @@
+// known issue for scrolling card
+
 export function Quote() {
   return (
     <div className="lg:mx-24 mx-6 lg:mt-10 mt-4 bg-[#2e3437] p-5 rounded-md">

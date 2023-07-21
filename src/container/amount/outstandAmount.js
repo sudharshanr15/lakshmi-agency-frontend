@@ -1,4 +1,4 @@
-export function Payments() {
+export function Payment() {
   return (
     <div className="lg:mt-40 ">
       <div className="lg:mx-24 mx-6  p-5 rounded-md">

@@ -6,6 +6,9 @@ export function Table() {
           Recent Orders
         </h1>
       </div>
+
+      {/* known issue for mobile, move to react-table */}
+      
       <div className="relative overflow-x-auto shadow-md md:mt-8 mt-5">
         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
           <thead className="text-xs text-gray-700 uppercase bg-[#e4eef1] dark:text-gray-400  md:mx-6">

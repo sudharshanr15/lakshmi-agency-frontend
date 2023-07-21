@@ -1,4 +1,4 @@
-export function QuoteCards(){
+export function QuoteCard(){
     return(
         <div className=" grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 w-auto mx-2 gap-2 lg:gap-7 md:mx-auto justify-between lg:mx-20 lg:mt-10 mt-4  p-5 rounded-md">
           <div className="bg-[#e4eef1] rounded-lg">
