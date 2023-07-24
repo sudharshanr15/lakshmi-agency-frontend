@@ -11,7 +11,7 @@ export function Card() {
   return (
     <>
       <div className="">
-        <div className="lg:mx-5 mx-2 lg:mt-44 md:mt-16">
+        <div className="lg:mx-5 mx-2 lg:mt-44 mt-4 md:mt-16">
           <div className="flex justify-between">
             <h2 className="text-black text-2xl font-bold">Statics</h2>
 
@@ -65,7 +65,7 @@ export function Card() {
           </div>
         </div>
 
-        <div className=" grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 w-auto mx-2 gap-2 lg:gap-7 md:mx-auto justify-between lg:mx-8 mt-1 p-5 rounded-md">
+        <div className=" grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 w-auto mx-0 gap-2 lg:gap-7 md:mx-auto justify-between lg:mx-8 mt-1 p-5 rounded-md">
           <div className="bg-[#f6e9be] rounded-lg">
             <div className="flex justify-start p-5 mt-0">
               <div className="text-center bg-white h-10 w-10 mt-2 flex items-center justify-center rounded-md">
