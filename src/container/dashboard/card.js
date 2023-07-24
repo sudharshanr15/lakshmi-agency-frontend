@@ -1,12 +1,37 @@
 "use client";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+
+const store = ['order','quotation']
+
+const baseURL = "https://test01.lakshmiagency.com/api/method/lakshmiagency.v1.store.order.get_list";
+const headers = {
+  "Content-Type": "application/json",
+  "Authorization": "token 69e0234a0664f91:35470717fb585f3",
+  "Cookie": "full_name=Guest; sid=Guest; system_user=no; user_id=Guest; user_image=",
+};
 
 export function Card() {
   const [isOpen, setIsOpen] = useState(false);
+  const [data, setData] = useState(null);
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
+
+  useEffect(() => {
+    axios
+      .get(baseURL, { headers })
+      .then((response) => {
+        setData(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, []);
+
+  if (!data) return null;
+  const totalData = data['data'].length;
 
   return (
     <>
@@ -84,9 +109,9 @@ export function Card() {
                 </svg>
               </div>
               <div className="ml-4">
-                <h1 className="text-[#555961] text-2-xl">Quote</h1>
+                <h1 className="text-[#555961] text-2-xl">Orders</h1>
                 <div className="flex">
-                  <p className="mt-1 font-bold text-1xl md:text-2xl">150</p>
+                  <p className="mt-1 font-bold text-1xl md:text-2xl">{totalData}</p>
                   <div className="flex  text-lime-600 ">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"

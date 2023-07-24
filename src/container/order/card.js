@@ -11,7 +11,7 @@ export function Card() {
   return (
     <>
       <div className="">
-        <div className="lg:mx-5 mx-2 lg:mt-44 md:mt-16">
+        <div className="lg:mx-5 mx-2 lg:mt-44 md:mt-16 mt-4">
           <div className="flex justify-between">
             <h2 className="text-black text-2xl font-bold">Statics</h2>
 

@@ -4,26 +4,35 @@ import { useState } from "react";
 function Card(){
     return (
       <>
-        <div className="border rounded-lg">
-            <div className="flex justify-start p-4 mt-2">
-              <div className="ml-4">
-                <h1 className="text-black font-bold text-2-xl">
-                  ABC Constructions
-                </h1>
-                <div className="flex">
-                  <p className="mt-2  text-[#6A7079] md:text-1xl ">
-                    Location: Door No:12, ABC Street, Indra Nagar,
-                    Bangalrore,Karnataka,500 001
-                  </p>
-                </div>
-                <div className="flex mt-10">
-                  <p className="text-[#b9babc]">
-                  Created On : 12 Jan’23
-                  </p>
-                </div>
+        <div className="border rounded-lg mt-2">
+          <div className="flex justify-between p-4 mt-2">
+            <div className="ml-4">
+              <h1 className="text-[#0a4e71] font-bold text-2-xl">
+                Ordered On 22 May 2022
+              </h1>
+              <div className="">
+                <p className="mt-2  text-[#b9babc] md:text-1xl flex-end">
+                  Total items 3
+                </p>
               </div>
-              
+              <div className="flex">
+                <p className="mt-2  text-black md:text-1xl ">
+                  Order ID : AISR7234351
+                </p>
+              </div>
             </div>
+            <div className="ml-4 justify-end">
+              <h1 className="text-[#0a4e71] font-bold text-2-xl text-right">
+                ₹21,400
+              </h1>
+              <div className="">
+                <p className="mt-2  text-[#b9babc] md:text-1xl text-right">
+                  ₹18,400 + ₹200(delivery fee)
+                </p>
+                
+              </div>
+            </div>
+          </div>
         </div>
       </>
     )
@@ -46,7 +55,7 @@ export function List() {
     <>
      
         <div className="p-5 flex justify-between">
-          <p className="text-black text-2xl font-semibold">Quote List</p>
+          <p className="text-black text-2xl font-semibold">Order List</p>
         </div>
 
         <Row/>
