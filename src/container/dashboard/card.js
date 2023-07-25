@@ -2,21 +2,17 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-const store = ['order','quotation']
 
-const baseURL = "https://test01.lakshmiagency.com/api/method/lakshmiagency.v1.store.order.get_list";
-const headers = {
-  "Content-Type": "application/json",
-  "Authorization": "token 69e0234a0664f91:35470717fb585f3",
-  "Cookie": "full_name=Guest; sid=Guest; system_user=no; user_id=Guest; user_image=",
-};
-
-export function Card() {
-  const [isOpen, setIsOpen] = useState(false);
+async function getData(){
   const [data, setData] = useState(null);
 
-  const toggleDropdown = () => {
-    setIsOpen(!isOpen);
+  const store = ['order','quotation']
+
+  const baseURL = "https://test01.lakshmiagency.com/api/method/lakshmiagency.v1.store.order.get_list";
+  const headers = {
+    "Content-Type": "application/json",
+    "Authorization": "token 69e0234a0664f91:35470717fb585f3",
+    "Cookie": "full_name=Guest; sid=Guest; system_user=no; user_id=Guest; user_image=",
   };
 
   useEffect(() => {
@@ -30,8 +26,26 @@ export function Card() {
       });
   }, []);
 
-  if (!data) return null;
+   if (!data) return null;
   const totalData = data['data'].length;
+
+  return totalData;
+
+}
+
+
+export function Card() {
+  const [isOpen, setIsOpen] = useState(false);
+  
+
+  const toggleDropdown = () => {
+    setIsOpen(!isOpen);
+  };
+
+  
+  const countData =  getData();
+
+ 
 
   return (
     <>
@@ -39,7 +53,6 @@ export function Card() {
         <div className="lg:mx-5 mx-2 lg:mt-44 md:mt-16">
           <div className="flex justify-between mt-3">
             <h1 className="text-black text-2xl font-bold">Statics</h1>
-
             <div className="mr-0">
               <div className="relative">
                 <button
@@ -111,7 +124,7 @@ export function Card() {
               <div className="ml-4">
                 <h1 className="text-[#555961] text-2-xl">Orders</h1>
                 <div className="flex">
-                  <p className="mt-1 font-bold text-1xl md:text-2xl">{totalData}</p>
+                  <p className="mt-1 font-bold text-1xl md:text-2xl"> {countData} </p>
                   <div className="flex  text-lime-600 ">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
