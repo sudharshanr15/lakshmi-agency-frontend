@@ -3,26 +3,11 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { MaterialReactTable } from "material-react-table";
-import { Box, Button } from "@mui/material";
+import { Box, Button, duration } from "@mui/material";
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import { ExportToCsv } from "export-to-csv"; //or use your library of choice here
 import { generatePDF } from "@/utils/pdfUtils";
-
-const useAxiosGet = (url, payload) => {
-  const [data, setData] = useState(null);
-  const [error, setError] = useState("");
-  const [loaded, setLoaded] = useState(false);
-
-  useEffect(() => {
-    axios
-      .get(url, payload)
-      .then((response) => setData(response.data))
-      .catch((error) => setError(error.message))
-      .finally(() => setLoaded(true));
-  }, []);
-
-  return { data, error, loaded };
-};
+import { isElement } from "react-is";
 
 //defining columns outside of the component is fine, is stable
 const columns = [
@@ -73,75 +58,76 @@ const csvOptions = {
 
 const csvExporter = new ExportToCsv(csvOptions);
 
-// take delivery status
-async function fetchOrder() {
-  const [orderData, setOrderData] = useState(0);
+async function deliveryStatus({ name }) {
+  const baseURL = `https://test01.lakshmiagency.com/api/method/lakshmiagency.v1.store.order.get`;
+  const headers = {
+    "Content-Type": "application/json",
+    Authorization: "token 69e0234a0664f91:35470717fb585f3",
+  };
+
+  const payload = { headers, params: "SAL-ORD-2023-00009" };
+  try {
+    const response = await axios.get(baseURL, payload);
+    return response.data;
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+}
+
+export function ListTable({ orderData }) {
+  const [Data, setData] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
+      const items = [];
+      const promises = orderData.map(async (order, index) => {
+        const dynamicArray = []; // Define dynamicArray here
+        const name = order.name;
+        dynamicArray.push(index + 1);
+        dynamicArray.push(name);
+        dynamicArray.push(order.creation);
+        dynamicArray.push(order.total_qty);
+
+        try {
+          const result = await deliveryStatus(name); // Passing the entire order object
+          const status = result || "Unknown";
+          dynamicArray.push(status);
+
+          items[index] = dynamicArray;
+        } catch (error) {
+          console.error(error);
+          // If an error occurs, handle it gracefully
+          dynamicArray.push("Error");
+          items[index] = dynamicArray;
+        }
+      });
+
       try {
-        const url =
-          "https://test01.lakshmiagency.com/api/method/lakshmiagency.v1.store.order.get";
-        const headers = {
-          "Content-Type": "application/json",
-          Authorization: "token 69e0234a0664f91:35470717fb585f3",
-          Cookie: "sid=Guest",
-        };
-        const postData = {
-          id: "SAL-ORD-2023-00005",
-        };
-
-        const response = await axios.get(url, {
-          headers: headers,
-          params: postData,
-        });
-
-        setOrderData(response.data);
+        await Promise.all(promises);
+        setData(items);
+        setIsLoading(false);
       } catch (error) {
         console.error(error);
+        setData([]); // Clear the data in case of an error
+        setIsLoading(false);
       }
     };
 
     fetchData();
-  }, []);
+  }, [orderData]);
 
-  return orderData;
-}
-
-export function ListTable({ orderData }) {
-  const handleExportData = () => {
-    csvExporter.generateCsv(finalData);
-    // generatePDF(data,columns);
-  };
+  const final = Data.map((d, i) => (
+    <li key={i}>
+      {i + 1}: {d.join(", ")}
+    </li>
+  ));
 
   return (
     <>
-      {/* <p>{tempData}</p> */}
-      <MaterialReactTable
-        columns={columns}
-        data={orderData}
-        positionToolbarAlertBanner="bottom"
-        renderTopToolbarCustomActions={({ table }) => (
-          <Box
-            sx={{
-              display: "flex",
-              gap: "1rem",
-              p: "0.5rem",
-              flexWrap: "wrap",
-            }}
-          >
-            <Button
-              color="primary"
-              //export all data that is currently in the table (ignore pagination, sorting, filtering, etc.)
-              onClick={handleExportData}
-              startIcon={<FileDownloadIcon />}
-              variant="contained"
-            >
-              Export into csv {orderData.length}
-            </Button>
-          </Box>
-        )}
-      />
+      {/* <p> {JSON.stringify(Data)} </p> */}
+      {isLoading ? <p> Loading.. </p> : <>{final}</>}
     </>
   );
 }
