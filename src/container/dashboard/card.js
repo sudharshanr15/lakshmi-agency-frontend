@@ -2,50 +2,12 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-
-async function getData(){
-  const [data, setData] = useState(null);
-
-  const store = ['order','quotation']
-
-  const baseURL = "https://test01.lakshmiagency.com/api/method/lakshmiagency.v1.store.order.get_list";
-  const headers = {
-    "Content-Type": "application/json",
-    "Authorization": "token 69e0234a0664f91:35470717fb585f3",
-    "Cookie": "full_name=Guest; sid=Guest; system_user=no; user_id=Guest; user_image=",
-  };
-
-  useEffect(() => {
-    axios
-      .get(baseURL, { headers })
-      .then((response) => {
-        setData(response.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, []);
-
-   if (!data) return null;
-  const totalData = data['data'].length;
-
-  return totalData;
-
-}
-
-
 export function Card() {
   const [isOpen, setIsOpen] = useState(false);
-  
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
-
-  
-  const countData =  getData();
-
- 
 
   return (
     <>
@@ -57,7 +19,8 @@ export function Card() {
               <div className="relative">
                 <button
                   onClick={toggleDropdown}
-                  className="px-4 py-2  text-[#004b71] bg-[#e5eef1]   rounded-md focus:outline-none flex font-semibold">
+                  className="px-4 py-2  text-[#004b71] bg-[#e5eef1]   rounded-md focus:outline-none flex font-semibold"
+                >
                   Last 30 days{" "}
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -65,7 +28,8 @@ export function Card() {
                     viewBox="0 0 24 24"
                     strokeWidth={1.5}
                     stroke="currentColor"
-                    className="w-6 h-6 ml-2">
+                    className="w-6 h-6 ml-2"
+                  >
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -78,21 +42,24 @@ export function Card() {
                     <li>
                       <a
                         href="#"
-                        className="block px-4 py-2 text-gray-800 hover:bg-blue-500 hover:text-white">
+                        className="block px-4 py-2 text-gray-800 hover:bg-blue-500 hover:text-white"
+                      >
                         Option 1
                       </a>
                     </li>
                     <li>
                       <a
                         href="#"
-                        className="block px-4 py-2 text-gray-800 hover:bg-blue-500 hover:text-white">
+                        className="block px-4 py-2 text-gray-800 hover:bg-blue-500 hover:text-white"
+                      >
                         Option 2
                       </a>
                     </li>
                     <li>
                       <a
                         href="#"
-                        className="block px-4 py-2 text-gray-800 hover:bg-blue-500 hover:text-white">
+                        className="block px-4 py-2 text-gray-800 hover:bg-blue-500 hover:text-white"
+                      >
                         Option 3
                       </a>
                     </li>
@@ -113,7 +80,8 @@ export function Card() {
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="currentColor"
-                  className="w-6 h-6 text-[#f6e9be]">
+                  className="w-6 h-6 text-[#f6e9be]"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -124,7 +92,7 @@ export function Card() {
               <div className="ml-4">
                 <h1 className="text-[#555961] text-2-xl">Orders</h1>
                 <div className="flex">
-                  <p className="mt-1 font-bold text-1xl md:text-2xl"> {countData} </p>
+                  <p className="mt-1 font-bold text-1xl md:text-2xl"> 2 </p>
                   <div className="flex  text-lime-600 ">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -132,7 +100,8 @@ export function Card() {
                       viewBox="0 0 24 24"
                       strokeWidth={1.5}
                       stroke="currentColor"
-                      className="w-4 h-4 mt-3">
+                      className="w-4 h-4 mt-3"
+                    >
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -155,7 +124,8 @@ export function Card() {
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="currentColor"
-                  className="w-6 h-6 text-lime-600">
+                  className="w-6 h-6 text-lime-600"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -174,7 +144,8 @@ export function Card() {
                       viewBox="0 0 24 24"
                       strokeWidth={1.5}
                       stroke="currentColor"
-                      className="w-4 h-4 mt-3">
+                      className="w-4 h-4 mt-3"
+                    >
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -197,7 +168,8 @@ export function Card() {
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="currentColor"
-                  className="w-6 h-6 text-[#004b71] font-bold">
+                  className="w-6 h-6 text-[#004b71] font-bold"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -216,7 +188,8 @@ export function Card() {
                       viewBox="0 0 24 24"
                       strokeWidth={1.5}
                       stroke="currentColor"
-                      className="w-4 h-4 mt-3">
+                      className="w-4 h-4 mt-3"
+                    >
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -239,21 +212,19 @@ export function Card() {
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="currentColor"
-                  className="w-6 h-6 text-[#fd517e]">
+                  className="w-6 h-6 text-[#fd517e]"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
                     d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
                   />
                 </svg>
-                
               </div>
               <div className="ml-4">
                 <h1 className="text-[#555961] text-2-xl">Purchased</h1>
                 <div className="flex">
-                  <p className="mt-1 font-bold text-1xl md:text-2xl">
-                    150
-                  </p>
+                  <p className="mt-1 font-bold text-1xl md:text-2xl">150</p>
                   <div className="flex text-[#fd517e]">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -261,7 +232,8 @@ export function Card() {
                       viewBox="0 0 24 24"
                       strokeWidth={1.5}
                       stroke="currentColor"
-                      className="w-4 h-4 mt-3">
+                      className="w-4 h-4 mt-3"
+                    >
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
