@@ -32,7 +32,7 @@ function Table({ orderList }) {
     <div className="lg:mx-24 mx-6 lg:mt-10 mt-4 p-5 rounded-md">
       <div className="flex justify-between">
         <h1 className="text-black text-1xl md:text-2xl font-semibold">
-          Recent Orders {orderList.length}
+          Recent Orders
         </h1>
       </div>
 

@@ -3,11 +3,11 @@ import "../globals.css";
 import { Nav, Footer } from "@/components/";
 import {
   Card,
+  RecentOrder,
   LineChart,
   Quote,
   QuoteCard,
   Project,
-  Table,
 } from "@/container/dashboard/";
 
 export default function Page() {
@@ -18,9 +18,9 @@ export default function Page() {
       <LineChart />
       <Quote />
       <QuoteCard />
-      <Table />
+      <RecentOrder />
       <Project />
-      <Table />
+      <RecentOrder />
       <Footer />
     </>
   );
