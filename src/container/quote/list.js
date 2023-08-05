@@ -1,28 +1,9 @@
 "use client";
-import { useState, useEffect } from "react";
-import { getData } from "@/utils/getData";
-
-function useData() {
-  const [orderList, setOrderList] = useState([]);
-  const [quoteList, setQuoteList] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-
-  const store = ["order", "quotation"];
-
-  useEffect(() => {
-    async function fetchData() {
-      const promises = store.map((item) => getData(item));
-      const responses = await Promise.all(promises);
-      const result = responses.filter((response) => response !== null);
-      setOrderList(result[0]["data"]);
-      setQuoteList(result[1]["data"]);
-      setIsLoading(false); // Mark loading as false once the data is fetched
-    }
-    fetchData();
-  }, []);
-
-  return { orderList, quoteList, isLoading };
-}
+import {
+  getQuoteAndOrder,
+  formatDate,
+  capitalizeFirstLetter,
+} from "@/utils/getData";
 
 function Card({ name, address, creation }) {
   return (
@@ -35,7 +16,7 @@ function Card({ name, address, creation }) {
               <p className="mt-2  text-[#6A7079] md:text-1xl ">{address}</p>
             </div>
             <div className="flex mt-10">
-              <p className="text-[#b9babc]">{creation}</p>
+              <p className="text-[#b9babc]">Created on : {creation}</p>
             </div>
           </div>
         </div>
@@ -45,7 +26,7 @@ function Card({ name, address, creation }) {
 }
 
 export function List() {
-  const { orderList, quoteList, isLoading } = useData();
+  const { orderList, quoteList, isLoading } = getQuoteAndOrder();
   return (
     <>
       <div className="p-5 flex justify-between">
@@ -55,9 +36,15 @@ export function List() {
         {quoteList.map((quote) => (
           <Card
             key={quote.name} // Assuming "name" is unique for each quote
-            name={quote.name}
-            address={`${quote.delivery_address.address_line1}, ${quote.delivery_address.city}, ${quote.delivery_address.state}, ${quote.delivery_address.country}, ${quote.delivery_address.pincode}`}
-            creation={quote.creation}
+            name={capitalizeFirstLetter(quote.name)}
+            address={`${capitalizeFirstLetter(
+              quote.delivery_address.address_line1
+            )}, ${quote.delivery_address.city}, ${
+              quote.delivery_address.state
+            }, ${quote.delivery_address.country}, ${
+              quote.delivery_address.pincode
+            }`}
+            creation={formatDate(quote.creation)}
           />
         ))}
       </div>
