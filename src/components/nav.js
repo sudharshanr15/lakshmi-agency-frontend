@@ -407,9 +407,6 @@ function Mobilenav() {
 }
 
 export function Nav() {
-  const categories = [
-export function Nav() {
-  
   const [isDrawerOpen, setDrawerOpen] = useState(false);
   const [isPipeOpen, setPipeOpen] = useState(false);
   const toggleDrawer = () => {
