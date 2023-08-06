@@ -10,7 +10,7 @@ Chart.register(CategoryScale);
 
 function ChartDiagram({ chartData }) {
   return (
-    <div className="m-5 chart-container bg-orange-200 rounded-md p-20">
+    <div className="md:m-5 chart-container bg-orange-200 rounded-md p-5 md:p-20">
       <h2 style={{ textAlign: "center" }}>Monthly purchase </h2>
       <Line
         data={chartData}

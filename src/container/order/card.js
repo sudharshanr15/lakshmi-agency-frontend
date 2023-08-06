@@ -1,9 +1,10 @@
 "use client";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { getData, getQuoteAndOrder } from "@/utils/getData";
 
 export function Card() {
   const [isOpen, setIsOpen] = useState(false);
-
+  const { orderList, quoteList, isLoading } = getQuoteAndOrder();
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
@@ -19,7 +20,8 @@ export function Card() {
               <div className="relative">
                 <button
                   onClick={toggleDropdown}
-                  className="px-4 py-2  text-[#004b71] bg-[#e5eef1]   rounded-md focus:outline-none flex font-semibold">
+                  className="px-4 py-2  text-[#004b71] bg-[#e5eef1]   rounded-md focus:outline-none flex font-semibold"
+                >
                   Last 30 days{" "}
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -27,7 +29,8 @@ export function Card() {
                     viewBox="0 0 24 24"
                     strokeWidth={1.5}
                     stroke="currentColor"
-                    className="w-6 h-6 ml-2">
+                    className="w-6 h-6 ml-2"
+                  >
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -40,21 +43,24 @@ export function Card() {
                     <li>
                       <a
                         href="#"
-                        className="block px-4 py-2 text-gray-800 hover:bg-blue-500 hover:text-white">
+                        className="block px-4 py-2 text-gray-800 hover:bg-blue-500 hover:text-white"
+                      >
                         Option 1
                       </a>
                     </li>
                     <li>
                       <a
                         href="#"
-                        className="block px-4 py-2 text-gray-800 hover:bg-blue-500 hover:text-white">
+                        className="block px-4 py-2 text-gray-800 hover:bg-blue-500 hover:text-white"
+                      >
                         Option 2
                       </a>
                     </li>
                     <li>
                       <a
                         href="#"
-                        className="block px-4 py-2 text-gray-800 hover:bg-blue-500 hover:text-white">
+                        className="block px-4 py-2 text-gray-800 hover:bg-blue-500 hover:text-white"
+                      >
                         Option 3
                       </a>
                     </li>
@@ -75,7 +81,8 @@ export function Card() {
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="currentColor"
-                  className="w-6 h-6 text-[#f6e9be]">
+                  className="w-6 h-6 text-[#f6e9be]"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -86,7 +93,9 @@ export function Card() {
               <div className="ml-4">
                 <h1 className="text-[#555961] text-2-xl">Orders</h1>
                 <div className="flex">
-                  <p className="mt-1 font-bold text-1xl md:text-2xl">150</p>
+                  <p className="mt-1 font-bold text-1xl md:text-2xl">
+                    {orderList.length}
+                  </p>
                   <div className="flex  text-lime-600 ">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -94,7 +103,8 @@ export function Card() {
                       viewBox="0 0 24 24"
                       strokeWidth={1.5}
                       stroke="currentColor"
-                      className="w-4 h-4 mt-3">
+                      className="w-4 h-4 mt-3"
+                    >
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -117,7 +127,8 @@ export function Card() {
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="currentColor"
-                  className="w-6 h-6 text-lime-600">
+                  className="w-6 h-6 text-lime-600"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -128,7 +139,9 @@ export function Card() {
               <div className="ml-4">
                 <h1 className="text-[#555961] text-2-xl">Quote</h1>
                 <div className="flex">
-                  <p className="mt-1 font-bold text-1xl md:text-2xl">150</p>
+                  <p className="mt-1 font-bold text-1xl md:text-2xl">
+                    {quoteList.length}
+                  </p>
                   <div className="flex  text-lime-600 ">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -136,7 +149,8 @@ export function Card() {
                       viewBox="0 0 24 24"
                       strokeWidth={1.5}
                       stroke="currentColor"
-                      className="w-4 h-4 mt-3">
+                      className="w-4 h-4 mt-3"
+                    >
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -149,7 +163,6 @@ export function Card() {
               </div>
             </div>
           </div>
-
         </div>
       </div>
     </>

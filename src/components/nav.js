@@ -1,12 +1,9 @@
 "use client";
 import { Mobilenav } from "./mobileNav";
 import { Mobilefooter } from "./mobileFooter";
-import Image from "next/image";
-
 import { useState } from "react";
 
 export function Nav() {
-  
   const [isDrawerOpen, setDrawerOpen] = useState(false);
   const [isPipeOpen, setPipeOpen] = useState(false);
   const toggleDrawer = () => {
@@ -127,14 +124,16 @@ export function Nav() {
           className=""
           type="button"
           onClick={toggleDrawer}
-          aria-controls="drawer-navigation">
+          aria-controls="drawer-navigation"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-6 h-6">
+            className="w-6 h-6"
+          >
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -147,7 +146,7 @@ export function Nav() {
     {
       id: 2,
       name: "Quotes",
-      href: "#",
+      href: "/quote_list",
       current: false,
       icon: (
         <svg
@@ -156,7 +155,8 @@ export function Nav() {
           viewBox="0 0 24 24"
           strokeWidth={1.5}
           stroke="currentColor"
-          className="w-5 h-5 mr-1">
+          className="w-5 h-5 mr-1"
+        >
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -177,7 +177,8 @@ export function Nav() {
           viewBox="0 0 24 24"
           strokeWidth={1.5}
           stroke="currentColor"
-          className="w-5 h-5 mr-1">
+          className="w-5 h-5 mr-1"
+        >
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -198,7 +199,8 @@ export function Nav() {
           viewBox="0 0 24 24"
           strokeWidth={1.5}
           stroke="currentColor"
-          className="w-5 h-5 mr-1">
+          className="w-5 h-5 mr-1"
+        >
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -222,7 +224,8 @@ export function Nav() {
             isDrawerOpen ? "" : "-translate-x-full"
           } bg-[#f2f2f2] dark:bg-gray-800`}
           tabIndex="-1"
-          aria-labelledby="drawer-navigation-label">
+          aria-labelledby="drawer-navigation-label"
+        >
           {/* <button
     type="button"
     onClick={toggleClose} // This will close the sidebar
@@ -250,7 +253,8 @@ export function Nav() {
                   key={item.id}
                   className="px-3 space-x-5 flex py-3 text-gray-700 justify-between dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600"
                   type="button"
-                  onClick={togglePipe}>
+                  onClick={togglePipe}
+                >
                   <div className="flex">
                     <img
                       src={item.link}
@@ -268,7 +272,8 @@ export function Nav() {
                         viewBox="0 0 24 24"
                         strokeWidth={1.5}
                         stroke="currentColor"
-                        className="w-4 h-4">
+                        className="w-4 h-4"
+                      >
                         <path
                           strokeLinecap="round"
                           strokeLinejoin="round"
@@ -290,23 +295,27 @@ export function Nav() {
             isPipeOpen ? "" : "-translate-x-full"
           } bg-[#f2f2f2] dark:bg-gray-800`}
           tabIndex="-1"
-          aria-labelledby="drawer-navigation-label">
+          aria-labelledby="drawer-navigation-label"
+        >
           <button
             type="button"
             onClick={togglePipe} // This will close the sidebar
             data-drawer-hide="drawer-navigation"
             aria-controls="drawer-navigation"
-            className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 absolute top-2.5 right-2.5 inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white">
+            className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 absolute top-2.5 right-2.5 inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+          >
             <svg
               aria-hidden="true"
               className="w-5 h-5"
               fill="currentColor"
               viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg">
+              xmlns="http://www.w3.org/2000/svg"
+            >
               <path
                 fillRule="evenodd"
                 d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                clipRule="evenodd"></path>
+                clipRule="evenodd"
+              ></path>
             </svg>
             <span className="sr-only">Close menu</span>
           </button>
@@ -316,7 +325,8 @@ export function Nav() {
               {pipeList.map((item) => (
                 <li
                   key={item.id}
-                  className="px-3 space-x-5 flex py-5 text-gray-700 justify-between dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600 hover:{console.log('Hello')">
+                  className="px-3 space-x-5 flex py-5 text-gray-700 justify-between dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600 hover:{console.log('Hello')"
+                >
                   <div className="flex">
                     <span className="ml-4 underline">{item.name} </span>
                   </div>
@@ -348,7 +358,8 @@ export function Nav() {
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="currentColor"
-                  className="w-6 h-6 text-white">
+                  className="w-6 h-6 text-white"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -377,7 +388,8 @@ export function Nav() {
                     viewBox="0 0 24 24"
                     strokeWidth={1.5}
                     stroke="currentColor"
-                    className="w-6 h-6 mr-2  text-white">
+                    className="w-6 h-6 mr-2  text-white"
+                  >
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -397,7 +409,8 @@ export function Nav() {
                     viewBox="0 0 24 24"
                     strokeWidth={1.5}
                     stroke="currentColor"
-                    className="w-6 h-6 mr-2 text-white cursor-pointer">
+                    className="w-6 h-6 mr-2 text-white cursor-pointer"
+                  >
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -414,14 +427,16 @@ export function Nav() {
                 type="button"
                 className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
                 aria-controls="navbar-sticky"
-                aria-expanded="false">
+                aria-expanded="false"
+              >
                 <span className="sr-only">Open main menu</span>
                 <svg
                   className="w-5 h-5"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
-                  viewBox="0 0 17 14">
+                  viewBox="0 0 17 14"
+                >
                   <path
                     stroke="currentColor"
                     strokeLinecap="round"
@@ -452,7 +467,8 @@ export function Nav() {
                         viewBox="0 0 24 24"
                         strokeWidth={1.5}
                         stroke="currentColor"
-                        className="w-6 h-6">
+                        className="w-6 h-6"
+                      >
                         <path
                           strokeLinecap="round"
                           strokeLinejoin="round"
@@ -469,15 +485,17 @@ export function Nav() {
           <div className="hidden md:block bg-[#004b71] text-white ">
             <div className=" max-w-2 p-1.5 flex flex-wrap items-center justify-between mx-auto ">
               <div className="hidden sm:ml-6 sm:block">
-                <div className="flex space-x-3">
+                <div className="flex space-x-4">
                   {categoryMenu.map((item) => (
                     <a
+                      className="text-sm"
                       key={item.name}
                       href={item.href}
-                      aria-current={item.current ? "page" : undefined}>
+                      aria-current={item.current ? "page" : undefined}
+                    >
                       <div className="flex">
-                        <span className="mr-1">{item.icon} </span>
-                        {item.name} &nbsp; <span> | </span>
+                        {item.icon} {item.name} &nbsp;{" "}
+                        <span className="mx-3"> | </span>
                       </div>
                     </a>
                   ))}
@@ -492,6 +510,24 @@ export function Nav() {
               </div>
             </div>
           </div>
+          <p className="bg-[#F2F2F2] border-none text-white p-1 ">
+            <span className="ml-5 flex flex-auto text-[#6A7079]">
+              Home
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 20 20"
+                fill="currentColor"
+                className="mx-3 w-5 h-5"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zM6.75 9.25a.75.75 0 000 1.5h4.59l-2.1 1.95a.75.75 0 001.02 1.1l3.5-3.25a.75.75 0 000-1.1l-3.5-3.25a.75.75 0 10-1.02 1.1l2.1 1.95H6.75z"
+                  clipRule="evenodd"
+                />
+              </svg>
+              summary
+            </span>
+          </p>
         </nav>
       </div>
       <Mobilenav />
