@@ -1,6 +1,6 @@
 import "../globals.css"
 import { Nav } from "@/components/"
-import { Total,Example, Mobilenav } from "@/container/pvc"
+import { Total,Example, Mobilenav, Sort } from "@/container/pvc"
 
 const Page = () => {
   return (
@@ -12,6 +12,7 @@ const Page = () => {
         <Mobilenav/>
       </div>
       <Total/>
+      <Sort/>
       <Example/>
     </div>
   )
