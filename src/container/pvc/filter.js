@@ -89,6 +89,10 @@ export default function Example() {
       <div className='lg:flex'>
 
         <div className='lg:hidden'>
+          <div className='p-5'>
+            <h1 className='text-xl font-bold'>PVC Pipes</h1>
+            <p className='text-gray-500'>Total 2000 Products Found for MR Plywood</p>
+          </div>
           <div className='flex gap-5 mx-5 mt-5'>
             <button onClick={()=>setMobileFiltersOpen(true)} className='p-4 flex justify-center w-full bg-gray-100 rounded-xl'><FunnelIcon className='w-5 mr-2'/>Filters</button>
             <button className='p-4 flex justify-center w-full bg-gray-100 rounded-xl'><FunnelIcon className='w-5 mr-2'/>Sort</button>

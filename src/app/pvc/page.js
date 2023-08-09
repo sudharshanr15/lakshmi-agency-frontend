@@ -1,11 +1,16 @@
 import "../globals.css"
 import { Nav } from "@/components/"
-import { Total,Example } from "@/container/pvc"
+import { Total,Example, Mobilenav } from "@/container/pvc"
 
 const Page = () => {
   return (
     <div>
-      <Nav/>
+      <div className="hidden lg:block">
+        <Nav/>
+      </div>
+      <div className="block lg:hidden xl:hidden">
+        <Mobilenav/>
+      </div>
       <Total/>
       <Example/>
     </div>
