@@ -17,7 +17,7 @@ export function Signup() {
             </h1>
           </div>
 
-          <div className="bg-white md:mx-3 lg:mx-12 p-8 lg:py-40  md:mt-28">
+          <div className="bg-white md:mx-3 lg:mx-12 p-4 lg:py-40 md:mt-10">
             <div className="flex flex-col justify-center mx-2 mt-8 md:mt-0 md:ml-9 md:mr-16">
               <h1 className="text-center font-bold text-2xl mb-10">Signup</h1>
 
@@ -81,12 +81,14 @@ export function Signup() {
               <div className="flex justify-center mt-6">
                 <button
                   className="w-64 py-2 text-[#718d99] bg-white border border-[#718d99] rounded-lg hover:bg-blue-600 mr-4"
-                  type="submit">
+                  type="submit"
+                >
                   Cancel
                 </button>
                 <button
                   className="w-64 py-2 bg-[#f9c650] text-white rounded-lg "
-                  type="submit">
+                  type="submit"
+                >
                   Submit
                 </button>
               </div>
@@ -157,50 +159,50 @@ export function Signup() {
         </div>
       </div> */}
       <div className="block md:hidden">
-  <div className="flex flex-col md:flex-row">
-    <div className="relative h-60 p-4">
-      <div className="bg-[url('/image/paint-bucket.jpg')] bg-cover bg-center h-full absolute top-0 left-0 right-0 bottom-0 opacity-30"></div>
-      <div className="m-4 mt-4 relative">
-        <h1 className="text-white text-2xl font-bold mt-9">
-          Join <span className="text-yellow-300 "> Lakshmi Agency</span>
-        </h1>
-        <h1 className="mt-3 text-2xl text-white">
-          Explore the best deals in the market to craft your dreamspace!
-        </h1>
-      </div>
-    </div>
-    <div className="form rounded-t-3xl bg-white -mt-4 p-4 flex-grow">
-      <div className="form-content p-4">
-        <h1 className="text-black text-2xl mt-2 font-semibold">OTP</h1>
-        <h1 className="text-left mt-4">
-          We have sent you an One-Time-password of{" "}
-          <span className="font-bold text-black">4-digits</span> to your
-          registered mobile number. Kindly enter that to Signin (+91
-          8870731355)
-        </h1>
-        <div className="flex items-center justify-center mt-9">
-          <div className="w-full flex justify-between space-x-2 sm:space-x-4 md:space-x-6 lg:space-x-8">
-            {/* Input fields */}
+        <div className="flex flex-col md:flex-row">
+          <div className="relative h-60 p-4">
+            <div className="bg-[url('/image/paint-bucket.jpg')] bg-cover bg-center h-full absolute top-0 left-0 right-0 bottom-0 opacity-30"></div>
+            <div className="m-4 mt-4 relative">
+              <h1 className="text-white text-2xl font-bold mt-9">
+                Join <span className="text-yellow-300 "> Lakshmi Agency</span>
+              </h1>
+              <h1 className="mt-3 text-2xl text-white">
+                Explore the best deals in the market to craft your dreamspace!
+              </h1>
+            </div>
+          </div>
+          <div className="form rounded-t-3xl bg-white -mt-4 p-4 flex-grow">
+            <div className="form-content p-4">
+              <h1 className="text-black text-2xl mt-2 font-semibold">OTP</h1>
+              <h1 className="text-left mt-4">
+                We have sent you an One-Time-password of{" "}
+                <span className="font-bold text-black">4-digits</span> to your
+                registered mobile number. Kindly enter that to Signin (+91
+                8870731355)
+              </h1>
+              <div className="flex items-center justify-center mt-9">
+                <div className="w-full flex justify-between space-x-2 sm:space-x-4 md:space-x-6 lg:space-x-8">
+                  {/* Input fields */}
+                </div>
+              </div>
+              <div className="flex justify-between mt-6">
+                <div>OTP expires in</div>
+                <div className="text-[#839398]">(00:06:00)</div>
+              </div>
+              <div className="flex justify-center m-3">
+                <div className="absolute bottom-10 left-3 right-3">
+                  <button
+                    className="w-full py-2 bg-[#f9c650] text-white rounded-lg"
+                    type="submit"
+                  >
+                    Signin
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        <div className="flex justify-between mt-6">
-          <div>OTP expires in</div>
-          <div className="text-[#839398]">(00:06:00)</div>
-        </div>
-        <div className="flex justify-center m-3">
-          <div className="absolute bottom-10 left-3 right-3">
-            <button
-              className="w-full py-2 bg-[#f9c650] text-white rounded-lg"
-              type="submit">
-              Signin
-            </button>
-          </div>
-        </div>
       </div>
-    </div>
-  </div>
-</div>
-
     </div>
   );
 }
