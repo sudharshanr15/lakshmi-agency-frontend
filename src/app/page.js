@@ -6,7 +6,9 @@ import { getAmount } from "@/utils/getData";
 import { Signup } from "@/container/signUp";
 
 export default function Main() {
-  return <>
-    <Signup />
-  </>;
+  return (
+    <>
+      <Signup />
+    </>
+  );
 }
