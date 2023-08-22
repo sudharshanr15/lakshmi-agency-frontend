@@ -103,46 +103,10 @@ export default function Main() {
         </svg>
       ),
     },
+    
+    
     {
       id: 6,
-      name: "My cart",
-      icon: (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={1.5}
-          stroke="currentColor"
-          className="w-6 h-6">
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
-          />
-        </svg>
-      ),
-    },
-    {
-      id: 7,
-      name: "Referrals",
-      icon: (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={1.5}
-          stroke="currentColor"
-          className="w-6 h-6">
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25v10.5A2.25 2.25 0 004.5 19.5z"
-          />
-        </svg>
-      ),
-    },
-    {
-      id: 8,
       name: "Notifications",
       icon: (
         <svg
@@ -161,7 +125,7 @@ export default function Main() {
       ),
     },
     {
-      id: 9,
+      id: 7,
       name: "Settings",
       icon: (
         <svg
@@ -551,7 +515,7 @@ export default function Main() {
                                 </div>
                               </div>
                             </div>
-                            <div className="p-4 text-right gap-2">
+                            {/* <div className="p-4 text-right gap-2">
                               <button
                                 type="button"
                                 className="border border-[#0A4E71] px-4 py-2 rounded-sm"
@@ -563,7 +527,7 @@ export default function Main() {
                                 className="bg-[#F9C74F] ml-6 px-6 py-2.5 rounded-sm">
                                 Save
                               </button>
-                            </div>
+                            </div> */}
                           </form>
                         </div>
                       </div>
@@ -576,7 +540,60 @@ export default function Main() {
             </div>
           )}
           {selectedCategory === "Business Details" && (
-            <div>Business Details</div>
+             <div className=" mt-40 lg:mt-6 billingSection">
+             <div className="flex flex-col justify-start">
+               <span className="font-bold text-[#125476] md:text-2xl lg:ml-4">
+                 Hy Yuvanesh !
+               </span>
+               <span className="mt-2 text-black md:text-1.5xl lg:ml-4">
+                 Fill in the Business Details and make your purchase journey
+                 smoother
+               </span>
+             </div>
+
+             <div className=" p-6 lg:mt-4">
+               <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+                 <div className="border p-6">
+                   <div className="mt-3 text-[#b0b0b0]">
+                     Name:
+                     <span className="font-semibold text-black"> Sharath</span>
+                   </div>
+                   <div className="mt-3 text-[#b0b0b0]">
+                     Primary Mobile Number:
+                     <span className="font-semibold text-black">
+                       {" "}
+                       9489123456
+                     </span>
+                   </div>
+                   <div className="mt-3 text-[#b0b0b0]">
+                     Secondary Mobile Number:
+                     <span className="font-semibold text-black">
+                       {" "}
+                       9489123456
+                     </span>
+                   </div>
+                   <div className="mt-3 text-[#b0b0b0]">
+                     Email ID:
+                     <span className="font-semibold text-black">
+                       {" "}
+                       Sharathtraders@gmail.com
+                     </span>
+                   </div>
+                   <div className="mt-3 text-[#b0b0b0]">
+                     Address:
+                     <span className="font-semibold text-black">
+                       {" "}
+                       Door No:12, ABC Street, Indra Nagar, Bangalore,
+                       Karnataka, (500 001)
+                     </span>
+                   </div>
+                   
+                 </div>
+                
+
+               </div>
+             </div>
+           </div>
           )}
           {selectedCategory === "Wish list" && (
             <div>
@@ -585,15 +602,11 @@ export default function Main() {
                   <div className="border p-4">
                     <div className="justify-between flex">
                       <span>LG 668L Inverter Frost Free Side By Side...</span>
-                      <span className="bg-[#f9c74f] text-[#0a4e71] p-2">
-                        30%OFF
-                      </span>
+                      
                     </div>
                     <div className="justify-between flex">
                       <span className="text-[#20c431]">In stock</span>
-                      <span className=" text-[#0a4e71] p-2">
-                        ₹2,66,300 + ₹23,7600 GST
-                      </span>
+                      
                     </div>
                     <div className=" flex mt-1">
                       <button
@@ -604,45 +617,20 @@ export default function Main() {
                       <button
                         type="button"
                         className="bg-[#f9c74f] text-[#0a4e71] p-2 w-1/2 m-1 rounded-md">
-                        Add to cart
+                        Add to project
                       </button>
                     </div>
 
-                    <button
-                      type="button"
-                      className="justify-between flex bg-[#dadde7]  rounded-md p-2 border border-[#0a4e71] mt-4 w-full">
-                      <span className="text-[#0a4e71]">
-                        Add this product to project
-                      </span>
-                      <span className=" text-[#0a4e71]">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          strokeWidth={1.5}
-                          stroke="currentColor"
-                          className="w-6 h-6">
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M12.75 15l3-3m0 0l-3-3m3 3h-7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                          />
-                        </svg>
-                      </span>
-                    </button>
+                  
                   </div>
                   <div className="border p-4">
                     <div className="justify-between flex">
                       <span>LG 668L Inverter Frost Free Side By Side...</span>
-                      <span className="bg-[#f9c74f] text-[#0a4e71] p-2">
-                        30%OFF
-                      </span>
+                      
                     </div>
                     <div className="justify-between flex">
                       <span className="text-[#20c431]">In stock</span>
-                      <span className=" text-[#0a4e71] p-2">
-                        ₹2,66,300 + ₹23,7600 GST
-                      </span>
+                      
                     </div>
                     <div className=" flex mt-1">
                       <button
@@ -653,45 +641,20 @@ export default function Main() {
                       <button
                         type="button"
                         className="bg-[#f9c74f] text-[#0a4e71] p-2 w-1/2 m-1 rounded-md">
-                        Add to cart
+                        Add to project
                       </button>
                     </div>
 
-                    <button
-                      type="button"
-                      className="justify-between flex bg-[#dadde7]  rounded-md p-2 border border-[#0a4e71] mt-4 w-full">
-                      <span className="text-[#0a4e71]">
-                        Add this product to project
-                      </span>
-                      <span className=" text-[#0a4e71]">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          strokeWidth={1.5}
-                          stroke="currentColor"
-                          className="w-6 h-6">
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M12.75 15l3-3m0 0l-3-3m3 3h-7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                          />
-                        </svg>
-                      </span>
-                    </button>
+                  
                   </div>
                   <div className="border p-4">
                     <div className="justify-between flex">
                       <span>LG 668L Inverter Frost Free Side By Side...</span>
-                      <span className="bg-[#f9c74f] text-[#0a4e71] p-2">
-                        30%OFF
-                      </span>
+                      
                     </div>
                     <div className="justify-between flex">
                       <span className="text-[#20c431]">In stock</span>
-                      <span className=" text-[#0a4e71] p-2">
-                        ₹2,66,300 + ₹23,7600 GST
-                      </span>
+                      
                     </div>
                     <div className=" flex mt-1">
                       <button
@@ -702,45 +665,20 @@ export default function Main() {
                       <button
                         type="button"
                         className="bg-[#f9c74f] text-[#0a4e71] p-2 w-1/2 m-1 rounded-md">
-                        Add to cart
+                        Add to project
                       </button>
                     </div>
 
-                    <button
-                      type="button"
-                      className="justify-between flex bg-[#dadde7]  rounded-md p-2 border border-[#0a4e71] mt-4 w-full">
-                      <span className="text-[#0a4e71]">
-                        Add this product to project
-                      </span>
-                      <span className=" text-[#0a4e71]">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          strokeWidth={1.5}
-                          stroke="currentColor"
-                          className="w-6 h-6">
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M12.75 15l3-3m0 0l-3-3m3 3h-7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                          />
-                        </svg>
-                      </span>
-                    </button>
+                  
                   </div>
                   <div className="border p-4">
                     <div className="justify-between flex">
                       <span>LG 668L Inverter Frost Free Side By Side...</span>
-                      <span className="bg-[#f9c74f] text-[#0a4e71] p-2">
-                        30%OFF
-                      </span>
+                      
                     </div>
                     <div className="justify-between flex">
                       <span className="text-[#20c431]">In stock</span>
-                      <span className=" text-[#0a4e71] p-2">
-                        ₹2,66,300 + ₹23,7600 GST
-                      </span>
+                      
                     </div>
                     <div className=" flex mt-1">
                       <button
@@ -751,45 +689,20 @@ export default function Main() {
                       <button
                         type="button"
                         className="bg-[#f9c74f] text-[#0a4e71] p-2 w-1/2 m-1 rounded-md">
-                        Add to cart
+                        Add to project
                       </button>
                     </div>
 
-                    <button
-                      type="button"
-                      className="justify-between flex bg-[#dadde7]  rounded-md p-2 border border-[#0a4e71] mt-4 w-full">
-                      <span className="text-[#0a4e71]">
-                        Add this product to project
-                      </span>
-                      <span className=" text-[#0a4e71]">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          strokeWidth={1.5}
-                          stroke="currentColor"
-                          className="w-6 h-6">
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M12.75 15l3-3m0 0l-3-3m3 3h-7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                          />
-                        </svg>
-                      </span>
-                    </button>
+                  
                   </div>
                   <div className="border p-4">
                     <div className="justify-between flex">
                       <span>LG 668L Inverter Frost Free Side By Side...</span>
-                      <span className="bg-[#f9c74f] text-[#0a4e71] p-2">
-                        30%OFF
-                      </span>
+                      
                     </div>
                     <div className="justify-between flex">
                       <span className="text-[#20c431]">In stock</span>
-                      <span className=" text-[#0a4e71] p-2">
-                        ₹2,66,300 + ₹23,7600 GST
-                      </span>
+                      
                     </div>
                     <div className=" flex mt-1">
                       <button
@@ -800,45 +713,20 @@ export default function Main() {
                       <button
                         type="button"
                         className="bg-[#f9c74f] text-[#0a4e71] p-2 w-1/2 m-1 rounded-md">
-                        Add to cart
+                        Add to project
                       </button>
                     </div>
 
-                    <button
-                      type="button"
-                      className="justify-between flex bg-[#dadde7]  rounded-md p-2 border border-[#0a4e71] mt-4 w-full">
-                      <span className="text-[#0a4e71]">
-                        Add this product to project
-                      </span>
-                      <span className=" text-[#0a4e71]">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          strokeWidth={1.5}
-                          stroke="currentColor"
-                          className="w-6 h-6">
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M12.75 15l3-3m0 0l-3-3m3 3h-7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                          />
-                        </svg>
-                      </span>
-                    </button>
+                  
                   </div>
                   <div className="border p-4">
                     <div className="justify-between flex">
                       <span>LG 668L Inverter Frost Free Side By Side...</span>
-                      <span className="bg-[#f9c74f] text-[#0a4e71] p-2">
-                        30%OFF
-                      </span>
+                      
                     </div>
                     <div className="justify-between flex">
                       <span className="text-[#20c431]">In stock</span>
-                      <span className=" text-[#0a4e71] p-2">
-                        ₹2,66,300 + ₹23,7600 GST
-                      </span>
+                      
                     </div>
                     <div className=" flex mt-1">
                       <button
@@ -849,32 +737,11 @@ export default function Main() {
                       <button
                         type="button"
                         className="bg-[#f9c74f] text-[#0a4e71] p-2 w-1/2 m-1 rounded-md">
-                        Add to cart
+                        Add to project
                       </button>
                     </div>
 
-                    <button
-                      type="button"
-                      className="justify-between flex bg-[#dadde7]  rounded-md p-2 border border-[#0a4e71] mt-4 w-full">
-                      <span className="text-[#0a4e71]">
-                        Add this product to project
-                      </span>
-                      <span className=" text-[#0a4e71]">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          strokeWidth={1.5}
-                          stroke="currentColor"
-                          className="w-6 h-6">
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M12.75 15l3-3m0 0l-3-3m3 3h-7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                          />
-                        </svg>
-                      </span>
-                    </button>
+                  
                   </div>
                 </div>
               </div>
