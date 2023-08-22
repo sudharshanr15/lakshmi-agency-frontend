@@ -235,7 +235,8 @@ export default function Main() {
           </div>
         </div>
 
-        <div className={`"p-4 md:col-span-3 bg-white
+        <div
+          className={`"p-4 md:col-span-3 bg-white
             ${modalOpen === true ? "bg-gray-300" : ""}`}>
           <div
             className={`${
@@ -319,11 +320,9 @@ export default function Main() {
               </div>
             </div>
           </div>
-         
 
           {selectedCategory === "Billing Address" && (
-            <div className=" mt-40 lg:mt-6 billingSection"
-            >
+            <div className=" mt-40 lg:mt-6 billingSection">
               <div className="flex flex-col justify-start">
                 <span className="font-bold text-[#125476] md:text-2xl lg:ml-4">
                   Hy Yuvanesh !
@@ -435,149 +434,141 @@ export default function Main() {
                   {/* MODAL CONTENT START*/}
 
                   {modalOpen && (
-        <div className="fixed inset-0 top-28 left-28 flex items-center justify-center z-10">
-          <div className="modal-content bg-white p-4 rounded shadow-md flex">
-            <div className="flex-1 grid grid-cols-1 lg:flex lg:flex-col lg:mx-4 mx-2">
-              <h2 className="text-xl font-semibold mb-2">Enter Delivery Address</h2>
-              <form className="grid grid-cols-1 gap-4">
-                <div className="flex space-x-4">
-                <div className="mt-2">
-                  <div className="relative">
-                    <label className="text-[#c1c1c1] text-sm font-bold tracking-wide absolute transform -translate-y-full bg-white px-2 left-4 bottom-2">
-                      Person Name <span className="text-red-600">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      className="mt-2 px-5 py-2 border border-[#c1c1c1] rounded-lg w-full focus:border-blue-500 focus:ring-blue-500 focus:outline-none"
-                    />
-                  </div>
-                </div>
-                <div className="mt-2">
-                  <div className="relative">
-                    <label className="text-[#c1c1c1] text-sm font-bold tracking-wide absolute transform -translate-y-full bg-white px-2 left-4 bottom-2">
-                      Door No <span className="text-red-600">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      className="mt-2 px-5 py-2 border border-[#c1c1c1] rounded-lg w-full focus:border-blue-500 focus:ring-blue-500 focus:outline-none"
-                    />
-                  </div>
-                </div>
-
-
-                </div>
-                <div className="flex space-x-4">
-                <div className="mt-2">
-                  <div className="relative">
-                    <label className="text-[#c1c1c1] text-sm font-bold tracking-wide absolute transform -translate-y-full bg-white px-2 left-4 bottom-2">
-                      Street 1<span className="text-red-600">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      className="mt-2 px-5 py-2 border border-[#c1c1c1] rounded-lg w-full focus:border-blue-500 focus:ring-blue-500 focus:outline-none"
-                    />
-                  </div>
-                </div>
-                <div className="mt-2">
-                  <div className="relative">
-                    <label className="text-[#c1c1c1] text-sm font-bold tracking-wide absolute transform -translate-y-full bg-white px-2 left-4 bottom-2">
-                      Street 2<span className="text-red-600">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      className="mt-2 px-5 py-2 border border-[#c1c1c1] rounded-lg w-full focus:border-blue-500 focus:ring-blue-500 focus:outline-none"
-                    />
-                  </div>
-                </div>
-                
-
-                </div>
-                <div className="flex space-x-4">
-                <div className="mt-2">
-                  <div className="relative">
-                    <label className="text-[#c1c1c1] text-sm font-bold tracking-wide absolute transform -translate-y-full bg-white px-2 left-4 bottom-2">
-                      Area <span className="text-red-600">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      className="mt-2 px-5 py-2 border border-[#c1c1c1] rounded-lg w-full focus:border-blue-500 focus:ring-blue-500 focus:outline-none"
-                    />
-                  </div>
-                </div>
-                <div className="mt-2">
-                  <div className="relative">
-                    <label className="text-[#c1c1c1] text-sm font-bold tracking-wide absolute transform -translate-y-full bg-white px-2 left-4 bottom-2">
-                      PIN Code <span className="text-red-600">*</span>
-                    </label>
-                    <input
-                      type="number "
-                      required
-                      className="mt-2 px-5 py-2 border border-[#c1c1c1] rounded-lg w-full focus:border-blue-500 focus:ring-blue-500 focus:outline-none"
-                    />
-                  </div>
-                </div>
-                
-
-                </div>
-                <div className="flex space-x-4">
-                <div className="mt-2">
-                  <div className="relative">
-                    <label className="text-[#c1c1c1] text-sm font-bold tracking-wide absolute transform -translate-y-full bg-white px-2 left-4 bottom-2">
-                      City <span className="text-red-600">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      className="mt-2 px-5 py-2 border border-[#c1c1c1] rounded-lg w-full focus:border-blue-500 focus:ring-blue-500 focus:outline-none"
-                    />
-                  </div>
-                </div>
-                <div className="mt-2">
-                  <div className="relative">
-                    <label className="text-[#c1c1c1] text-sm font-bold tracking-wide absolute transform -translate-y-full bg-white px-2 left-4 bottom-2">
-                      State <span className="text-red-600">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      className="mt-2 px-5 py-2 border border-[#c1c1c1] rounded-lg w-full focus:border-blue-500 focus:ring-blue-500 focus:outline-none"
-                    />
-                  </div>
-                </div>
-                
-
-                </div>
-                <div className="p-4 text-right gap-2">
-                  <button
-                    type="button"
-                    className="border border-[#0A4E71] px-4 py-2 rounded-sm"
-                    onClick={closeModal}
-                    >
-                    Cancel
-                  </button>
-                  <button
-                    type="button"
-                    className="bg-[#F9C74F] ml-6 px-6 py-2.5 rounded-sm"
-                    
-                    >
-                    Save
-                  </button>
-                </div>
-              
-               
-              </form>
-            </div>
-           
-          </div>
-          
-        </div>
-      )}
- 
+                    <div className="fixed inset-0 top-28 left-28 flex items-center justify-center z-10">
+                      <div className="modal-content bg-white p-4 rounded shadow-md flex">
+                        <div className="flex-1 grid grid-cols-1 lg:flex lg:flex-col lg:mx-4 mx-2">
+                          <h2 className="text-xl font-semibold mb-2">
+                            Enter Delivery Address
+                          </h2>
+                          <form className="grid grid-cols-1 gap-4">
+                            <div className="flex space-x-4">
+                              <div className="mt-2">
+                                <div className="relative">
+                                  <label className="text-[#c1c1c1] text-sm font-bold tracking-wide absolute transform -translate-y-full bg-white px-2 left-4 bottom-2">
+                                    Person Name{" "}
+                                    <span className="text-red-600">*</span>
+                                  </label>
+                                  <input
+                                    type="text"
+                                    required
+                                    className="mt-2 px-5 py-2 border border-[#c1c1c1] rounded-lg w-full focus:border-blue-500 focus:ring-blue-500 focus:outline-none"
+                                  />
+                                </div>
+                              </div>
+                              <div className="mt-2">
+                                <div className="relative">
+                                  <label className="text-[#c1c1c1] text-sm font-bold tracking-wide absolute transform -translate-y-full bg-white px-2 left-4 bottom-2">
+                                    Door No{" "}
+                                    <span className="text-red-600">*</span>
+                                  </label>
+                                  <input
+                                    type="text"
+                                    required
+                                    className="mt-2 px-5 py-2 border border-[#c1c1c1] rounded-lg w-full focus:border-blue-500 focus:ring-blue-500 focus:outline-none"
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                            <div className="flex space-x-4">
+                              <div className="mt-2">
+                                <div className="relative">
+                                  <label className="text-[#c1c1c1] text-sm font-bold tracking-wide absolute transform -translate-y-full bg-white px-2 left-4 bottom-2">
+                                    Street 1
+                                    <span className="text-red-600">*</span>
+                                  </label>
+                                  <input
+                                    type="text"
+                                    required
+                                    className="mt-2 px-5 py-2 border border-[#c1c1c1] rounded-lg w-full focus:border-blue-500 focus:ring-blue-500 focus:outline-none"
+                                  />
+                                </div>
+                              </div>
+                              <div className="mt-2">
+                                <div className="relative">
+                                  <label className="text-[#c1c1c1] text-sm font-bold tracking-wide absolute transform -translate-y-full bg-white px-2 left-4 bottom-2">
+                                    Street 2
+                                    <span className="text-red-600">*</span>
+                                  </label>
+                                  <input
+                                    type="text"
+                                    required
+                                    className="mt-2 px-5 py-2 border border-[#c1c1c1] rounded-lg w-full focus:border-blue-500 focus:ring-blue-500 focus:outline-none"
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                            <div className="flex space-x-4">
+                              <div className="mt-2">
+                                <div className="relative">
+                                  <label className="text-[#c1c1c1] text-sm font-bold tracking-wide absolute transform -translate-y-full bg-white px-2 left-4 bottom-2">
+                                    Area <span className="text-red-600">*</span>
+                                  </label>
+                                  <input
+                                    type="text"
+                                    required
+                                    className="mt-2 px-5 py-2 border border-[#c1c1c1] rounded-lg w-full focus:border-blue-500 focus:ring-blue-500 focus:outline-none"
+                                  />
+                                </div>
+                              </div>
+                              <div className="mt-2">
+                                <div className="relative">
+                                  <label className="text-[#c1c1c1] text-sm font-bold tracking-wide absolute transform -translate-y-full bg-white px-2 left-4 bottom-2">
+                                    PIN Code{" "}
+                                    <span className="text-red-600">*</span>
+                                  </label>
+                                  <input
+                                    type="number "
+                                    required
+                                    className="mt-2 px-5 py-2 border border-[#c1c1c1] rounded-lg w-full focus:border-blue-500 focus:ring-blue-500 focus:outline-none"
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                            <div className="flex space-x-4">
+                              <div className="mt-2">
+                                <div className="relative">
+                                  <label className="text-[#c1c1c1] text-sm font-bold tracking-wide absolute transform -translate-y-full bg-white px-2 left-4 bottom-2">
+                                    City <span className="text-red-600">*</span>
+                                  </label>
+                                  <input
+                                    type="text"
+                                    required
+                                    className="mt-2 px-5 py-2 border border-[#c1c1c1] rounded-lg w-full focus:border-blue-500 focus:ring-blue-500 focus:outline-none"
+                                  />
+                                </div>
+                              </div>
+                              <div className="mt-2">
+                                <div className="relative">
+                                  <label className="text-[#c1c1c1] text-sm font-bold tracking-wide absolute transform -translate-y-full bg-white px-2 left-4 bottom-2">
+                                    State{" "}
+                                    <span className="text-red-600">*</span>
+                                  </label>
+                                  <input
+                                    type="text"
+                                    required
+                                    className="mt-2 px-5 py-2 border border-[#c1c1c1] rounded-lg w-full focus:border-blue-500 focus:ring-blue-500 focus:outline-none"
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                            <div className="p-4 text-right gap-2">
+                              <button
+                                type="button"
+                                className="border border-[#0A4E71] px-4 py-2 rounded-sm"
+                                onClick={closeModal}>
+                                Cancel
+                              </button>
+                              <button
+                                type="button"
+                                className="bg-[#F9C74F] ml-6 px-6 py-2.5 rounded-sm">
+                                Save
+                              </button>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  )}
 
                   {/* MODAL CONTENT END */}
                 </div>
@@ -587,7 +578,308 @@ export default function Main() {
           {selectedCategory === "Business Details" && (
             <div>Business Details</div>
           )}
-          {selectedCategory === "Wish list" && <div>Wish list</div>}
+          {selectedCategory === "Wish list" && (
+            <div>
+              <div className=" p-6 lg:mt-4">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+                  <div className="border p-4">
+                    <div className="justify-between flex">
+                      <span>LG 668L Inverter Frost Free Side By Side...</span>
+                      <span className="bg-[#f9c74f] text-[#0a4e71] p-2">
+                        30%OFF
+                      </span>
+                    </div>
+                    <div className="justify-between flex">
+                      <span className="text-[#20c431]">In stock</span>
+                      <span className=" text-[#0a4e71] p-2">
+                        ₹2,66,300 + ₹23,7600 GST
+                      </span>
+                    </div>
+                    <div className=" flex mt-1">
+                      <button
+                        type="button"
+                        className="w-1/2 border border-[#ff4848] text-[#ff4848] m-1 rounded-md">
+                        Delete
+                      </button>
+                      <button
+                        type="button"
+                        className="bg-[#f9c74f] text-[#0a4e71] p-2 w-1/2 m-1 rounded-md">
+                        Add to cart
+                      </button>
+                    </div>
+
+                    <button
+                      type="button"
+                      className="justify-between flex bg-[#dadde7]  rounded-md p-2 border border-[#0a4e71] mt-4 w-full">
+                      <span className="text-[#0a4e71]">
+                        Add this product to project
+                      </span>
+                      <span className=" text-[#0a4e71]">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth={1.5}
+                          stroke="currentColor"
+                          className="w-6 h-6">
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M12.75 15l3-3m0 0l-3-3m3 3h-7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                          />
+                        </svg>
+                      </span>
+                    </button>
+                  </div>
+                  <div className="border p-4">
+                    <div className="justify-between flex">
+                      <span>LG 668L Inverter Frost Free Side By Side...</span>
+                      <span className="bg-[#f9c74f] text-[#0a4e71] p-2">
+                        30%OFF
+                      </span>
+                    </div>
+                    <div className="justify-between flex">
+                      <span className="text-[#20c431]">In stock</span>
+                      <span className=" text-[#0a4e71] p-2">
+                        ₹2,66,300 + ₹23,7600 GST
+                      </span>
+                    </div>
+                    <div className=" flex mt-1">
+                      <button
+                        type="button"
+                        className="w-1/2 border border-[#ff4848] text-[#ff4848] m-1 rounded-md">
+                        Delete
+                      </button>
+                      <button
+                        type="button"
+                        className="bg-[#f9c74f] text-[#0a4e71] p-2 w-1/2 m-1 rounded-md">
+                        Add to cart
+                      </button>
+                    </div>
+
+                    <button
+                      type="button"
+                      className="justify-between flex bg-[#dadde7]  rounded-md p-2 border border-[#0a4e71] mt-4 w-full">
+                      <span className="text-[#0a4e71]">
+                        Add this product to project
+                      </span>
+                      <span className=" text-[#0a4e71]">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth={1.5}
+                          stroke="currentColor"
+                          className="w-6 h-6">
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M12.75 15l3-3m0 0l-3-3m3 3h-7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                          />
+                        </svg>
+                      </span>
+                    </button>
+                  </div>
+                  <div className="border p-4">
+                    <div className="justify-between flex">
+                      <span>LG 668L Inverter Frost Free Side By Side...</span>
+                      <span className="bg-[#f9c74f] text-[#0a4e71] p-2">
+                        30%OFF
+                      </span>
+                    </div>
+                    <div className="justify-between flex">
+                      <span className="text-[#20c431]">In stock</span>
+                      <span className=" text-[#0a4e71] p-2">
+                        ₹2,66,300 + ₹23,7600 GST
+                      </span>
+                    </div>
+                    <div className=" flex mt-1">
+                      <button
+                        type="button"
+                        className="w-1/2 border border-[#ff4848] text-[#ff4848] m-1 rounded-md">
+                        Delete
+                      </button>
+                      <button
+                        type="button"
+                        className="bg-[#f9c74f] text-[#0a4e71] p-2 w-1/2 m-1 rounded-md">
+                        Add to cart
+                      </button>
+                    </div>
+
+                    <button
+                      type="button"
+                      className="justify-between flex bg-[#dadde7]  rounded-md p-2 border border-[#0a4e71] mt-4 w-full">
+                      <span className="text-[#0a4e71]">
+                        Add this product to project
+                      </span>
+                      <span className=" text-[#0a4e71]">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth={1.5}
+                          stroke="currentColor"
+                          className="w-6 h-6">
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M12.75 15l3-3m0 0l-3-3m3 3h-7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                          />
+                        </svg>
+                      </span>
+                    </button>
+                  </div>
+                  <div className="border p-4">
+                    <div className="justify-between flex">
+                      <span>LG 668L Inverter Frost Free Side By Side...</span>
+                      <span className="bg-[#f9c74f] text-[#0a4e71] p-2">
+                        30%OFF
+                      </span>
+                    </div>
+                    <div className="justify-between flex">
+                      <span className="text-[#20c431]">In stock</span>
+                      <span className=" text-[#0a4e71] p-2">
+                        ₹2,66,300 + ₹23,7600 GST
+                      </span>
+                    </div>
+                    <div className=" flex mt-1">
+                      <button
+                        type="button"
+                        className="w-1/2 border border-[#ff4848] text-[#ff4848] m-1 rounded-md">
+                        Delete
+                      </button>
+                      <button
+                        type="button"
+                        className="bg-[#f9c74f] text-[#0a4e71] p-2 w-1/2 m-1 rounded-md">
+                        Add to cart
+                      </button>
+                    </div>
+
+                    <button
+                      type="button"
+                      className="justify-between flex bg-[#dadde7]  rounded-md p-2 border border-[#0a4e71] mt-4 w-full">
+                      <span className="text-[#0a4e71]">
+                        Add this product to project
+                      </span>
+                      <span className=" text-[#0a4e71]">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth={1.5}
+                          stroke="currentColor"
+                          className="w-6 h-6">
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M12.75 15l3-3m0 0l-3-3m3 3h-7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                          />
+                        </svg>
+                      </span>
+                    </button>
+                  </div>
+                  <div className="border p-4">
+                    <div className="justify-between flex">
+                      <span>LG 668L Inverter Frost Free Side By Side...</span>
+                      <span className="bg-[#f9c74f] text-[#0a4e71] p-2">
+                        30%OFF
+                      </span>
+                    </div>
+                    <div className="justify-between flex">
+                      <span className="text-[#20c431]">In stock</span>
+                      <span className=" text-[#0a4e71] p-2">
+                        ₹2,66,300 + ₹23,7600 GST
+                      </span>
+                    </div>
+                    <div className=" flex mt-1">
+                      <button
+                        type="button"
+                        className="w-1/2 border border-[#ff4848] text-[#ff4848] m-1 rounded-md">
+                        Delete
+                      </button>
+                      <button
+                        type="button"
+                        className="bg-[#f9c74f] text-[#0a4e71] p-2 w-1/2 m-1 rounded-md">
+                        Add to cart
+                      </button>
+                    </div>
+
+                    <button
+                      type="button"
+                      className="justify-between flex bg-[#dadde7]  rounded-md p-2 border border-[#0a4e71] mt-4 w-full">
+                      <span className="text-[#0a4e71]">
+                        Add this product to project
+                      </span>
+                      <span className=" text-[#0a4e71]">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth={1.5}
+                          stroke="currentColor"
+                          className="w-6 h-6">
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M12.75 15l3-3m0 0l-3-3m3 3h-7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                          />
+                        </svg>
+                      </span>
+                    </button>
+                  </div>
+                  <div className="border p-4">
+                    <div className="justify-between flex">
+                      <span>LG 668L Inverter Frost Free Side By Side...</span>
+                      <span className="bg-[#f9c74f] text-[#0a4e71] p-2">
+                        30%OFF
+                      </span>
+                    </div>
+                    <div className="justify-between flex">
+                      <span className="text-[#20c431]">In stock</span>
+                      <span className=" text-[#0a4e71] p-2">
+                        ₹2,66,300 + ₹23,7600 GST
+                      </span>
+                    </div>
+                    <div className=" flex mt-1">
+                      <button
+                        type="button"
+                        className="w-1/2 border border-[#ff4848] text-[#ff4848] m-1 rounded-md">
+                        Delete
+                      </button>
+                      <button
+                        type="button"
+                        className="bg-[#f9c74f] text-[#0a4e71] p-2 w-1/2 m-1 rounded-md">
+                        Add to cart
+                      </button>
+                    </div>
+
+                    <button
+                      type="button"
+                      className="justify-between flex bg-[#dadde7]  rounded-md p-2 border border-[#0a4e71] mt-4 w-full">
+                      <span className="text-[#0a4e71]">
+                        Add this product to project
+                      </span>
+                      <span className=" text-[#0a4e71]">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth={1.5}
+                          stroke="currentColor"
+                          className="w-6 h-6">
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M12.75 15l3-3m0 0l-3-3m3 3h-7.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                          />
+                        </svg>
+                      </span>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
           {selectedCategory === "My Orders" && <div>My Orders</div>}
           {selectedCategory === "My cart" && <div>My cart</div>}
           {selectedCategory === "Referrals" && <div>Referrals</div>}
