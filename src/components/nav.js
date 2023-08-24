@@ -2,6 +2,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { Mobilenav } from "./mobileNav";
+import { faL } from "@fortawesome/free-solid-svg-icons";
 
 export function Nav() {
   //DESKTOP SIDEBAR CONTENT START
@@ -344,16 +345,14 @@ export function Nav() {
           className="flex"
           type="button"
           onClick={toggleDesktopSidebar}
-          aria-controls="drawer-navigation"
-        >
+          aria-controls="drawer-navigation">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-6 h-6 -mt-0.5"
-          >
+            className="w-6 h-6 -mt-0.5">
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -376,8 +375,7 @@ export function Nav() {
           viewBox="0 0 24 24"
           strokeWidth={1.5}
           stroke="currentColor"
-          className="w-5 h-5 mr-1"
-        >
+          className="w-5 h-5 mr-1">
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -398,8 +396,7 @@ export function Nav() {
           viewBox="0 0 24 24"
           strokeWidth={1.5}
           stroke="currentColor"
-          className="w-5 h-5 mr-1"
-        >
+          className="w-5 h-5 mr-1">
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -420,8 +417,7 @@ export function Nav() {
           viewBox="0 0 24 24"
           strokeWidth={1.5}
           stroke="currentColor"
-          className="w-5 h-5 mr-1"
-        >
+          className="w-5 h-5 mr-1">
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -443,21 +439,85 @@ export function Nav() {
 
   //MOBILE SIDEBAR CONTENT START
 
-  const [isMobileSidebarOpen, setMobileSidebarOpen] = useState(false);
+  // Usestates to manage the offcanvas (Profile, Category )
+  const [isMobileCategory, setMobileCategory] = useState(false);
+  const [isMobileProfile, setMobileProfile] = useState(false);
+  const [selectedItem, setSelectedItem] = useState(null); //for select profile menu items
 
-  const toggleMobileSidebar = () => {
-    console.log(isMobileSidebarOpen);
-    setMobileSidebarOpen(!isMobileSidebarOpen);
-    if (isMobileSidebarOpen === false) {
-      console.log("Opened");
-    } else if (isMobileSidebarOpen === true) {
-      console.log("Closed");
-    }
+  const handleItemClick = (itemName) => {
+    setSelectedItem(itemName);
   };
+
+  const handleBackToProfile = () => {
+    setSelectedItem(null);
+  };
+
+  // Function to handle category sidebar in mobile
+  const toggleMobileCategory = () => {
+    setMobileCategory(true);
+    setMobileProfile(false);
+  };
+
+  // Function to determine if the screen is in mobile size
+  const isMobileScreen = () => {
+    const mobileScreenSize = 768; // Adjust this value as needed
+    return window.innerWidth <= mobileScreenSize;
+  };
+
+  // Toggle mobile profile and update selected item
+  const toggleMobileProfile = () => {
+    setMobileCategory(false);
+    setMobileProfile(isMobileScreen());
+    setSelectedItem(null);
+  };
+
+  //UseEffect to handle the screensize for maintain the sidebar dynamic for mobile and desktop
+  useEffect(() => {
+    const handleResize = () => {
+      setMobileProfile(isMobileScreen());
+    };
+
+    // Add a resize event listener
+    window.addEventListener("resize", handleResize);
+
+    // Clean up the event listener on unmount
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  useEffect(() => {
+    // Redirect to /profile if on a larger screen and not already on /profile
+    if (!isMobileScreen() && window.location.pathname !== "/profile") {
+      window.location.href = "/profile";
+    }
+  }, []);
+
+  //Function to redirecting to dashboard in mobile view when the user home icon
+  const toggleMobileHome = () => {
+    setMobileProfile(false);
+    setDesktopSidebarOpen(false);
+    window.location.href = "/dashboard";
+  };
+
+  //Function to handle when particular item is selected
+  const selectedListItems = (itemName) => {
+    setSelectedItem(itemName);
+  };
+
+  //Function to close the category sidebar in mobile view
 
   const toggleClose = () => {
-    setMobileSidebarOpen(!isMobileSidebarOpen);
+    setMobileCategory(!isMobileCategory);
   };
+
+  //Function to close the profile sidebar in mobile view
+
+  const toggleCloseProfile = () => {
+    setMobileProfile(false);
+  };
+
+  //Mobile navigation items
 
   const mobilenav = [
     {
@@ -466,44 +526,48 @@ export function Nav() {
       href: "#",
       current: false,
       icon: (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={1.5}
-          stroke="currentColor"
-          className="w-6 h-6"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"
-          />
-        </svg>
+        <button
+          className=""
+          type="button"
+          onClick={toggleMobileHome} //Function for redirecting to dashboard page
+          aria-controls="drawer-navigation">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="w-6 h-6">
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"
+            />
+          </svg>
+        </button>
       ),
     },
-    {
-      id: 2,
-      name: "Quotes",
-      href: "#",
-      current: false,
-      icon: (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={1.5}
-          stroke="currentColor"
-          className="w-6 h-6"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
-          />
-        </svg>
-      ),
-    },
+    // {
+    //   id: 2,
+    //   name: "Quotes",
+    //   href: "#",
+    //   current: false,
+    //   icon: (
+    //     <svg
+    //       xmlns="http://www.w3.org/2000/svg"
+    //       fill="none"
+    //       viewBox="0 0 24 24"
+    //       strokeWidth={1.5}
+    //       stroke="currentColor"
+    //       className="w-6 h-6">
+    //       <path
+    //         strokeLinecap="round"
+    //         strokeLinejoin="round"
+    //         d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
+    //       />
+    //     </svg>
+    //   ),
+    // },
     {
       id: 3,
       name: "Category",
@@ -514,17 +578,15 @@ export function Nav() {
         <button
           className=""
           type="button"
-          onClick={toggleMobileSidebar}
-          aria-controls="drawer-navigation"
-        >
+          onClick={toggleMobileCategory}
+          aria-controls="drawer-navigation">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-6 h-6"
-          >
+            className="w-6 h-6">
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -544,24 +606,164 @@ export function Nav() {
         <button
           className=""
           type="button"
-          // onClick={toggleProfile}
-          aria-controls="drawer-navigation"
-        >
+          onClick={toggleMobileProfile}
+          aria-controls="drawer-navigation">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="w-6 h-6">
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
+            />
+          </svg>
+        </button>
+      ),
+    },
+  ];
+
+  const ProfileItems = [
+    {
+      id: 1,
+      name: "My Profile",
+      icon: (
         <svg
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
           viewBox="0 0 24 24"
-          strokeWidth={1.5}
+          strokeWidth="1.5"
           stroke="currentColor"
-          className="w-6 h-6"
-        >
+          className="w-6 h-6 ">
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
-            d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
+            d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632"
           />
         </svg>
-        </button>
+      ),
+    },
+    {
+      id: 2,
+      name: "Billing Address",
+      icon: (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth="1.5"
+          stroke="currentColor"
+          className="w-6 h-6">
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z"
+          />
+        </svg>
+      ),
+    },
+    {
+      id: 3,
+      name: "Business Details",
+      icon: (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth="1.5"
+          stroke="currentColor"
+          className="w-6 h-6">
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M2.25 13.5h3.86a2.25 2.25 0 012.012 1.244l.256.512a2.25 2.25 0 002.013 1.244h3.218a2.25 2.25 0 002.013-1.244l.256-.512a2.25 2.25 0 012.013-1.244h3.859m-19.5.338V18a2.25 2.25 0 002.25 2.25h15A2.25 2.25 0 0021.75 18v-4.162c0-.224-.034-.447-.1-.661L19.24 5.338a2.25 2.25 0 00-2.15-1.588H6.911a2.25 2.25 0 00-2.15 1.588L2.35 13.177a2.25 2.25 0 00-.1.661z"
+          />
+        </svg>
+      ),
+    },
+    {
+      id: 4,
+      name: "Wish list",
+      icon: (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth="1.5"
+          stroke="currentColor"
+          className="w-6 h-6">
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M17.593 3.322c1.1.128 1.907 1.077 1.907 2.185V21L12 17.25 4.5 21V5.507c0-1.108.806-2.057 1.907-2.185a48.507 48.507 0 0111.186 0z"
+          />
+        </svg>
+      ),
+    },
+    {
+      id: 5,
+      name: "My Orders",
+      icon: (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth="1.5"
+          stroke="currentColor"
+          className="w-6 h-6">
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z"
+          />
+        </svg>
+      ),
+    },
+
+    {
+      id: 6,
+      name: "Notifications",
+      icon: (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth="1.5"
+          stroke="currentColor"
+          className="w-6 h-6">
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0"
+          />
+        </svg>
+      ),
+    },
+    {
+      id: 7,
+      name: "Settings",
+      icon: (
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth="1.5"
+          stroke="currentColor"
+          className="w-6 h-6">
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M10.343 3.94c.09-.542.56-.94 1.11-.94h1.093c.55 0 1.02.398 1.11.94l.149.894c.07.424.384.764.78.93.398.164.855.142 1.205-.108l.737-.527a1.125 1.125 0 011.45.12l.773.774c.39.389.44 1.002.12 1.45l-.527.737c-.25.35-.272.806-.107 1.204.165.397.505.71.93.78l.893.15c.543.09.94.56.94 1.109v1.094c0 .55-.397 1.02-.94 1.11l-.893.149c-.425.07-.765.383-.93.78-.165.398-.143.854.107 1.204l.527.738c.32.447.269 1.06-.12 1.45l-.774.773a1.125 1.125 0 01-1.449.12l-.738-.527c-.35-.25-.806-.272-1.203-.107-.397.165-.71.505-.781.929l-.149.894c-.09.542-.56.94-1.11.94h-1.094c-.55 0-1.019-.398-1.11-.94l-.148-.894c-.071-.424-.384-.764-.781-.93-.398-.164-.854-.142-1.204.108l-.738.527c-.447.32-1.06.269-1.45-.12l-.773-.774a1.125 1.125 0 01-.12-1.45l.527-.737c.25-.35.273-.806.108-1.204-.165-.397-.505-.71-.93-.78l-.894-.15c-.542-.09-.94-.56-.94-1.109v-1.094c0-.55.398-1.02.94-1.11l.894-.149c.424-.07.765-.383.93-.78.165-.398.143-.854-.107-1.204l-.527-.738a1.125 1.125 0 01.12-1.45l.773-.773a1.125 1.125 0 011.45-.12l.737.527c.35.25.807.272 1.204.107.397-.165.71-.505.78-.929l.15-.894z"
+          />
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+          />
+        </svg>
       ),
     },
   ];
@@ -572,10 +774,10 @@ export function Nav() {
     const updateSidebarStatus = () => {
       const screenWidth = window.innerWidth;
 
-      if (isMobileSidebarOpen) {
+      if (isMobileCategory) {
         // If mobile sidebar is open and screen size is desktop
         if (screenWidth > 768) {
-          setMobileSidebarOpen(false);
+          setMobileCategory(false);
           setDesktopSidebarOpen(true);
         }
       } else if (isDesktopSidebarOpen) {
@@ -585,7 +787,7 @@ export function Nav() {
           if (selectedCategory) {
             setSelectedCategory(!selectedCategory);
           }
-          setMobileSidebarOpen(true);
+          setMobileCategory(true);
           setDesktopSidebarOpen(false);
         }
       }
@@ -597,7 +799,7 @@ export function Nav() {
     return () => {
       window.removeEventListener("resize", updateSidebarStatus);
     };
-  }, [isMobileSidebarOpen, isDesktopSidebarOpen]);
+  }, [isMobileCategory, isDesktopSidebarOpen]);
 
   return (
     <div>
@@ -611,8 +813,7 @@ export function Nav() {
               isDesktopSidebarOpen ? "" : "-translate-x-full"
             } bg-[#f2f2f2] dark:bg-gray-800`}
             tabIndex="-1"
-            aria-labelledby="drawer-navigation-label"
-          >
+            aria-labelledby="drawer-navigation-label">
             {/* list of items */}
             {isDesktopSidebarOpen && (
               <ul className="py-5">
@@ -623,8 +824,7 @@ export function Nav() {
                     type="button"
                     onClick={() => {
                       toggleSubList(item.categoryName);
-                    }}
-                  >
+                    }}>
                     <div className="flex">
                       <img
                         src={item.link}
@@ -642,8 +842,7 @@ export function Nav() {
                           viewBox="0 0 24 24"
                           strokeWidth={1.5}
                           stroke="currentColor"
-                          className="w-4 h-4"
-                        >
+                          className="w-4 h-4">
                           <path
                             strokeLinecap="round"
                             strokeLinejoin="round"
@@ -665,27 +864,23 @@ export function Nav() {
               selectedCategory ? "" : "-translate-x-full"
             } bg-[#f2f2f2] dark:bg-gray-800`}
             tabIndex="-1"
-            aria-labelledby="drawer-navigation-label"
-          >
+            aria-labelledby="drawer-navigation-label">
             <button
               type="button"
               onClick={toggleCloseAll}
               data-drawer-hide="drawer-navigation"
               aria-controls="drawer-navigation"
-              className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 absolute top-2.5 right-2.5 inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
-            >
+              className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 absolute top-2.5 right-2.5 inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white">
               <svg
                 aria-hidden="true"
                 className="w-5 h-5"
                 fill="currentColor"
                 viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
+                xmlns="http://www.w3.org/2000/svg">
                 <path
                   fillRule="evenodd"
                   d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                  clipRule="evenodd"
-                ></path>
+                  clipRule="evenodd"></path>
               </svg>
               <span className="sr-only">Close menu</span>
             </button>
@@ -708,8 +903,7 @@ export function Nav() {
                     selectedCategory === "Bathroom fittings"
                       ? "hidden"
                       : ""
-                  }`}
-                >
+                  }`}>
                   <div className="flex">
                     <span className="ml-4 underline">{item.name}</span>
                   </div>
@@ -720,8 +914,7 @@ export function Nav() {
                 Fittings.map((item) => (
                   <li
                     key={item.id}
-                    className={`px-3 space-x-5 flex py-5 text-gray-700 justify-between dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600`}
-                  >
+                    className={`px-3 space-x-5 flex py-5 text-gray-700 justify-between dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600`}>
                     <div className="flex">
                       <span className="ml-4 underline">{item.name}</span>
                     </div>
@@ -731,8 +924,7 @@ export function Nav() {
                 Valves.map((item) => (
                   <li
                     key={item.id}
-                    className="px-3 space-x-5 flex py-5 text-gray-700 justify-between dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600"
-                  >
+                    className="px-3 space-x-5 flex py-5 text-gray-700 justify-between dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600">
                     <div className="flex">
                       <span className="ml-4 underline">{item.name}</span>
                     </div>
@@ -742,8 +934,7 @@ export function Nav() {
                 Hoses.map((item) => (
                   <li
                     key={item.id}
-                    className="px-3 space-x-5 flex py-5 text-gray-700 justify-between dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600"
-                  >
+                    className="px-3 space-x-5 flex py-5 text-gray-700 justify-between dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600">
                     <div className="flex">
                       <span className="ml-4 underline">{item.name}</span>
                     </div>
@@ -753,8 +944,7 @@ export function Nav() {
                 Tank.map((item) => (
                   <li
                     key={item.id}
-                    className="px-3 space-x-5 flex py-5 text-gray-700 justify-between dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600"
-                  >
+                    className="px-3 space-x-5 flex py-5 text-gray-700 justify-between dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600">
                     <div className="flex">
                       <span className="ml-4 underline">{item.name}</span>
                     </div>
@@ -764,8 +954,7 @@ export function Nav() {
                 Wires.map((item) => (
                   <li
                     key={item.id}
-                    className="px-3 space-x-5 flex py-5 text-gray-700 justify-between dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600"
-                  >
+                    className="px-3 space-x-5 flex py-5 text-gray-700 justify-between dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600">
                     <div className="flex">
                       <span className="ml-4 underline">{item.name}</span>
                     </div>
@@ -775,8 +964,7 @@ export function Nav() {
                 Paints.map((item) => (
                   <li
                     key={item.id}
-                    className="px-3 space-x-5 flex py-5 text-gray-700 justify-between dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600"
-                  >
+                    className="px-3 space-x-5 flex py-5 text-gray-700 justify-between dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600">
                     <div className="flex">
                       <span className="ml-4 underline">{item.name}</span>
                     </div>
@@ -786,8 +974,7 @@ export function Nav() {
                 Motors.map((item) => (
                   <li
                     key={item.id}
-                    className="px-3 space-x-5 flex py-5 text-gray-700 justify-between dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600"
-                  >
+                    className="px-3 space-x-5 flex py-5 text-gray-700 justify-between dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600">
                     <div className="flex">
                       <span className="ml-4 underline">{item.name}</span>
                     </div>
@@ -797,8 +984,7 @@ export function Nav() {
                 Sanitwaryware.map((item) => (
                   <li
                     key={item.id}
-                    className="px-3 space-x-5 flex py-5 text-gray-700 justify-between dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600"
-                  >
+                    className="px-3 space-x-5 flex py-5 text-gray-700 justify-between dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600">
                     <div className="flex">
                       <span className="ml-4 underline">{item.name}</span>
                     </div>
@@ -808,8 +994,7 @@ export function Nav() {
                 BathroomFittings.map((item) => (
                   <li
                     key={item.id}
-                    className="px-3 space-x-5 flex py-5 text-gray-700 justify-between dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600"
-                  >
+                    className="px-3 space-x-5 flex py-5 text-gray-700 justify-between dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600">
                     <div className="flex">
                       <span className="ml-4 underline">{item.name}</span>
                     </div>
@@ -838,8 +1023,7 @@ export function Nav() {
                     viewBox="0 0 24 24"
                     strokeWidth={1.5}
                     stroke="currentColor"
-                    className="w-6 h-6 text-white"
-                  >
+                    className="w-6 h-6 text-white">
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -868,8 +1052,7 @@ export function Nav() {
                       viewBox="0 0 24 24"
                       strokeWidth={1.5}
                       stroke="currentColor"
-                      className="w-6 h-6 mr-2  text-white"
-                    >
+                      className="w-6 h-6 mr-2  text-white">
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -889,8 +1072,7 @@ export function Nav() {
                       viewBox="0 0 24 24"
                       strokeWidth={1.5}
                       stroke="currentColor"
-                      className="w-6 h-6 mr-2 text-white cursor-pointer"
-                    >
+                      className="w-6 h-6 mr-2 text-white cursor-pointer">
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -899,7 +1081,7 @@ export function Nav() {
                     </svg>
 
                     <button type="button" className="mr-7 text-white ">
-                      <a href="/profile" >John Doe</a>
+                      <a href="/profile">John Doe</a>
                     </button>
                   </div>
                 </div>
@@ -909,16 +1091,14 @@ export function Nav() {
                   type="button"
                   className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
                   aria-controls="navbar-sticky"
-                  aria-expanded="false"
-                >
+                  aria-expanded="false">
                   <span className="sr-only">Open main menu</span>
                   <svg
                     className="w-5 h-5"
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
-                    viewBox="0 0 17 14"
-                  >
+                    viewBox="0 0 17 14">
                     <path
                       stroke="currentColor"
                       strokeLinecap="round"
@@ -949,8 +1129,7 @@ export function Nav() {
                           viewBox="0 0 24 24"
                           strokeWidth={1.5}
                           stroke="currentColor"
-                          className="w-6 h-6"
-                        >
+                          className="w-6 h-6">
                           <path
                             strokeLinecap="round"
                             strokeLinejoin="round"
@@ -973,8 +1152,7 @@ export function Nav() {
                         className="text-sm"
                         key={item.name}
                         href={item.href}
-                        aria-current={item.current ? "page" : undefined}
-                      >
+                        aria-current={item.current ? "page" : undefined}>
                         <div className="flex">
                           <span className="">{item.icon} </span>
                           <span className="ml-1">{item.name} </span>&nbsp;{" "}
@@ -1000,8 +1178,7 @@ export function Nav() {
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 20 20"
                   fill="currentColor"
-                  className="mx-3 w-5 h-5"
-                >
+                  className="mx-3 w-5 h-5">
                   <path
                     fillRule="evenodd"
                     d="M10 18a8 8 0 100-16 8 8 0 000 16zM6.75 9.25a.75.75 0 000 1.5h4.59l-2.1 1.95a.75.75 0 001.02 1.1l3.5-3.25a.75.75 0 000-1.1l-3.5-3.25a.75.75 0 10-1.02 1.1l2.1 1.95H6.75z"
@@ -1021,19 +1198,18 @@ export function Nav() {
 
       {/* MOBILE FOOTER START */}
 
-      <div className={`mobile-sidebar ${isMobileSidebarOpen ? "open" : ""}`}>
-        {isMobileSidebarOpen && (
+      <div className={`mobile-sidebar ${isMobileCategory ? "open" : ""}`}>
+        {isMobileCategory && (
           <div>
             <div className="fixed top-0 left-0 z-40 w-full h-36 bg-transparent" />
 
             <div
               id="drawer-navigation"
               className={`fixed top-0 left-0 bottom-30 z-40 w-full md:mb-32 bg-[#f2f2f2] h-screen p-4 overflow-y-auto transition-transform ${
-                isMobileSidebarOpen ? "" : "-translate-x-full"
+                isMobileCategory ? "" : "-translate-x-full"
               } bg-[#f2f2f2] dark:bg-gray-800`}
               tabIndex="-1"
-              aria-labelledby="drawer-navigation-label"
-            >
+              aria-labelledby="drawer-navigation-label">
               <div className="text-gray-400 bg-[#004b71] hover:text-white flex text-sm p-2.5 -mt-4 left-0 absolute  w-full items-center">
                 <div className="">
                   <button
@@ -1041,16 +1217,14 @@ export function Nav() {
                     onClick={toggleClose}
                     data-drawer-hide="drawer-navigation"
                     aria-controls="drawer-navigation"
-                    className=""
-                  >
+                    className="">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
                       viewBox="0 0 24 24"
                       strokeWidth="1.5"
                       stroke="currentColor"
-                      className="w-6 h-6 text-yellow-400"
-                    >
+                      className="w-6 h-6 text-yellow-400">
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -1067,7 +1241,7 @@ export function Nav() {
                 </div>
               </div>
               {/* list of items */}
-              {isMobileSidebarOpen && (
+              {isMobileCategory && (
                 <div className="grid grid-cols-3 m-3 gap-8 mt-16 ">
                   {categList.map((item) => (
                     <div className="items-center " key={item.categoryName}>
@@ -1084,21 +1258,487 @@ export function Nav() {
             </div>
           </div>
         )}
+      </div>
 
-        <footer className="bg-[#004b71] z-[100] text-white p-3 fixed bottom-0 w-full grid grid-cols-4 rounded-t-2xl md:hidden text-center">
-          {mobilenav.map((item) => (
+      <div className={`mobile-sidebar ${isMobileProfile ? "open" : ""}`}>
+        {isMobileProfile && (
+          <div>
             <div
-              key={item.id}
-              className="flex flex-col items-center justify-center hover:text-yellow-300 hover:underline"
-            >
-              <span>{item.icon}</span>
-              <span className="mt-1">{item.name}</span>
+              id="drawer-navigation"
+              className={`fixed top-0 left-0 bottom-30 z-40 w-full md:mb-32 bg-[#f2f2f2] h-screen p-4 overflow-y-auto transition-transform ${
+                isMobileProfile ? "" : "-translate-x-full"
+              } bg-[#f2f2f2] dark:bg-gray-800`}
+              tabIndex="-1"
+              aria-labelledby="drawer-navigation-label">
+              <div className="text-gray-400 bg-[#004b71] hover:text-white flex text-sm p-2.5 -mt-4 left-0 absolute  w-full items-center">
+                <div className="">
+                  <button
+                    type="button"
+                    onClick={toggleClose}
+                    data-drawer-hide="drawer-navigation"
+                    aria-controls="drawer-navigation"
+                    className="">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth="1.5"
+                      stroke="currentColor"
+                      className="w-6 h-6 text-yellow-400">
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M19.5 12h-15m0 0l6.75 6.75M4.5 12l6.75-6.75"
+                      />
+                    </svg>
+                    <span className="sr-only">Close menu</span>
+                  </button>
+                </div>
+                <div className="-mt-1">
+                  <span className=" ml-4 text-white text-1xl font-bold">
+                    Profile
+                  </span>
+                </div>
+              </div>
+              {/* list of items */}
+              {selectedItem === null ? (
+                <ul className="font-medium mt-8">
+                  {ProfileItems.map((item) => (
+                    <li
+                      className="h-full w-full md:space-y-6 space-x-4 py-3"
+                      key={item.id}>
+                      <button
+                        type="button"
+                        onClick={() => handleItemClick(item.name)}
+                        className="flex items-center p-3">
+                        <span className="space-y-3">{item.icon}</span>
+                        <span className="space-y-1 ml-6">{item.name}</span>
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <div>
+                  <button
+                    type="button"
+                    onClick={handleBackToProfile}
+                    className="p-3 mt-8">
+                    Back to Profile
+                  </button>
+                  <div className="mt-4">
+                    {selectedItem === "My Profile" && (
+                      <div className="mt-10 lg:mt-6 profileSection m-4 bg-white">
+                        <div className=" p-6 lg:mt-4">
+                          <span className="justify-start font-bold text-[#f9c74f] md:text-3xl">
+                            Hy Yuvanesh !
+                          </span>
+                          <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+                            <div className=" mt-4  lg:mx-4 mx-2">
+                              <div className="relative">
+                                <label className="text-[#c1c1c1] text-sm font-bold  tracking-wide absolute transform -translate-y-full bg-white px-2 left-4 bottom-2">
+                                  Full Name{" "}
+                                  <span className="text-red-600">*</span>
+                                </label>
+                                <input
+                                  type="text"
+                                  required
+                                  className="mt-2 px-5 py-2 border border-[#c1c1c1] rounded-lg w-full focus:border-blue-500 focus:ring-blue-500 focus:outline-none"
+                                />
+                              </div>
+                            </div>
+                            <div className=" mt-4  lg:mx-4 mx-2">
+                              <div className="relative">
+                                <label className="text-[#c1c1c1] text-sm font-bold  tracking-wide absolute transform -translate-y-full bg-white px-2 left-4 bottom-2">
+                                  Email <span className="text-red-600">*</span>
+                                </label>
+                                <input
+                                  type="email"
+                                  required
+                                  className="mt-2 px-5 py-2 border border-[#c1c1c1] rounded-lg w-full focus:border-blue-500 focus:ring-blue-500 focus:outline-none"
+                                />
+                              </div>
+                            </div>
+                            <div className="mt-4  lg:mx-4 mx-2">
+                              <div className="relative">
+                                <label className="text-[#c1c1c1] text-sm font-bold tracking-wide absolute transform -translate-y-full bg-white px-2 left-4 bottom-3">
+                                  Mobile Number{" "}
+                                  <span className="text-red-600">*</span>
+                                </label>
+                                <div className="flex items-center border border-[#c1c1c1] rounded-lg overflow-hidden">
+                                  <div className="flex items-center  p-2 px-4">
+                                    <img
+                                      src="/image/india.png"
+                                      alt="Country Code"
+                                      className="mr-2  h-5 mt-1"
+                                    />
+                                    <span className="text-[#c1c1c1]">+91</span>
+                                    <span className="ml-2 text-[#c1c1c1]">
+                                      |
+                                    </span>
+                                  </div>
+                                  <input
+                                    type="tel"
+                                    required
+                                    className="-ml-1 p-5 py-1   w-full focus:ring-blue-500 focus:outline-none"
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="p-4 text-right gap-2">
+                            <button
+                              type="button"
+                              className="border border-[#0A4E71] px-4 py-2 rounded-sm">
+                              Cancel
+                            </button>
+                            <button
+                              type="button"
+                              className="bg-[#F9C74F] ml-6 px-6 py-2.5 rounded-sm">
+                              Save
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                    {selectedItem === "Billing Address" && (
+                      <div className=" mt-8 billingSection mb-32">
+                        <div className="flex flex-col justify-start">
+                          <span className="mx-5 font-bold text-[#125476] md:text-2xl lg:ml-4">
+                            Hy Yuvanesh !
+                          </span>
+                          <span className="mx-5 mt-2 text-black md:text-1.5xl lg:ml-4">
+                            Fill in the Business Details and make your purchase
+                            journey smoother
+                          </span>
+                        </div>
+
+                        <div className=" p-6 lg:mt-4">
+                          <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+                            <div className="border p-6">
+                              <div className="mt-3 text-[#b0b0b0]">
+                                Name:
+                                <span className="font-semibold text-black">
+                                  {" "}
+                                  Sharath
+                                </span>
+                              </div>
+                              <div className="mt-3 text-[#b0b0b0]">
+                                Primary Mobile Number:
+                                <span className="font-semibold text-black">
+                                  {" "}
+                                  9489123456
+                                </span>
+                              </div>
+                              <div className="mt-3 text-[#b0b0b0]">
+                                Secondary Mobile Number:
+                                <span className="font-semibold text-black">
+                                  {" "}
+                                  9489123456
+                                </span>
+                              </div>
+                              <div className="mt-3 text-[#b0b0b0]">
+                                Email ID:
+                                <span className="font-semibold text-black">
+                                  {" "}
+                                  Sharathtraders@gmail.com
+                                </span>
+                              </div>
+                              <div className="mt-3 text-[#b0b0b0]">
+                                Address:
+                                <span className="font-semibold text-black">
+                                  {" "}
+                                  Door No:12, ABC Street, Indra Nagar,
+                                  Bangalore, Karnataka, (500 001)
+                                </span>
+                              </div>
+                              <div className="p-4 text-right gap-2 mt-3">
+                                <button
+                                  type="button"
+                                  className=" underline text-red-600 px-4 py-2 rounded-sm">
+                                  delete
+                                </button>
+                                <button
+                                  type="button"
+                                  className="bg-[#F9C74F] ml-6 px-6 py-2.5 rounded-sm">
+                                  Edit
+                                </button>
+                              </div>
+                            </div>
+                            <div className="border p-6">
+                              <div className="mt-3 text-[#b0b0b0]">
+                                Name:
+                                <span className="font-semibold text-black">
+                                  {" "}
+                                  Sharath
+                                </span>
+                              </div>
+                              <div className="mt-3 text-[#b0b0b0]">
+                                Primary Mobile Number:
+                                <span className="font-semibold text-black">
+                                  {" "}
+                                  9489123456
+                                </span>
+                              </div>
+                              <div className="mt-3 text-[#b0b0b0]">
+                                Secondary Mobile Number:
+                                <span className="font-semibold text-black">
+                                  {" "}
+                                  9489123456
+                                </span>
+                              </div>
+                              <div className="mt-3 text-[#b0b0b0]">
+                                Email ID:
+                                <span className="font-semibold text-black">
+                                  {" "}
+                                  Sharathtraders@gmail.com
+                                </span>
+                              </div>
+                              <div className="mt-3 text-[#b0b0b0]">
+                                Address:
+                                <span className="font-semibold text-black">
+                                  {" "}
+                                  Door No:12, ABC Street, Indra Nagar,
+                                  Bangalore, Karnataka, (500 001)
+                                </span>
+                              </div>
+                              <div className="p-4 text-right gap-2 mt-3">
+                                <button
+                                  type="button"
+                                  className=" underline text-red-600 px-4 py-2 rounded-sm">
+                                  delete
+                                </button>
+                                <button
+                                  type="button"
+                                  className="bg-[#F9C74F] ml-6 px-6 py-2.5 rounded-sm"
+                                  // onClick={openModal}
+                                >
+                                  Edit
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                    {selectedItem === "Business Details" && (
+                      <div className=" mt-10  BusinessSection mb-32">
+                        <div className="flex flex-col justify-start">
+                          <span className="mx-5 font-bold text-[#125476] md:text-2xl lg:ml-4">
+                            Hy Yuvanesh !
+                          </span>
+                          <span className="mx-5 mt-2 text-black md:text-1.5xl lg:ml-4">
+                            Fill in the Business Details and make your purchase
+                            journey smoother
+                          </span>
+                        </div>
+
+                        <div className=" p-6 lg:mt-4">
+                          <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+                            <div className="border p-6">
+                              <div className="mt-3 text-[#b0b0b0]">
+                                Name:
+                                <span className="font-semibold text-black">
+                                  {" "}
+                                  Sharath
+                                </span>
+                              </div>
+                              <div className="mt-3 text-[#b0b0b0]">
+                                Primary Mobile Number:
+                                <span className="font-semibold text-black">
+                                  {" "}
+                                  9489123456
+                                </span>
+                              </div>
+                              <div className="mt-3 text-[#b0b0b0]">
+                                Secondary Mobile Number:
+                                <span className="font-semibold text-black">
+                                  {" "}
+                                  9489123456
+                                </span>
+                              </div>
+                              <div className="mt-3 text-[#b0b0b0]">
+                                Email ID:
+                                <span className="font-semibold text-black">
+                                  {" "}
+                                  Sharathtraders@gmail.com
+                                </span>
+                              </div>
+                              <div className="mt-3 text-[#b0b0b0]">
+                                Address:
+                                <span className="font-semibold text-black">
+                                  {" "}
+                                  Door No:12, ABC Street, Indra Nagar,
+                                  Bangalore, Karnataka, (500 001)
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                    {selectedItem === "Wish list" && (
+                      <div className=" p-6 lg:mt-4 mb-32">
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+                          <div className="border p-4">
+                            <div className="justify-between flex">
+                              <span>
+                                LG 668L Inverter Frost Free Side By Side...
+                              </span>
+                            </div>
+                            <div className="justify-between flex">
+                              <span className="text-[#20c431]">In stock</span>
+                            </div>
+                            <div className=" flex mt-1">
+                              <button
+                                type="button"
+                                className="w-1/2 border border-[#ff4848] text-[#ff4848] m-1 rounded-md">
+                                Delete
+                              </button>
+                              <button
+                                type="button"
+                                className="bg-[#f9c74f] text-[#0a4e71] p-2 w-1/2 m-1 rounded-md">
+                                Add to project
+                              </button>
+                            </div>
+                          </div>
+                          <div className="border p-4">
+                            <div className="justify-between flex">
+                              <span>
+                                LG 668L Inverter Frost Free Side By Side...
+                              </span>
+                            </div>
+                            <div className="justify-between flex">
+                              <span className="text-[#20c431]">In stock</span>
+                            </div>
+                            <div className=" flex mt-1">
+                              <button
+                                type="button"
+                                className="w-1/2 border border-[#ff4848] text-[#ff4848] m-1 rounded-md">
+                                Delete
+                              </button>
+                              <button
+                                type="button"
+                                className="bg-[#f9c74f] text-[#0a4e71] p-2 w-1/2 m-1 rounded-md">
+                                Add to project
+                              </button>
+                            </div>
+                          </div>
+                          <div className="border p-4">
+                            <div className="justify-between flex">
+                              <span>
+                                LG 668L Inverter Frost Free Side By Side...
+                              </span>
+                            </div>
+                            <div className="justify-between flex">
+                              <span className="text-[#20c431]">In stock</span>
+                            </div>
+                            <div className=" flex mt-1">
+                              <button
+                                type="button"
+                                className="w-1/2 border border-[#ff4848] text-[#ff4848] m-1 rounded-md">
+                                Delete
+                              </button>
+                              <button
+                                type="button"
+                                className="bg-[#f9c74f] text-[#0a4e71] p-2 w-1/2 m-1 rounded-md">
+                                Add to project
+                              </button>
+                            </div>
+                          </div>
+                          <div className="border p-4">
+                            <div className="justify-between flex">
+                              <span>
+                                LG 668L Inverter Frost Free Side By Side...
+                              </span>
+                            </div>
+                            <div className="justify-between flex">
+                              <span className="text-[#20c431]">In stock</span>
+                            </div>
+                            <div className=" flex mt-1">
+                              <button
+                                type="button"
+                                className="w-1/2 border border-[#ff4848] text-[#ff4848] m-1 rounded-md">
+                                Delete
+                              </button>
+                              <button
+                                type="button"
+                                className="bg-[#f9c74f] text-[#0a4e71] p-2 w-1/2 m-1 rounded-md">
+                                Add to project
+                              </button>
+                            </div>
+                          </div>
+                          <div className="border p-4">
+                            <div className="justify-between flex">
+                              <span>
+                                LG 668L Inverter Frost Free Side By Side...
+                              </span>
+                            </div>
+                            <div className="justify-between flex">
+                              <span className="text-[#20c431]">In stock</span>
+                            </div>
+                            <div className=" flex mt-1">
+                              <button
+                                type="button"
+                                className="w-1/2 border border-[#ff4848] text-[#ff4848] m-1 rounded-md">
+                                Delete
+                              </button>
+                              <button
+                                type="button"
+                                className="bg-[#f9c74f] text-[#0a4e71] p-2 w-1/2 m-1 rounded-md">
+                                Add to project
+                              </button>
+                            </div>
+                          </div>
+                          <div className="border p-4">
+                            <div className="justify-between flex">
+                              <span>
+                                LG 668L Inverter Frost Free Side By Side...
+                              </span>
+                            </div>
+                            <div className="justify-between flex">
+                              <span className="text-[#20c431]">In stock</span>
+                            </div>
+                            <div className=" flex mt-1">
+                              <button
+                                type="button"
+                                className="w-1/2 border border-[#ff4848] text-[#ff4848] m-1 rounded-md">
+                                Delete
+                              </button>
+                              <button
+                                type="button"
+                                className="bg-[#f9c74f] text-[#0a4e71] p-2 w-1/2 m-1 rounded-md">
+                                Add to project
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                    {selectedItem === "My Orders" && <div>My Orders</div>}
+                    {selectedItem === "Notifications" && (
+                      <div>Notifications</div>
+                    )}
+                    {selectedItem === "Settings" && <div>Settings</div>}
+                  </div>
+                </div>
+              )}
             </div>
-          ))}
-        </footer>
+          </div>
+        )}
       </div>
 
       {/* MOBILE FOOTER  END */}
+
+      <footer className="bg-[#004b71] z-[100] text-white p-3 fixed bottom-0 w-full grid grid-cols-3 rounded-t-2xl md:hidden text-center">
+        {mobilenav.map((item) => (
+          <div
+            key={item.id}
+            className="flex flex-col items-center justify-center hover:text-yellow-300 hover:underline">
+            <span>{item.icon}</span>
+            <span className="mt-1">{item.name}</span>
+          </div>
+        ))}
+      </footer>
     </div>
   );
 }
