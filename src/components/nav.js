@@ -345,16 +345,14 @@ export function Nav() {
           className="flex"
           type="button"
           onClick={toggleDesktopSidebar}
-          aria-controls="drawer-navigation"
-        >
+          aria-controls="drawer-navigation">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-6 h-6 -mt-0.5"
-          >
+            className="w-6 h-6 -mt-0.5">
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -377,8 +375,7 @@ export function Nav() {
           viewBox="0 0 24 24"
           strokeWidth={1.5}
           stroke="currentColor"
-          className="w-5 h-5 mr-1"
-        >
+          className="w-5 h-5 mr-1">
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -399,8 +396,7 @@ export function Nav() {
           viewBox="0 0 24 24"
           strokeWidth={1.5}
           stroke="currentColor"
-          className="w-5 h-5 mr-1"
-        >
+          className="w-5 h-5 mr-1">
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -421,8 +417,7 @@ export function Nav() {
           viewBox="0 0 24 24"
           strokeWidth={1.5}
           stroke="currentColor"
-          className="w-5 h-5 mr-1"
-        >
+          className="w-5 h-5 mr-1">
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -444,41 +439,78 @@ export function Nav() {
 
   //MOBILE SIDEBAR CONTENT START
 
-  const [isMobileSidebarOpen, setMobileSidebarOpen] = useState(false);
+  // Usestates to manage the offcanvas (Profile, Category )
+  const [isMobileCategory, setMobileCategory] = useState(false);
   const [isMobileProfile, setMobileProfile] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null); //for select profile menu items
 
-
+  // Function to handle category sidebar in mobile
   const toggleMobileCategory = () => {
-    setMobileSidebarOpen(true);
-    setMobileProfile(false); 
+    setMobileCategory(true);
+    setMobileProfile(false);
   };
 
+  // Function to determine if the screen is in mobile size
+  const isMobileScreen = () => {
+    const mobileScreenSize = 768; // Adjust this value as needed
+    return window.innerWidth <= mobileScreenSize;
+  };
+
+  // Toggle mobile profile and update selected item
   const toggleMobileProfile = () => {
-    setMobileSidebarOpen(false)
-    setMobileProfile(true);
+    setMobileCategory(false);
+    setMobileProfile(isMobileScreen());
     setSelectedItem(null);
-    
   };
 
+  //UseEffect to handle the screensize for maintain the sidebar dynamic for mobile and desktop
+  useEffect(() => {
+    const handleResize = () => {
+      setMobileProfile(isMobileScreen());
+    };
+
+  // Add a resize event listener
+    window.addEventListener("resize", handleResize);
+
+  // Clean up the event listener on unmount
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  useEffect(() => {
+    // Redirect to /profile if on a larger screen and not already on /profile
+    if (!isMobileScreen() && window.location.pathname !== '/profile') {
+      window.location.href = '/profile';
+    }
+    
+  }, []);
+
+  //Function to redirecting to dashboard in mobile view when the user home icon
   const toggleMobileHome = () => {
     setMobileProfile(false);
     setDesktopSidebarOpen(false);
-    window.location.href = '/dashboard';
-  }
+    window.location.href = "/dashboard";
+  };
 
+  //Function to handle when particular item is selected
   const selectedListItems = (itemName) => {
     setSelectedItem(itemName);
   };
 
+  //Function to close the category sidebar in mobile view
+
   const toggleClose = () => {
-    setMobileSidebarOpen(!isMobileSidebarOpen);
+    setMobileCategory(!isMobileCategory);
   };
+
+  //Function to close the profile sidebar in mobile view
 
   const toggleCloseProfile = () => {
     setMobileProfile(false);
   };
 
+  //Mobile navigation items
 
   const mobilenav = [
     {
@@ -490,48 +522,45 @@ export function Nav() {
         <button
           className=""
           type="button"
-          onClick={toggleMobileHome}
-          aria-controls="drawer-navigation"
-        >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={1.5}
-          stroke="currentColor"
-          className="w-6 h-6"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"
-          />
-        </svg>
+          onClick={toggleMobileHome} //Function for redirecting to dashboard page
+          aria-controls="drawer-navigation">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="w-6 h-6">
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M2.25 12l8.954-8.955c.44-.439 1.152-.439 1.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"
+            />
+          </svg>
         </button>
       ),
     },
-    {
-      id: 2,
-      name: "Quotes",
-      href: "#",
-      current: false,
-      icon: (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={1.5}
-          stroke="currentColor"
-          className="w-6 h-6"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
-          />
-        </svg>
-      ),
-    },
+    // {
+    //   id: 2,
+    //   name: "Quotes",
+    //   href: "#",
+    //   current: false,
+    //   icon: (
+    //     <svg
+    //       xmlns="http://www.w3.org/2000/svg"
+    //       fill="none"
+    //       viewBox="0 0 24 24"
+    //       strokeWidth={1.5}
+    //       stroke="currentColor"
+    //       className="w-6 h-6">
+    //       <path
+    //         strokeLinecap="round"
+    //         strokeLinejoin="round"
+    //         d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
+    //       />
+    //     </svg>
+    //   ),
+    // },
     {
       id: 3,
       name: "Category",
@@ -543,16 +572,14 @@ export function Nav() {
           className=""
           type="button"
           onClick={toggleMobileCategory}
-          aria-controls="drawer-navigation"
-        >
+          aria-controls="drawer-navigation">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-6 h-6"
-          >
+            className="w-6 h-6">
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -573,22 +600,20 @@ export function Nav() {
           className=""
           type="button"
           onClick={toggleMobileProfile}
-          aria-controls="drawer-navigation"
-        >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={1.5}
-          stroke="currentColor"
-          className="w-6 h-6"
-        >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
-          />
-        </svg>
+          aria-controls="drawer-navigation">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="w-6 h-6">
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z"
+            />
+          </svg>
         </button>
       ),
     },
@@ -600,20 +625,18 @@ export function Nav() {
       name: "My Profile",
       icon: (
         <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        strokeWidth="1.5"
-        stroke="currentColor"
-        className="w-6 h-6 "
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632"
-        />
-      </svg>
-      
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth="1.5"
+          stroke="currentColor"
+          className="w-6 h-6 ">
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632"
+          />
+        </svg>
       ),
     },
     {
@@ -621,20 +644,18 @@ export function Nav() {
       name: "Billing Address",
       icon: (
         <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        strokeWidth="1.5"
-        stroke="currentColor"
-        className="w-6 h-6"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z"
-        />
-      </svg>
-      
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth="1.5"
+          stroke="currentColor"
+          className="w-6 h-6">
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z"
+          />
+        </svg>
       ),
     },
     {
@@ -694,8 +715,7 @@ export function Nav() {
         </svg>
       ),
     },
-    
-    
+
     {
       id: 6,
       name: "Notifications",
@@ -747,10 +767,10 @@ export function Nav() {
     const updateSidebarStatus = () => {
       const screenWidth = window.innerWidth;
 
-      if (isMobileSidebarOpen) {
+      if (isMobileCategory) {
         // If mobile sidebar is open and screen size is desktop
         if (screenWidth > 768) {
-          setMobileSidebarOpen(false);
+          setMobileCategory(false);
           setDesktopSidebarOpen(true);
         }
       } else if (isDesktopSidebarOpen) {
@@ -760,7 +780,7 @@ export function Nav() {
           if (selectedCategory) {
             setSelectedCategory(!selectedCategory);
           }
-          setMobileSidebarOpen(true);
+          setMobileCategory(true);
           setDesktopSidebarOpen(false);
         }
       }
@@ -772,7 +792,7 @@ export function Nav() {
     return () => {
       window.removeEventListener("resize", updateSidebarStatus);
     };
-  }, [isMobileSidebarOpen, isDesktopSidebarOpen]);
+  }, [isMobileCategory, isDesktopSidebarOpen]);
 
   return (
     <div>
@@ -786,8 +806,7 @@ export function Nav() {
               isDesktopSidebarOpen ? "" : "-translate-x-full"
             } bg-[#f2f2f2] dark:bg-gray-800`}
             tabIndex="-1"
-            aria-labelledby="drawer-navigation-label"
-          >
+            aria-labelledby="drawer-navigation-label">
             {/* list of items */}
             {isDesktopSidebarOpen && (
               <ul className="py-5">
@@ -798,8 +817,7 @@ export function Nav() {
                     type="button"
                     onClick={() => {
                       toggleSubList(item.categoryName);
-                    }}
-                  >
+                    }}>
                     <div className="flex">
                       <img
                         src={item.link}
@@ -817,8 +835,7 @@ export function Nav() {
                           viewBox="0 0 24 24"
                           strokeWidth={1.5}
                           stroke="currentColor"
-                          className="w-4 h-4"
-                        >
+                          className="w-4 h-4">
                           <path
                             strokeLinecap="round"
                             strokeLinejoin="round"
@@ -840,27 +857,23 @@ export function Nav() {
               selectedCategory ? "" : "-translate-x-full"
             } bg-[#f2f2f2] dark:bg-gray-800`}
             tabIndex="-1"
-            aria-labelledby="drawer-navigation-label"
-          >
+            aria-labelledby="drawer-navigation-label">
             <button
               type="button"
               onClick={toggleCloseAll}
               data-drawer-hide="drawer-navigation"
               aria-controls="drawer-navigation"
-              className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 absolute top-2.5 right-2.5 inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
-            >
+              className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 absolute top-2.5 right-2.5 inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white">
               <svg
                 aria-hidden="true"
                 className="w-5 h-5"
                 fill="currentColor"
                 viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-              >
+                xmlns="http://www.w3.org/2000/svg">
                 <path
                   fillRule="evenodd"
                   d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                  clipRule="evenodd"
-                ></path>
+                  clipRule="evenodd"></path>
               </svg>
               <span className="sr-only">Close menu</span>
             </button>
@@ -883,8 +896,7 @@ export function Nav() {
                     selectedCategory === "Bathroom fittings"
                       ? "hidden"
                       : ""
-                  }`}
-                >
+                  }`}>
                   <div className="flex">
                     <span className="ml-4 underline">{item.name}</span>
                   </div>
@@ -895,8 +907,7 @@ export function Nav() {
                 Fittings.map((item) => (
                   <li
                     key={item.id}
-                    className={`px-3 space-x-5 flex py-5 text-gray-700 justify-between dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600`}
-                  >
+                    className={`px-3 space-x-5 flex py-5 text-gray-700 justify-between dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600`}>
                     <div className="flex">
                       <span className="ml-4 underline">{item.name}</span>
                     </div>
@@ -906,8 +917,7 @@ export function Nav() {
                 Valves.map((item) => (
                   <li
                     key={item.id}
-                    className="px-3 space-x-5 flex py-5 text-gray-700 justify-between dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600"
-                  >
+                    className="px-3 space-x-5 flex py-5 text-gray-700 justify-between dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600">
                     <div className="flex">
                       <span className="ml-4 underline">{item.name}</span>
                     </div>
@@ -917,8 +927,7 @@ export function Nav() {
                 Hoses.map((item) => (
                   <li
                     key={item.id}
-                    className="px-3 space-x-5 flex py-5 text-gray-700 justify-between dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600"
-                  >
+                    className="px-3 space-x-5 flex py-5 text-gray-700 justify-between dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600">
                     <div className="flex">
                       <span className="ml-4 underline">{item.name}</span>
                     </div>
@@ -928,8 +937,7 @@ export function Nav() {
                 Tank.map((item) => (
                   <li
                     key={item.id}
-                    className="px-3 space-x-5 flex py-5 text-gray-700 justify-between dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600"
-                  >
+                    className="px-3 space-x-5 flex py-5 text-gray-700 justify-between dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600">
                     <div className="flex">
                       <span className="ml-4 underline">{item.name}</span>
                     </div>
@@ -939,8 +947,7 @@ export function Nav() {
                 Wires.map((item) => (
                   <li
                     key={item.id}
-                    className="px-3 space-x-5 flex py-5 text-gray-700 justify-between dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600"
-                  >
+                    className="px-3 space-x-5 flex py-5 text-gray-700 justify-between dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600">
                     <div className="flex">
                       <span className="ml-4 underline">{item.name}</span>
                     </div>
@@ -950,8 +957,7 @@ export function Nav() {
                 Paints.map((item) => (
                   <li
                     key={item.id}
-                    className="px-3 space-x-5 flex py-5 text-gray-700 justify-between dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600"
-                  >
+                    className="px-3 space-x-5 flex py-5 text-gray-700 justify-between dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600">
                     <div className="flex">
                       <span className="ml-4 underline">{item.name}</span>
                     </div>
@@ -961,8 +967,7 @@ export function Nav() {
                 Motors.map((item) => (
                   <li
                     key={item.id}
-                    className="px-3 space-x-5 flex py-5 text-gray-700 justify-between dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600"
-                  >
+                    className="px-3 space-x-5 flex py-5 text-gray-700 justify-between dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600">
                     <div className="flex">
                       <span className="ml-4 underline">{item.name}</span>
                     </div>
@@ -972,8 +977,7 @@ export function Nav() {
                 Sanitwaryware.map((item) => (
                   <li
                     key={item.id}
-                    className="px-3 space-x-5 flex py-5 text-gray-700 justify-between dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600"
-                  >
+                    className="px-3 space-x-5 flex py-5 text-gray-700 justify-between dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600">
                     <div className="flex">
                       <span className="ml-4 underline">{item.name}</span>
                     </div>
@@ -983,8 +987,7 @@ export function Nav() {
                 BathroomFittings.map((item) => (
                   <li
                     key={item.id}
-                    className="px-3 space-x-5 flex py-5 text-gray-700 justify-between dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600"
-                  >
+                    className="px-3 space-x-5 flex py-5 text-gray-700 justify-between dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600">
                     <div className="flex">
                       <span className="ml-4 underline">{item.name}</span>
                     </div>
@@ -1013,8 +1016,7 @@ export function Nav() {
                     viewBox="0 0 24 24"
                     strokeWidth={1.5}
                     stroke="currentColor"
-                    className="w-6 h-6 text-white"
-                  >
+                    className="w-6 h-6 text-white">
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -1043,8 +1045,7 @@ export function Nav() {
                       viewBox="0 0 24 24"
                       strokeWidth={1.5}
                       stroke="currentColor"
-                      className="w-6 h-6 mr-2  text-white"
-                    >
+                      className="w-6 h-6 mr-2  text-white">
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -1064,8 +1065,7 @@ export function Nav() {
                       viewBox="0 0 24 24"
                       strokeWidth={1.5}
                       stroke="currentColor"
-                      className="w-6 h-6 mr-2 text-white cursor-pointer"
-                    >
+                      className="w-6 h-6 mr-2 text-white cursor-pointer">
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -1074,7 +1074,7 @@ export function Nav() {
                     </svg>
 
                     <button type="button" className="mr-7 text-white ">
-                      <a href="/profile" >John Doe</a>
+                      <a href="/profile">John Doe</a>
                     </button>
                   </div>
                 </div>
@@ -1084,16 +1084,14 @@ export function Nav() {
                   type="button"
                   className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
                   aria-controls="navbar-sticky"
-                  aria-expanded="false"
-                >
+                  aria-expanded="false">
                   <span className="sr-only">Open main menu</span>
                   <svg
                     className="w-5 h-5"
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
-                    viewBox="0 0 17 14"
-                  >
+                    viewBox="0 0 17 14">
                     <path
                       stroke="currentColor"
                       strokeLinecap="round"
@@ -1124,8 +1122,7 @@ export function Nav() {
                           viewBox="0 0 24 24"
                           strokeWidth={1.5}
                           stroke="currentColor"
-                          className="w-6 h-6"
-                        >
+                          className="w-6 h-6">
                           <path
                             strokeLinecap="round"
                             strokeLinejoin="round"
@@ -1148,8 +1145,7 @@ export function Nav() {
                         className="text-sm"
                         key={item.name}
                         href={item.href}
-                        aria-current={item.current ? "page" : undefined}
-                      >
+                        aria-current={item.current ? "page" : undefined}>
                         <div className="flex">
                           <span className="">{item.icon} </span>
                           <span className="ml-1">{item.name} </span>&nbsp;{" "}
@@ -1175,8 +1171,7 @@ export function Nav() {
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 20 20"
                   fill="currentColor"
-                  className="mx-3 w-5 h-5"
-                >
+                  className="mx-3 w-5 h-5">
                   <path
                     fillRule="evenodd"
                     d="M10 18a8 8 0 100-16 8 8 0 000 16zM6.75 9.25a.75.75 0 000 1.5h4.59l-2.1 1.95a.75.75 0 001.02 1.1l3.5-3.25a.75.75 0 000-1.1l-3.5-3.25a.75.75 0 10-1.02 1.1l2.1 1.95H6.75z"
@@ -1196,19 +1191,18 @@ export function Nav() {
 
       {/* MOBILE FOOTER START */}
 
-      <div className={`mobile-sidebar ${isMobileSidebarOpen ? "open" : ""}`}>
-        {isMobileSidebarOpen && (
+      <div className={`mobile-sidebar ${isMobileCategory ? "open" : ""}`}>
+        {isMobileCategory && (
           <div>
             <div className="fixed top-0 left-0 z-40 w-full h-36 bg-transparent" />
 
             <div
               id="drawer-navigation"
               className={`fixed top-0 left-0 bottom-30 z-40 w-full md:mb-32 bg-[#f2f2f2] h-screen p-4 overflow-y-auto transition-transform ${
-                isMobileSidebarOpen ? "" : "-translate-x-full"
+                isMobileCategory ? "" : "-translate-x-full"
               } bg-[#f2f2f2] dark:bg-gray-800`}
               tabIndex="-1"
-              aria-labelledby="drawer-navigation-label"
-            >
+              aria-labelledby="drawer-navigation-label">
               <div className="text-gray-400 bg-[#004b71] hover:text-white flex text-sm p-2.5 -mt-4 left-0 absolute  w-full items-center">
                 <div className="">
                   <button
@@ -1216,16 +1210,14 @@ export function Nav() {
                     onClick={toggleClose}
                     data-drawer-hide="drawer-navigation"
                     aria-controls="drawer-navigation"
-                    className=""
-                  >
+                    className="">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
                       viewBox="0 0 24 24"
                       strokeWidth="1.5"
                       stroke="currentColor"
-                      className="w-6 h-6 text-yellow-400"
-                    >
+                      className="w-6 h-6 text-yellow-400">
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -1242,7 +1234,7 @@ export function Nav() {
                 </div>
               </div>
               {/* list of items */}
-              {isMobileSidebarOpen && (
+              {isMobileCategory && (
                 <div className="grid grid-cols-3 m-3 gap-8 mt-16 ">
                   {categList.map((item) => (
                     <div className="items-center " key={item.categoryName}>
@@ -1259,8 +1251,6 @@ export function Nav() {
             </div>
           </div>
         )}
-
-        
       </div>
 
       <div className={`mobile-sidebar ${isMobileProfile ? "open" : ""}`}>
@@ -1274,8 +1264,7 @@ export function Nav() {
                 isMobileProfile ? "" : "-translate-x-full"
               } bg-[#f2f2f2] dark:bg-gray-800`}
               tabIndex="-1"
-              aria-labelledby="drawer-navigation-label"
-            >
+              aria-labelledby="drawer-navigation-label">
               <div className="text-gray-400 bg-[#004b71] hover:text-white flex text-sm p-2.5 -mt-4 left-0 absolute  w-full items-center">
                 <div className="">
                   <button
@@ -1283,16 +1272,14 @@ export function Nav() {
                     onClick={toggleCloseProfile}
                     data-drawer-hide="drawer-navigation"
                     aria-controls="drawer-navigation"
-                    className=""
-                  >
+                    className="">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
                       viewBox="0 0 24 24"
                       strokeWidth="1.5"
                       stroke="currentColor"
-                      className="w-6 h-6 text-yellow-400"
-                    >
+                      className="w-6 h-6 text-yellow-400">
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -1311,42 +1298,39 @@ export function Nav() {
               {/* list of items */}
               {isMobileProfile && (
                 <ul className="font-medium mt-8">
-                {ProfileItems.map((item) => (
-                  <li
-                    className="h-full w-full md:space-y-6 space-x-6 py-3" 
-                    key={item.id}>
-                    <button
-                      type="button"
-                      onClick={() => selectedListItems(item.name)}
-                      className="flex items-center p-3">
-                      <span className="space-y-3">{item.icon}</span>
-                      <span className="space-y-3 ml-6">{item.name}</span>
-                    </button>
-                    {/* <hr className="md:mt-5 md:w-full md:-ml-11" /> */}
-                  </li>
-                ))}
-              </ul>
+                  {ProfileItems.map((item) => (
+                    <li
+                      className="h-full w-full md:space-y-6 space-x-6 py-3"
+                      key={item.id}>
+                      <button
+                        type="button"
+                        onClick={() => selectedListItems(item.name)}
+                        className="flex items-center p-3">
+                        <span className="space-y-3">{item.icon}</span>
+                        <span className="space-y-3 ml-6">{item.name}</span>
+                      </button>
+                      {/* <hr className="md:mt-5 md:w-full md:-ml-11" /> */}
+                    </li>
+                  ))}
+                </ul>
               )}
             </div>
           </div>
         )}
-
-        
       </div>
 
       {/* MOBILE FOOTER  END */}
 
-      <footer className="bg-[#004b71] z-[100] text-white p-3 fixed bottom-0 w-full grid grid-cols-4 rounded-t-2xl md:hidden text-center">
-          {mobilenav.map((item) => (
-            <div
-              key={item.id}
-              className="flex flex-col items-center justify-center hover:text-yellow-300 hover:underline"
-            >
-              <span>{item.icon}</span>
-              <span className="mt-1">{item.name}</span>
-            </div>
-          ))}
-        </footer>
+      <footer className="bg-[#004b71] z-[100] text-white p-3 fixed bottom-0 w-full grid grid-cols-3 rounded-t-2xl md:hidden text-center">
+        {mobilenav.map((item) => (
+          <div
+            key={item.id}
+            className="flex flex-col items-center justify-center hover:text-yellow-300 hover:underline">
+            <span>{item.icon}</span>
+            <span className="mt-1">{item.name}</span>
+          </div>
+        ))}
+      </footer>
     </div>
   );
 }
