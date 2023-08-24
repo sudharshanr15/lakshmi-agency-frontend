@@ -2,13 +2,26 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { Mobilenav } from "./mobileNav";
-import { faL } from "@fortawesome/free-solid-svg-icons";
 import {
   myProfile,
   billingAddress,
   businessDetails,
   wishList,
 } from "@/utils/profileContent";
+
+import {
+  categList,
+  pipes,
+  Fittings,
+  Valves,
+  Hoses,
+  Tank,
+  Wires,
+  Paints,
+  Motors,
+  Sanitwaryware,
+  BathroomFittings,
+} from "@/utils/desktopNavContent";
 
 export function Nav() {
   //DESKTOP SIDEBAR CONTENT START
@@ -59,286 +72,6 @@ export function Nav() {
       document.removeEventListener("click", closeMenuOnClickOutside);
     };
   }, [isDesktopSidebarOpen]);
-
-  const categList = [
-    {
-      id: 1,
-      link: "/image/pipes.jpg",
-      categoryName: "Pipes",
-    },
-    {
-      id: 2,
-      link: "/image/fittings.jpg",
-      categoryName: "Fittings",
-    },
-    {
-      id: 3,
-      link: "/image/valves.jpg",
-      categoryName: "Valves",
-    },
-    {
-      id: 4,
-      link: "/image/hoses.jpg",
-      categoryName: "Hoses",
-    },
-    {
-      id: 5,
-      link: "/image/watertank.jpg",
-      categoryName: "Water Tanks",
-    },
-    {
-      id: 6,
-      link: "/image/wires.jpg",
-      categoryName: "Wires",
-    },
-    {
-      id: 7,
-      link: "/image/paints.jpg",
-      categoryName: "Paints",
-    },
-    {
-      id: 8,
-      link: "/image/motor.jpg",
-      categoryName: "Motor and Pumps",
-    },
-    {
-      id: 9,
-      link: "/image/sanitaryware.jpg",
-      categoryName: "Sanitary wares",
-    },
-    {
-      id: 10,
-      link: "/image/bathfittings.jpg",
-      categoryName: "Bathroom fittings",
-    },
-  ];
-
-  const pipes = [
-    {
-      id: 1,
-      name: "Steel pipes",
-    },
-    {
-      id: 2,
-      name: "PCV pipes",
-    },
-    {
-      id: 3,
-      name: "Glass pipes",
-    },
-    {
-      id: 4,
-      name: "Iron pipes",
-    },
-    {
-      id: 5,
-      name: "Gate pipes",
-    },
-  ];
-
-  const Fittings = [
-    {
-      id: 1,
-      name: "Steel Fittings",
-    },
-    {
-      id: 2,
-      name: "PCV Fittings",
-    },
-    {
-      id: 3,
-      name: "Glass =Fittings",
-    },
-    {
-      id: 4,
-      name: "Iron Fittings",
-    },
-    {
-      id: 5,
-      name: "Gate valves",
-    },
-  ];
-
-  const Valves = [
-    {
-      id: 1,
-      name: "Steel FValves",
-    },
-    {
-      id: 2,
-      name: "PCV Valves",
-    },
-    {
-      id: 3,
-      name: "Glass Valves",
-    },
-    {
-      id: 4,
-      name: "Iron Valves",
-    },
-    {
-      id: 5,
-      name: "Gate Valves",
-    },
-  ];
-
-  const Hoses = [
-    {
-      id: 1,
-      name: "Steel Hoses",
-    },
-    {
-      id: 2,
-      name: "PCV Hoses",
-    },
-    {
-      id: 3,
-      name: "Glass Hoses",
-    },
-    {
-      id: 4,
-      name: "Iron Hoses",
-    },
-    {
-      id: 5,
-      name: "Gate Hoses",
-    },
-  ];
-
-  const Tank = [
-    {
-      id: 1,
-      name: "Steel WaterTanks",
-    },
-    {
-      id: 2,
-      name: "PCV WaterTanks",
-    },
-    {
-      id: 3,
-      name: "Glass WaterTanks",
-    },
-    {
-      id: 4,
-      name: "Iron WaterTanks",
-    },
-    {
-      id: 5,
-      name: "Gate WaterTanks",
-    },
-  ];
-
-  const Wires = [
-    {
-      id: 1,
-      name: "Steel Wires",
-    },
-    {
-      id: 2,
-      name: "PCV Wires",
-    },
-    {
-      id: 3,
-      name: "Glass Wires",
-    },
-    {
-      id: 4,
-      name: "Iron Wires",
-    },
-    {
-      id: 5,
-      name: "Gate Wires",
-    },
-  ];
-  const Paints = [
-    {
-      id: 1,
-      name: "Steel Paints",
-    },
-    {
-      id: 2,
-      name: "PCV Paints",
-    },
-    {
-      id: 3,
-      name: "Glass Paints",
-    },
-    {
-      id: 4,
-      name: "Iron Paints",
-    },
-    {
-      id: 5,
-      name: "Gate Paints",
-    },
-  ];
-
-  const Motors = [
-    {
-      id: 1,
-      name: "Steel Motor",
-    },
-    {
-      id: 2,
-      name: "PCV Motor",
-    },
-    {
-      id: 3,
-      name: "Glass Motor",
-    },
-    {
-      id: 4,
-      name: "Iron Motor",
-    },
-    {
-      id: 5,
-      name: "Gate Paints",
-    },
-  ];
-  const Sanitwaryware = [
-    {
-      id: 1,
-      name: "Steel Sanitwaryware ",
-    },
-    {
-      id: 2,
-      name: "PCV Sanitwaryware ",
-    },
-    {
-      id: 3,
-      name: "Glass Sanitwaryware ",
-    },
-    {
-      id: 4,
-      name: "Iron Sanitwaryware ",
-    },
-    {
-      id: 5,
-      name: "Gate Sanitwaryware ",
-    },
-  ];
-  const BathroomFittings = [
-    {
-      id: 1,
-      name: "Steel BathroomFittings",
-    },
-    {
-      id: 2,
-      name: "PCV BathroomFittingsr",
-    },
-    {
-      id: 3,
-      name: "Glass BathroomFittings",
-    },
-    {
-      id: 4,
-      name: "Iron BathroomFittings",
-    },
-    {
-      id: 5,
-      name: "Gate BathroomFittings",
-    },
-  ];
 
   const categoryMenu = [
     {
