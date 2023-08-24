@@ -444,6 +444,14 @@ export function Nav() {
   const [isMobileProfile, setMobileProfile] = useState(false);
   const [selectedItem, setSelectedItem] = useState(null); //for select profile menu items
 
+  const handleItemClick = (itemName) => {
+    setSelectedItem(itemName);
+  };
+
+  const handleBackToProfile = () => {
+    setSelectedItem(null);
+  };
+
   // Function to handle category sidebar in mobile
   const toggleMobileCategory = () => {
     setMobileCategory(true);
@@ -469,10 +477,10 @@ export function Nav() {
       setMobileProfile(isMobileScreen());
     };
 
-  // Add a resize event listener
+    // Add a resize event listener
     window.addEventListener("resize", handleResize);
 
-  // Clean up the event listener on unmount
+    // Clean up the event listener on unmount
     return () => {
       window.removeEventListener("resize", handleResize);
     };
@@ -480,10 +488,9 @@ export function Nav() {
 
   useEffect(() => {
     // Redirect to /profile if on a larger screen and not already on /profile
-    if (!isMobileScreen() && window.location.pathname !== '/profile') {
-      window.location.href = '/profile';
+    if (!isMobileScreen() && window.location.pathname !== "/profile") {
+      window.location.href = "/profile";
     }
-    
   }, []);
 
   //Function to redirecting to dashboard in mobile view when the user home icon
@@ -1256,8 +1263,6 @@ export function Nav() {
       <div className={`mobile-sidebar ${isMobileProfile ? "open" : ""}`}>
         {isMobileProfile && (
           <div>
-            <div className="fixed top-0 left-0 z-40 w-full h-36 bg-transparent" />
-
             <div
               id="drawer-navigation"
               className={`fixed top-0 left-0 bottom-30 z-40 w-full md:mb-32 bg-[#f2f2f2] h-screen p-4 overflow-y-auto transition-transform ${
@@ -1269,7 +1274,7 @@ export function Nav() {
                 <div className="">
                   <button
                     type="button"
-                    onClick={toggleCloseProfile}
+                    onClick={toggleClose}
                     data-drawer-hide="drawer-navigation"
                     aria-controls="drawer-navigation"
                     className="">
@@ -1296,23 +1301,426 @@ export function Nav() {
                 </div>
               </div>
               {/* list of items */}
-              {isMobileProfile && (
+              {selectedItem === null ? (
                 <ul className="font-medium mt-8">
                   {ProfileItems.map((item) => (
                     <li
-                      className="h-full w-full md:space-y-6 space-x-6 py-3"
+                      className="h-full w-full md:space-y-6 space-x-4 py-3"
                       key={item.id}>
                       <button
                         type="button"
-                        onClick={() => selectedListItems(item.name)}
+                        onClick={() => handleItemClick(item.name)}
                         className="flex items-center p-3">
                         <span className="space-y-3">{item.icon}</span>
-                        <span className="space-y-3 ml-6">{item.name}</span>
+                        <span className="space-y-1 ml-6">{item.name}</span>
                       </button>
-                      {/* <hr className="md:mt-5 md:w-full md:-ml-11" /> */}
                     </li>
                   ))}
                 </ul>
+              ) : (
+                <div>
+                  <button
+                    type="button"
+                    onClick={handleBackToProfile}
+                    className="p-3 mt-8">
+                    Back to Profile
+                  </button>
+                  <div className="mt-4">
+                    {selectedItem === "My Profile" && (
+                      <div className="mt-10 lg:mt-6 profileSection m-4 bg-white">
+                        <div className=" p-6 lg:mt-4">
+                          <span className="justify-start font-bold text-[#f9c74f] md:text-3xl">
+                            Hy Yuvanesh !
+                          </span>
+                          <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+                            <div className=" mt-4  lg:mx-4 mx-2">
+                              <div className="relative">
+                                <label className="text-[#c1c1c1] text-sm font-bold  tracking-wide absolute transform -translate-y-full bg-white px-2 left-4 bottom-2">
+                                  Full Name{" "}
+                                  <span className="text-red-600">*</span>
+                                </label>
+                                <input
+                                  type="text"
+                                  required
+                                  className="mt-2 px-5 py-2 border border-[#c1c1c1] rounded-lg w-full focus:border-blue-500 focus:ring-blue-500 focus:outline-none"
+                                />
+                              </div>
+                            </div>
+                            <div className=" mt-4  lg:mx-4 mx-2">
+                              <div className="relative">
+                                <label className="text-[#c1c1c1] text-sm font-bold  tracking-wide absolute transform -translate-y-full bg-white px-2 left-4 bottom-2">
+                                  Email <span className="text-red-600">*</span>
+                                </label>
+                                <input
+                                  type="email"
+                                  required
+                                  className="mt-2 px-5 py-2 border border-[#c1c1c1] rounded-lg w-full focus:border-blue-500 focus:ring-blue-500 focus:outline-none"
+                                />
+                              </div>
+                            </div>
+                            <div className="mt-4  lg:mx-4 mx-2">
+                              <div className="relative">
+                                <label className="text-[#c1c1c1] text-sm font-bold tracking-wide absolute transform -translate-y-full bg-white px-2 left-4 bottom-3">
+                                  Mobile Number{" "}
+                                  <span className="text-red-600">*</span>
+                                </label>
+                                <div className="flex items-center border border-[#c1c1c1] rounded-lg overflow-hidden">
+                                  <div className="flex items-center  p-2 px-4">
+                                    <img
+                                      src="/image/india.png"
+                                      alt="Country Code"
+                                      className="mr-2  h-5 mt-1"
+                                    />
+                                    <span className="text-[#c1c1c1]">+91</span>
+                                    <span className="ml-2 text-[#c1c1c1]">
+                                      |
+                                    </span>
+                                  </div>
+                                  <input
+                                    type="tel"
+                                    required
+                                    className="-ml-1 p-5 py-1   w-full focus:ring-blue-500 focus:outline-none"
+                                  />
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div className="p-4 text-right gap-2">
+                            <button
+                              type="button"
+                              className="border border-[#0A4E71] px-4 py-2 rounded-sm">
+                              Cancel
+                            </button>
+                            <button
+                              type="button"
+                              className="bg-[#F9C74F] ml-6 px-6 py-2.5 rounded-sm">
+                              Save
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                    {selectedItem === "Billing Address" && (
+                      <div className=" mt-8 billingSection mb-32">
+                        <div className="flex flex-col justify-start">
+                          <span className="mx-5 font-bold text-[#125476] md:text-2xl lg:ml-4">
+                            Hy Yuvanesh !
+                          </span>
+                          <span className="mx-5 mt-2 text-black md:text-1.5xl lg:ml-4">
+                            Fill in the Business Details and make your purchase
+                            journey smoother
+                          </span>
+                        </div>
+
+                        <div className=" p-6 lg:mt-4">
+                          <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+                            <div className="border p-6">
+                              <div className="mt-3 text-[#b0b0b0]">
+                                Name:
+                                <span className="font-semibold text-black">
+                                  {" "}
+                                  Sharath
+                                </span>
+                              </div>
+                              <div className="mt-3 text-[#b0b0b0]">
+                                Primary Mobile Number:
+                                <span className="font-semibold text-black">
+                                  {" "}
+                                  9489123456
+                                </span>
+                              </div>
+                              <div className="mt-3 text-[#b0b0b0]">
+                                Secondary Mobile Number:
+                                <span className="font-semibold text-black">
+                                  {" "}
+                                  9489123456
+                                </span>
+                              </div>
+                              <div className="mt-3 text-[#b0b0b0]">
+                                Email ID:
+                                <span className="font-semibold text-black">
+                                  {" "}
+                                  Sharathtraders@gmail.com
+                                </span>
+                              </div>
+                              <div className="mt-3 text-[#b0b0b0]">
+                                Address:
+                                <span className="font-semibold text-black">
+                                  {" "}
+                                  Door No:12, ABC Street, Indra Nagar,
+                                  Bangalore, Karnataka, (500 001)
+                                </span>
+                              </div>
+                              <div className="p-4 text-right gap-2 mt-3">
+                                <button
+                                  type="button"
+                                  className=" underline text-red-600 px-4 py-2 rounded-sm">
+                                  delete
+                                </button>
+                                <button
+                                  type="button"
+                                  className="bg-[#F9C74F] ml-6 px-6 py-2.5 rounded-sm">
+                                  Edit
+                                </button>
+                              </div>
+                            </div>
+                            <div className="border p-6">
+                              <div className="mt-3 text-[#b0b0b0]">
+                                Name:
+                                <span className="font-semibold text-black">
+                                  {" "}
+                                  Sharath
+                                </span>
+                              </div>
+                              <div className="mt-3 text-[#b0b0b0]">
+                                Primary Mobile Number:
+                                <span className="font-semibold text-black">
+                                  {" "}
+                                  9489123456
+                                </span>
+                              </div>
+                              <div className="mt-3 text-[#b0b0b0]">
+                                Secondary Mobile Number:
+                                <span className="font-semibold text-black">
+                                  {" "}
+                                  9489123456
+                                </span>
+                              </div>
+                              <div className="mt-3 text-[#b0b0b0]">
+                                Email ID:
+                                <span className="font-semibold text-black">
+                                  {" "}
+                                  Sharathtraders@gmail.com
+                                </span>
+                              </div>
+                              <div className="mt-3 text-[#b0b0b0]">
+                                Address:
+                                <span className="font-semibold text-black">
+                                  {" "}
+                                  Door No:12, ABC Street, Indra Nagar,
+                                  Bangalore, Karnataka, (500 001)
+                                </span>
+                              </div>
+                              <div className="p-4 text-right gap-2 mt-3">
+                                <button
+                                  type="button"
+                                  className=" underline text-red-600 px-4 py-2 rounded-sm">
+                                  delete
+                                </button>
+                                <button
+                                  type="button"
+                                  className="bg-[#F9C74F] ml-6 px-6 py-2.5 rounded-sm"
+                                  // onClick={openModal}
+                                >
+                                  Edit
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                    {selectedItem === "Business Details" && (
+                      <div className=" mt-10  BusinessSection mb-32">
+                        <div className="flex flex-col justify-start">
+                          <span className="mx-5 font-bold text-[#125476] md:text-2xl lg:ml-4">
+                            Hy Yuvanesh !
+                          </span>
+                          <span className="mx-5 mt-2 text-black md:text-1.5xl lg:ml-4">
+                            Fill in the Business Details and make your purchase
+                            journey smoother
+                          </span>
+                        </div>
+
+                        <div className=" p-6 lg:mt-4">
+                          <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+                            <div className="border p-6">
+                              <div className="mt-3 text-[#b0b0b0]">
+                                Name:
+                                <span className="font-semibold text-black">
+                                  {" "}
+                                  Sharath
+                                </span>
+                              </div>
+                              <div className="mt-3 text-[#b0b0b0]">
+                                Primary Mobile Number:
+                                <span className="font-semibold text-black">
+                                  {" "}
+                                  9489123456
+                                </span>
+                              </div>
+                              <div className="mt-3 text-[#b0b0b0]">
+                                Secondary Mobile Number:
+                                <span className="font-semibold text-black">
+                                  {" "}
+                                  9489123456
+                                </span>
+                              </div>
+                              <div className="mt-3 text-[#b0b0b0]">
+                                Email ID:
+                                <span className="font-semibold text-black">
+                                  {" "}
+                                  Sharathtraders@gmail.com
+                                </span>
+                              </div>
+                              <div className="mt-3 text-[#b0b0b0]">
+                                Address:
+                                <span className="font-semibold text-black">
+                                  {" "}
+                                  Door No:12, ABC Street, Indra Nagar,
+                                  Bangalore, Karnataka, (500 001)
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                    {selectedItem === "Wish list" && (
+                      <div className=" p-6 lg:mt-4 mb-32">
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+                          <div className="border p-4">
+                            <div className="justify-between flex">
+                              <span>
+                                LG 668L Inverter Frost Free Side By Side...
+                              </span>
+                            </div>
+                            <div className="justify-between flex">
+                              <span className="text-[#20c431]">In stock</span>
+                            </div>
+                            <div className=" flex mt-1">
+                              <button
+                                type="button"
+                                className="w-1/2 border border-[#ff4848] text-[#ff4848] m-1 rounded-md">
+                                Delete
+                              </button>
+                              <button
+                                type="button"
+                                className="bg-[#f9c74f] text-[#0a4e71] p-2 w-1/2 m-1 rounded-md">
+                                Add to project
+                              </button>
+                            </div>
+                          </div>
+                          <div className="border p-4">
+                            <div className="justify-between flex">
+                              <span>
+                                LG 668L Inverter Frost Free Side By Side...
+                              </span>
+                            </div>
+                            <div className="justify-between flex">
+                              <span className="text-[#20c431]">In stock</span>
+                            </div>
+                            <div className=" flex mt-1">
+                              <button
+                                type="button"
+                                className="w-1/2 border border-[#ff4848] text-[#ff4848] m-1 rounded-md">
+                                Delete
+                              </button>
+                              <button
+                                type="button"
+                                className="bg-[#f9c74f] text-[#0a4e71] p-2 w-1/2 m-1 rounded-md">
+                                Add to project
+                              </button>
+                            </div>
+                          </div>
+                          <div className="border p-4">
+                            <div className="justify-between flex">
+                              <span>
+                                LG 668L Inverter Frost Free Side By Side...
+                              </span>
+                            </div>
+                            <div className="justify-between flex">
+                              <span className="text-[#20c431]">In stock</span>
+                            </div>
+                            <div className=" flex mt-1">
+                              <button
+                                type="button"
+                                className="w-1/2 border border-[#ff4848] text-[#ff4848] m-1 rounded-md">
+                                Delete
+                              </button>
+                              <button
+                                type="button"
+                                className="bg-[#f9c74f] text-[#0a4e71] p-2 w-1/2 m-1 rounded-md">
+                                Add to project
+                              </button>
+                            </div>
+                          </div>
+                          <div className="border p-4">
+                            <div className="justify-between flex">
+                              <span>
+                                LG 668L Inverter Frost Free Side By Side...
+                              </span>
+                            </div>
+                            <div className="justify-between flex">
+                              <span className="text-[#20c431]">In stock</span>
+                            </div>
+                            <div className=" flex mt-1">
+                              <button
+                                type="button"
+                                className="w-1/2 border border-[#ff4848] text-[#ff4848] m-1 rounded-md">
+                                Delete
+                              </button>
+                              <button
+                                type="button"
+                                className="bg-[#f9c74f] text-[#0a4e71] p-2 w-1/2 m-1 rounded-md">
+                                Add to project
+                              </button>
+                            </div>
+                          </div>
+                          <div className="border p-4">
+                            <div className="justify-between flex">
+                              <span>
+                                LG 668L Inverter Frost Free Side By Side...
+                              </span>
+                            </div>
+                            <div className="justify-between flex">
+                              <span className="text-[#20c431]">In stock</span>
+                            </div>
+                            <div className=" flex mt-1">
+                              <button
+                                type="button"
+                                className="w-1/2 border border-[#ff4848] text-[#ff4848] m-1 rounded-md">
+                                Delete
+                              </button>
+                              <button
+                                type="button"
+                                className="bg-[#f9c74f] text-[#0a4e71] p-2 w-1/2 m-1 rounded-md">
+                                Add to project
+                              </button>
+                            </div>
+                          </div>
+                          <div className="border p-4">
+                            <div className="justify-between flex">
+                              <span>
+                                LG 668L Inverter Frost Free Side By Side...
+                              </span>
+                            </div>
+                            <div className="justify-between flex">
+                              <span className="text-[#20c431]">In stock</span>
+                            </div>
+                            <div className=" flex mt-1">
+                              <button
+                                type="button"
+                                className="w-1/2 border border-[#ff4848] text-[#ff4848] m-1 rounded-md">
+                                Delete
+                              </button>
+                              <button
+                                type="button"
+                                className="bg-[#f9c74f] text-[#0a4e71] p-2 w-1/2 m-1 rounded-md">
+                                Add to project
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                    {selectedItem === "My Orders" && <div>My Orders</div>}
+                    {selectedItem === "Notifications" && (
+                      <div>Notifications</div>
+                    )}
+                    {selectedItem === "Settings" && <div>Settings</div>}
+                  </div>
+                </div>
               )}
             </div>
           </div>
