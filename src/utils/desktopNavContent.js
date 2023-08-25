@@ -573,9 +573,8 @@ export const categoryItems = [
     id: 10,
     link: "/image/bathfittings.jpg",
     name: "Bathroom fittings",
-  }
+  },
 ];
-
 
 export const final = [
   categList,
@@ -591,6 +590,5 @@ export const final = [
   BathroomFittings,
   mobilenav,
   ProfileItems,
-  categoryItems
+  categoryItems,
 ];
-
