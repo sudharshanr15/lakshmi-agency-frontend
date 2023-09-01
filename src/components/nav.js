@@ -1065,7 +1065,7 @@ export function Nav() {
                     Back to Profile
                   </button>
                   <div className="mt-4">
-                    {selectedItem === "My Profile" && myProfile()}
+                    {selectedItem === "My Profilee" && myProfile()}
                     {selectedItem === "Billing Address" && billingAddress()}
                     {selectedItem === "Business Details" && businessDetails()}
                     {selectedItem === "Wish list" && wishList()}
