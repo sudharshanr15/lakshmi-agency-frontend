@@ -226,69 +226,6 @@ export const billingAddress = () => {
 };
 
 
-export const businessDetails = () => {
-  const [addressDetails, setAddressDetails] = useState(null);
-
-  useEffect(() => {
-    async function fetchBusinessData() {
-      const baseURL = "https://test01.lakshmiagency.com/api/method/lakshmiagency.v1.store.address.get_personal";
-      const headers = {
-        "Content-Type": "application/json",
-        Authorization: "token 69e0234a0664f91:35470717fb585f3",
-      };
-
-      try {
-        const response = await axios.get(baseURL, { headers });
-        const businessData = response.data.data;
-        setAddressDetails(businessData);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-
-    fetchBusinessData();
-  }, []);
-
-  // Ensure that the component is always rendered, but conditionally render content based on addressDetails
-  return (
-    <div className="mt-10 BusinessSection mb-32">
-      <div className="flex flex-col justify-start">
-        <span className="mx-5 font-bold text-[#125476] md:text-2xl lg:ml-4">
-          Hi Yuvanesh!
-        </span>
-        <span className="mx-5 mt-2 text-black md:text-1.5xl lg:ml-4">
-          Fill in the Business Details and make your purchase journey smoother
-        </span>
-      </div>
-
-      <div className="p-6 lg:mt-4">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
-          <div className="border p-6">
-            {addressDetails ? (
-              <>
-                <div className="mt-3 text-[#b0b0b0]">
-                  Name:
-                  <span className="font-semibold text-black">
-                    {addressDetails.name}
-                  </span>
-                </div>
-                <div className="mt-3 text-[#b0b0b0]">
-                  Address Type:
-                  <span className="font-semibold text-black">
-                    {addressDetails.address_type}
-                  </span>
-                </div>
-                {/* Include other data fields here */}
-              </>
-            ) : (
-              <p>Loading...</p>
-            )}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
 
 
 

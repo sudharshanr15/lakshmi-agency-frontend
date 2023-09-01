@@ -54,18 +54,65 @@ const BusinessDetails = () => {
               <>
                 <div className="mt-3 text-[#b0b0b0]">
                   Name:
-                  <span className="font-semibold text-black">
+                  <span className="font-semibold text-black ml-2">
                     {addressDetails.name}
                   </span>
                 </div>
                 <div className="mt-3 text-[#b0b0b0]">
+                  Address Title:
+                  <span className="font-semibold text-black ml-2">
+                    {addressDetails.address_title}
+                  </span>
+                </div>
+                <div className="mt-3 text-[#b0b0b0]">
                   Address Type:
-                  <span className="font-semibold text-black">
+                  <span className="font-semibold text-black ml-2">
                     {addressDetails.address_type}
                   </span>
                 </div>
-                {/* Include other data fields here */}
-              </>
+                <div className="mt-3 text-[#b0b0b0]">
+                  Address Line_1:
+                  <span className="font-semibold text-black ml-2">
+                    {addressDetails.address_line1}
+                  </span>
+                </div>      
+                <div className="mt-3 text-[#b0b0b0]">
+                  City:
+                  <span className="font-semibold text-black ml-2">
+                    {addressDetails.city}
+                  </span>
+                </div>  
+                <div className="mt-3 text-[#b0b0b0]">
+                  State:
+                  <span className="font-semibold text-black ml-2">
+                    {addressDetails.state}
+                  </span>
+                </div>  
+                <div className="mt-3 text-[#b0b0b0]">
+                  Country:
+                  <span className="font-semibold text-black ml-2">
+                    {addressDetails.country}
+                  </span>
+                </div>  
+                <div className="mt-3 text-[#b0b0b0]">
+                  Pincode:
+                  <span className="font-semibold text-black ml-2">
+                    {addressDetails.pincode}
+                  </span>
+                </div>  
+                <div className="mt-3 text-[#b0b0b0]">
+                  Phone:
+                  <span className="font-semibold text-black ml-2">
+                    {addressDetails.phone}
+                  </span>
+                </div>  
+                <div className="mt-3 text-[#b0b0b0]">
+                  GSTin:
+                  <span className="font-semibold text-black ml-2">
+                    {addressDetails.gstin}
+                  </span>
+                </div>  
+                        </>
             ) : (
               <p>Loading...</p>
             )}
