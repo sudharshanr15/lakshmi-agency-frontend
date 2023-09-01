@@ -1,14 +1,129 @@
 "use client";
+import axios from "axios"; // Import Axios library
 import "../globals.css";
 import { useState, useEffect } from "react";
 import { Nav } from "@/components";
 import {
   myProfile,
   billingAddress,
-  businessDetails,
   wishList,
 } from "@/utils/profileContent";
 
+// Define businessDetails component
+const BusinessDetails = () => {
+  const [addressDetails, setAddressDetails] = useState(null);
+
+  // Function to fetch business details from the API
+  const fetchBusinessData = async () => {
+    const baseURL =
+      "https://test01.lakshmiagency.com/api/method/lakshmiagency.v1.store.address.get_personal";
+    const headers = {
+      "Content-Type": "application/json",
+      Authorization: "token 69e0234a0664f91:35470717fb585f3",
+    };
+
+    try {
+      const response = await axios.get(baseURL, { headers });
+      const businessData = response.data.data;
+      setAddressDetails(businessData);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  // Use useEffect to fetch business details when the component mounts
+  useEffect(() => {
+    fetchBusinessData();
+  }, []);
+
+  return (
+    <div className="mt-10 BusinessSection mb-32">
+      <div className="flex flex-col justify-start">
+        <span className="mx-5 font-bold text-[#125476] md:text-2xl lg:ml-4">
+          Hi Yuvanesh!
+        </span>
+        <span className="mx-5 mt-2 text-black md:text-1.5xl lg:ml-4">
+          Fill in the Business Details and make your purchase journey smoother
+        </span>
+      </div>
+
+      <div className="p-6 lg:mt-4">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
+          <div className="border p-6">
+            {addressDetails ? (
+              <>
+                <div className="mt-3 text-[#b0b0b0]">
+                  Name:
+                  <span className="font-semibold text-black ml-2">
+                    {addressDetails.name}
+                  </span>
+                </div>
+                <div className="mt-3 text-[#b0b0b0]">
+                  Address Title:
+                  <span className="font-semibold text-black ml-2">
+                    {addressDetails.address_title}
+                  </span>
+                </div>
+                <div className="mt-3 text-[#b0b0b0]">
+                  Address Type:
+                  <span className="font-semibold text-black ml-2">
+                    {addressDetails.address_type}
+                  </span>
+                </div>
+                <div className="mt-3 text-[#b0b0b0]">
+                  Address Line_1:
+                  <span className="font-semibold text-black ml-2">
+                    {addressDetails.address_line1}
+                  </span>
+                </div>      
+                <div className="mt-3 text-[#b0b0b0]">
+                  City:
+                  <span className="font-semibold text-black ml-2">
+                    {addressDetails.city}
+                  </span>
+                </div>  
+                <div className="mt-3 text-[#b0b0b0]">
+                  State:
+                  <span className="font-semibold text-black ml-2">
+                    {addressDetails.state}
+                  </span>
+                </div>  
+                <div className="mt-3 text-[#b0b0b0]">
+                  Country:
+                  <span className="font-semibold text-black ml-2">
+                    {addressDetails.country}
+                  </span>
+                </div>  
+                <div className="mt-3 text-[#b0b0b0]">
+                  Pincode:
+                  <span className="font-semibold text-black ml-2">
+                    {addressDetails.pincode}
+                  </span>
+                </div>  
+                <div className="mt-3 text-[#b0b0b0]">
+                  Phone:
+                  <span className="font-semibold text-black ml-2">
+                    {addressDetails.phone}
+                  </span>
+                </div>  
+                <div className="mt-3 text-[#b0b0b0]">
+                  GSTin:
+                  <span className="font-semibold text-black ml-2">
+                    {addressDetails.gstin}
+                  </span>
+                </div>  
+                        </>
+            ) : (
+              <p>Loading...</p>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Define Main component
 export default function Main() {
   const [selectedCategory, setSelectedCategory] = useState(null);
 
@@ -193,15 +308,16 @@ export default function Main() {
                       ? "bg-[#e7eef1] h-full w-full"
                       : ""
                   } md:space-y-6 md:space-x-6 py-3`}
-                  key={item.id}>
+                  key={item.id}
+                >
                   <button
                     type="button"
                     onClick={() => selectedListItems(item.name)}
-                    className="flex items-center md:space-x-6 p-3">
+                    className="flex items-center md:space-x-6 p-3"
+                  >
                     <span>{item.icon}</span>
                     <span>{item.name}</span>
                   </button>
-                  {/* <hr className="md:mt-5 md:w-full md:-ml-11" /> */}
                 </li>
               ))}
             </ul>
@@ -210,7 +326,8 @@ export default function Main() {
 
         <div
           className={`"p-4 md:col-span-3 bg-white
-            ${modalOpen === true ? "bg-gray-300" : ""}`}>
+            ${modalOpen === true ? "bg-gray-300" : ""}`}
+        >
           <div
             className={`${
               selectedCategory === "Billing Address" ||
@@ -223,19 +340,14 @@ export default function Main() {
               selectedCategory === "Settings"
                 ? "hidden"
                 : ""
-            }`}>
+            }`}
+          >
             {myProfile()}
           </div>
 
-          {selectedCategory === "Billing Address" && (
-            billingAddress()
-          )}
-          {selectedCategory === "Business Details" && (
-            businessDetails()
-          )}
-          {selectedCategory === "Wish list" && (
-           wishList()
-          )}
+          {selectedCategory === "Billing Address" && billingAddress()}
+          {selectedCategory === "Business Details" && <BusinessDetails />}
+          {selectedCategory === "Wish list" && wishList()}
           {selectedCategory === "My Orders" && <div>My Orders</div>}
           {selectedCategory === "My cart" && <div>My cart</div>}
           {selectedCategory === "Referrals" && <div>Referrals</div>}
