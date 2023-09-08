@@ -2,7 +2,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-const axios = require("axios");
 let data = JSON.stringify({
   id: "SAL-ORD-2023-00012",
 });
