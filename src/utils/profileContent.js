@@ -117,9 +117,7 @@ export const myProfile = () => {
       </div>
     </div>
   );
-}
-
-
+};
 
 export const billingAddress = () => {
   return (
@@ -166,12 +164,14 @@ export const billingAddress = () => {
             <div className="p-4 text-right gap-2 mt-3">
               <button
                 type="button"
-                className=" underline text-red-600 px-4 py-2 rounded-sm">
+                className=" underline text-red-600 px-4 py-2 rounded-sm"
+              >
                 delete
               </button>
               <button
                 type="button"
-                className="bg-[#F9C74F] ml-6 px-6 py-2.5 rounded-sm">
+                className="bg-[#F9C74F] ml-6 px-6 py-2.5 rounded-sm"
+              >
                 Edit
               </button>
             </div>
@@ -207,7 +207,8 @@ export const billingAddress = () => {
             <div className="p-4 text-right gap-2 mt-3">
               <button
                 type="button"
-                className=" underline text-red-600 px-4 py-2 rounded-sm">
+                className=" underline text-red-600 px-4 py-2 rounded-sm"
+              >
                 delete
               </button>
               <button
@@ -225,14 +226,10 @@ export const billingAddress = () => {
   );
 };
 
+export const wishList = () => {
+  return <>wishlist module</>;
+};
 
-
-
-
-
-
-
-
-
-
-
+export const businessDetails = () => {
+  return <>wishlist module</>;
+};
