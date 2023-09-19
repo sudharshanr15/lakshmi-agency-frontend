@@ -1,13 +1,17 @@
 "use client";
 import React, { useEffect, useState, createContext, useContext } from "react";
 import axios from "axios";
-import { ListTable } from "./action/recentOrder";
+// import { ListTable } from "./action/recentOrder";
+import { getDataList } from "@/utils/getData";
 
-async function fetchDataForStore(storeItem) {
-  const baseURL = `https://test01.lakshmiagency.com/api/method/lakshmiagency.v1.store.${storeItem}.get_list`;
+async function fetchDataForStore() {
+  const baseURL = `https://test01.lakshmiagency.com/api/method/lakshmiagency.v1.store.report.order.get`;
   const headers = {
     "Content-Type": "application/json",
-    Authorization: "token 69e0234a0664f91:35470717fb585f3",
+    Authorization:
+      "Bearer b240d92c84cb9988b146a80f41a18464ddb10c8e20494845a26df0636faaece88fece9e9193f6120e1abd0dfda0529f3c942618ebc1b7fb74e75882e2f3a296508ef074b8e93",
+    Cookie:
+      "full_name=Guest; sid=Guest; system_user=no; user_id=Guest; user_image=",
   };
 
   try {
@@ -25,29 +29,25 @@ function LoadingScreen() {
 
 function useOrderData() {
   const [orderList, setOrderList] = useState([]);
-  const [quoteList, setQuoteList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-
-  const store = ["order", "quotation"];
 
   useEffect(() => {
     async function fetchData() {
-      const promises = store.map((item) => fetchDataForStore(item));
-      const responses = await Promise.all(promises);
-      const result = responses.filter((response) => response !== null);
-      setOrderList(result[0]["data"]);
-      setQuoteList(result[1]["data"]);
+      const result = await fetchDataForStore();
+
+      // console.log(result["data"]["orders"]);
+      setOrderList(result);
       setIsLoading(false); // Mark loading as false once the data is fetched
     }
     fetchData();
   }, []);
 
-  return { orderList, quoteList, isLoading };
+  return { orderList, isLoading };
 }
 
 export function Card() {
   const [isOpen, setIsOpen] = useState(false);
-  const { orderList, quoteList, isLoading } = useOrderData();
+  const { orderList, isLoading } = useOrderData();
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
@@ -88,7 +88,7 @@ export function Card() {
                         href="#"
                         className="block px-4 py-2 text-gray-800 hover:bg-blue-500 hover:text-white"
                       >
-                        Option 1
+                        Last 60 days
                       </a>
                     </li>
                     <li>
@@ -96,15 +96,7 @@ export function Card() {
                         href="#"
                         className="block px-4 py-2 text-gray-800 hover:bg-blue-500 hover:text-white"
                       >
-                        Option 2
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="#"
-                        className="block px-4 py-2 text-gray-800 hover:bg-blue-500 hover:text-white"
-                      >
-                        Option 3
+                        Last 90 days
                       </a>
                     </li>
                   </ul>
@@ -141,7 +133,7 @@ export function Card() {
                     <div className="flex">
                       <p className="mt-1 font-bold text-1xl md:text-2xl">
                         {" "}
-                        {orderList.length}{" "}
+                        {orderList["data"]["orders"]}{" "}
                       </p>
                       <div className="flex  text-lime-600 ">
                         <svg
@@ -187,7 +179,7 @@ export function Card() {
                     <h1 className="text-[#555961] text-2-xl">Quote</h1>
                     <div className="flex">
                       <p className="mt-1 font-bold text-1xl md:text-2xl">
-                        {quoteList.length}
+                        {orderList["data"]["quotes"]}
                       </p>
                       <div className="flex  text-lime-600 ">
                         <svg
@@ -232,7 +224,10 @@ export function Card() {
                   <div className="ml-4">
                     <h1 className="text-[#555961] text-2-xl">Savings</h1>
                     <div className="flex">
-                      <p className="mt-1 font-bold text-1xl md:text-2xl">0</p>
+                      <p className="mt-1 font-bold text-1xl md:text-2xl">
+                        {" "}
+                        {orderList["data"]["savings"]}
+                      </p>
                       <div className="flex text-[#fd517e]">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -248,7 +243,9 @@ export function Card() {
                             d="M15.75 17.25L12 21m0 0l-3.75-3.75M12 21V3"
                           />
                         </svg>
-                        <p className="mt-2  md:text-1xl ">12.3%</p>
+                        {/* <p className="mt-2  md:text-1xl ">
+                          {orderList["data"]["savings"]}
+                        </p> */}
                       </div>
                     </div>
                   </div>
@@ -276,7 +273,9 @@ export function Card() {
                   <div className="ml-4">
                     <h1 className="text-[#555961] text-2-xl">Purchased</h1>
                     <div className="flex">
-                      <p className="mt-1 font-bold text-1xl md:text-2xl">0</p>
+                      <p className="mt-1 font-bold text-1xl md:text-2xl">
+                        {orderList["data"]["purchased_amount"]}
+                      </p>
                       <div className="flex text-[#fd517e]">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -292,7 +291,7 @@ export function Card() {
                             d="M15.75 17.25L12 21m0 0l-3.75-3.75M12 21V3"
                           />
                         </svg>
-                        <p className="mt-2  md:text-1xl ">12.3%</p>
+                        <p className="mt-2  md:text-1xl ">12.3% </p>
                       </div>
                     </div>
                   </div>
@@ -317,9 +316,9 @@ export function RecentOrder() {
         </h1>
       </div>
 
-      <div className="relative overflow-x-auto shadow-md md:mt-8 mt-5">
+      {/* <div className="relative overflow-x-auto shadow-md md:mt-8 mt-5">
         <ListTable orderData={orderList} />
-      </div>
+      </div> */}
     </div>
   );
 }
