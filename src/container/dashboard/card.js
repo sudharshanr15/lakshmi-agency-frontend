@@ -2,38 +2,48 @@
 import React, { useEffect, useState, createContext, useContext } from "react";
 import axios from "axios";
 // import { ListTable } from "./action/recentOrder";
-import { getDataList } from "@/utils/getData";
+// import { getDataList } from "@/utils/getData";
+// import { setOptions } from "react-chartjs-2/dist/utils";
 
-async function fetchDataForStore() {
+async function fetchDataForStore(day) {
+  const data = JSON.stringify({
+    days: day,
+  });
   const baseURL = `https://test01.lakshmiagency.com/api/method/lakshmiagency.v1.store.report.order.get`;
+
+  // Set cookies
+  document.cookie = "full_name=Guest";
+  document.cookie = "sid=Guest";
+  document.cookie = "system_user=no";
+  document.cookie = "user_id=Guest";
+  document.cookie = "user_image=";
+
   const headers = {
     "Content-Type": "application/json",
-    Authorization:
-      "Bearer b240d92c84cb9988b146a80f41a18464ddb10c8e20494845a26df0636faaece88fece9e9193f6120e1abd0dfda0529f3c942618ebc1b7fb74e75882e2f3a296508ef074b8e93",
-    Cookie:
-      "full_name=Guest; sid=Guest; system_user=no; user_id=Guest; user_image=",
+    Authorization: "Token 4738b2b17fc8459:52861860c488b58",
   };
 
   try {
-    const response = await axios.get(baseURL, { headers });
+    const response = await axios.get(baseURL, { headers, data });
     return response.data;
   } catch (error) {
-    console.error(error);
     return null;
   }
 }
 
 function LoadingScreen() {
-  return <>Loding...</>;
+  return <>Loading...</>;
 }
 
+
 function useOrderData() {
-  const [orderList, setOrderList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [orderList, setOrderList] = useState([]);
+  const day = "30";
 
   useEffect(() => {
     async function fetchData() {
-      const result = await fetchDataForStore();
+      const result = await fetchDataForStore(day);
 
       // console.log(result["data"]["orders"]);
       setOrderList(result);
@@ -49,22 +59,44 @@ export function Card() {
   const [isOpen, setIsOpen] = useState(false);
   const { orderList, isLoading } = useOrderData();
 
+  function toggleFilter(days) {
+    const result = fetchDataForStore(days);
+    setOrderList(result);
+    console.log(days);
+    fetchDataForStore(days);
+    setIsOpen(!isOpen);
+  }
+
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
 
+  const days = [
+    {
+      id: 1,
+      days: "30",
+    },
+    {
+      id: 2,
+      days: "60",
+    },
+    {
+      id: 3,
+      days: "90",
+    },
+  ];
+
   return (
     <>
-      <div className="">
-        <div className="lg:mx-5 mx-2 lg:mt-44 md:mt-16">
+      <div className="md:mt-40">
+        <div className="lg:mx-5 mx-2 lg:mt-52 md:mt-16">
           <div className="flex justify-between mt-3">
             <h1 className="text-black text-2xl font-bold">Statics</h1>
             <div className="mr-0">
               <div className="relative">
                 <button
-                  onClick={toggleDropdown}
-                  className="px-4 py-2  text-[#004b71] bg-[#e5eef1]   rounded-md focus:outline-none flex font-semibold"
-                >
+                  onClick={() => toggleDropdown()}
+                  className="px-4 py-2  text-[#004b71] bg-[#e5eef1]   rounded-md focus:outline-none flex font-semibold">
                   Last 30 days{" "}
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -72,8 +104,7 @@ export function Card() {
                     viewBox="0 0 24 24"
                     strokeWidth={1.5}
                     stroke="currentColor"
-                    className="w-6 h-6 ml-2"
-                  >
+                    className="w-6 h-6 ml-2">
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -83,22 +114,17 @@ export function Card() {
                 </button>
                 {isOpen && (
                   <ul className="absolute right-0 mt-2 py-2 w-48 bg-white rounded-md shadow-lg">
-                    <li>
-                      <a
-                        href="#"
-                        className="block px-4 py-2 text-gray-800 hover:bg-blue-500 hover:text-white"
-                      >
-                        Last 60 days
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="#"
-                        className="block px-4 py-2 text-gray-800 hover:bg-blue-500 hover:text-white"
-                      >
-                        Last 90 days
-                      </a>
-                    </li>
+                    {days.map((item) => (
+                      <li key={item.id}>
+                        <a
+                          href="#"
+                          className="block px-4 py-2 text-gray-800 hover:bg-blue-500 hover:text-white">
+                          <button onClick={() => toggleFilter(item.days)}>
+                            Last {item.days} days
+                          </button>
+                        </a>
+                      </li>
+                    ))}
                   </ul>
                 )}
               </div>
@@ -119,8 +145,7 @@ export function Card() {
                       viewBox="0 0 24 24"
                       strokeWidth={1.5}
                       stroke="currentColor"
-                      className="w-6 h-6 text-[#f6e9be]"
-                    >
+                      className="w-6 h-6 text-[#f6e9be]">
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -142,8 +167,7 @@ export function Card() {
                           viewBox="0 0 24 24"
                           strokeWidth={1.5}
                           stroke="currentColor"
-                          className="w-4 h-4 mt-3"
-                        >
+                          className="w-4 h-4 mt-3">
                           <path
                             strokeLinecap="round"
                             strokeLinejoin="round"
@@ -166,8 +190,7 @@ export function Card() {
                       viewBox="0 0 24 24"
                       strokeWidth={1.5}
                       stroke="currentColor"
-                      className="w-6 h-6 text-lime-600"
-                    >
+                      className="w-6 h-6 text-lime-600">
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -188,8 +211,7 @@ export function Card() {
                           viewBox="0 0 24 24"
                           strokeWidth={1.5}
                           stroke="currentColor"
-                          className="w-4 h-4 mt-3"
-                        >
+                          className="w-4 h-4 mt-3">
                           <path
                             strokeLinecap="round"
                             strokeLinejoin="round"
@@ -212,8 +234,7 @@ export function Card() {
                       viewBox="0 0 24 24"
                       strokeWidth={1.5}
                       stroke="currentColor"
-                      className="w-6 h-6 text-[#004b71] font-bold"
-                    >
+                      className="w-6 h-6 text-[#004b71] font-bold">
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -235,8 +256,7 @@ export function Card() {
                           viewBox="0 0 24 24"
                           strokeWidth={1.5}
                           stroke="currentColor"
-                          className="w-4 h-4 mt-3"
-                        >
+                          className="w-4 h-4 mt-3">
                           <path
                             strokeLinecap="round"
                             strokeLinejoin="round"
@@ -261,8 +281,7 @@ export function Card() {
                       viewBox="0 0 24 24"
                       strokeWidth={1.5}
                       stroke="currentColor"
-                      className="w-6 h-6 text-[#fd517e]"
-                    >
+                      className="w-6 h-6 text-[#fd517e]">
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -283,8 +302,7 @@ export function Card() {
                           viewBox="0 0 24 24"
                           strokeWidth={1.5}
                           stroke="currentColor"
-                          className="w-4 h-4 mt-3"
-                        >
+                          className="w-4 h-4 mt-3">
                           <path
                             strokeLinecap="round"
                             strokeLinejoin="round"
