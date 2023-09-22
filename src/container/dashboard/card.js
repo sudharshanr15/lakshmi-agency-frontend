@@ -1,30 +1,24 @@
 "use client";
 import React, { useEffect, useState, createContext, useContext } from "react";
 import axios from "axios";
-// import { ListTable } from "./action/recentOrder";
+import { ListTable } from "./action/recentOrder";
 // import { getDataList } from "@/utils/getData";
 // import { setOptions } from "react-chartjs-2/dist/utils";
 
 async function fetchDataForStore(day) {
-  const data = JSON.stringify({
-    days: day,
-  });
   const baseURL = `https://test01.lakshmiagency.com/api/method/lakshmiagency.v1.store.report.order.get`;
 
-  // Set cookies
-  document.cookie = "full_name=Guest";
-  document.cookie = "sid=Guest";
-  document.cookie = "system_user=no";
-  document.cookie = "user_id=Guest";
-  document.cookie = "user_image=";
-
-  const headers = {
-    "Content-Type": "application/json",
-    Authorization: "Token 4738b2b17fc8459:52861860c488b58",
-  };
-
   try {
-    const response = await axios.get(baseURL, { headers, data });
+    const response = await axios.get(baseURL, {
+      params: {
+        days: parseInt(day),
+      },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Token 4738b2b17fc8459:9cf183be1badf5a",
+      },
+    });
+
     return response.data;
   } catch (error) {
     return null;
@@ -46,6 +40,7 @@ export function Card() {
     async function fetchData() {
       const result = await fetchDataForStore(selectedDay);
       console.log("use effect happening...");
+      console.log(result);
       setOrderList(result);
       setIsLoading(false);
     }
@@ -54,7 +49,11 @@ export function Card() {
   }, [selectedDay]);
 
   const toggleFilter = (day) => {
-    setSelectedDay(day); // Update the selected day to trigger useEffect
+    if (day) {
+      console.log("function : toogle filet ", day);
+      setSelectedDay(day); // Update the selected day to trigger useEffect
+    }
+
     setIsOpen(!isOpen);
   };
 
@@ -62,14 +61,6 @@ export function Card() {
     {
       id: 1,
       days: "30",
-    },
-    {
-      id: 2,
-      days: "60",
-    },
-    {
-      id: 3,
-      days: "90",
     },
   ];
 
@@ -149,7 +140,9 @@ export function Card() {
                     <div className="flex">
                       <p className="mt-1 font-bold text-1xl md:text-2xl">
                         {" "}
-                        {orderList["data"]["orders"]}{" "}
+                        {orderList.data.orders !== null
+                          ? orderList.data.orders
+                          : 0}
                       </p>
                       <div className="flex  text-lime-600 ">
                         <svg
@@ -195,7 +188,9 @@ export function Card() {
                     <h1 className="text-[#555961] text-2-xl">Quote</h1>
                     <div className="flex">
                       <p className="mt-1 font-bold text-1xl md:text-2xl">
-                        {orderList["data"]["quotes"]}
+                        {orderList.data.quotes !== null
+                          ? orderList.data.quotes
+                          : 0}
                       </p>
                       <div className="flex  text-lime-600 ">
                         <svg
@@ -242,7 +237,9 @@ export function Card() {
                     <div className="flex">
                       <p className="mt-1 font-bold text-1xl md:text-2xl">
                         {" "}
-                        {orderList["data"]["savings"]}
+                        {orderList.data.savings !== null
+                          ? orderList.data.savings
+                          : 0}
                       </p>
                       <div className="flex text-[#fd517e]">
                         <svg
@@ -290,7 +287,9 @@ export function Card() {
                     <h1 className="text-[#555961] text-2-xl">Purchased</h1>
                     <div className="flex">
                       <p className="mt-1 font-bold text-1xl md:text-2xl">
-                        {orderList["data"]["purchased_amount"]}
+                        {orderList.data.purchased_amount !== null
+                          ? orderList.data.purchased_amount
+                          : 0}
                       </p>
                       <div className="flex text-[#fd517e]">
                         <svg
@@ -321,8 +320,30 @@ export function Card() {
   );
 }
 
+async function fetchRecentOrder() {
+  const baseURL = `https://test01.lakshmiagency.com/api/method/lakshmiagency.v1.store.order.get`;
+
+  try {
+    const response = await axios.get(baseURL, {
+      params: {
+        status: "Not Delivered",
+        start: parseInt(0),
+        page_length: parseInt(12),
+      },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Token 4738b2b17fc8459:9cf183be1badf5a",
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    return null;
+  }
+}
+
 export function RecentOrder() {
-  // const { orderList, quoteList, isLoading } = useOrderData();
+  const { orderList } = fetchRecentOrder();
 
   return (
     <div className="lg:mx-24 mx-6 lg:mt-10 mt-4 p-5 rounded-md">
@@ -332,9 +353,9 @@ export function RecentOrder() {
         </h1>
       </div>
 
-      {/* <div className="relative overflow-x-auto shadow-md md:mt-8 mt-5">
+      <div className="relative overflow-x-auto shadow-md md:mt-8 mt-5">
         <ListTable orderData={orderList} />
-      </div> */}
+      </div>
     </div>
   );
 }

@@ -6,7 +6,6 @@ import {
   RecentOrder,
   LineChart,
   Quote,
-  QuoteCard,
   Project,
 } from "@/container/dashboard/";
 
@@ -17,7 +16,6 @@ export default function Page() {
       <Card />
       <LineChart />
       <Quote />
-      <QuoteCard />
       <RecentOrder />
       <Project />
       <RecentOrder />
