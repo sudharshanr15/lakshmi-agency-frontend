@@ -11,6 +11,7 @@ import { isElement } from "react-is";
 import { darken } from "@mui/material";
 import { fetchTableData } from "@/utils/dashboardController";
 import { NodeNextRequest } from "next/dist/server/base-http/node";
+import NativeSelectInput from "@mui/material/NativeSelect/NativeSelectInput";
 //defining columns outside of the component is fine, is stable
 const columns = [
   {
@@ -95,66 +96,15 @@ async function deliveryStatus(name) {
 }
 
 export function ListTable({ orderData }) {
-  const [Data, setData] = useState([]);
+  const [tableData, setTableData] = useState({ data: [] });
   const [isLoading, setIsLoading] = useState(true);
 
-  const handleExportData = () => {
-    csvExporter.generateCsv(finalData);
-    // generatePDF(data,columns);
-  };
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     const items = [];
-  //     const promises = orderData.map(async (order, index) => {
-  //       const dynamicObject = {}; // Define dynamicArray here
-  //       const name = order.name;
-  //       dynamicObject.index = index + 1;
-  //       dynamicObject.name = name;
-  //       dynamicObject.amount = "not given";
-  //       dynamicObject.creation = order.creation;
-  //       dynamicObject.total_qty = order.total_qty;
-
-  //       try {
-  //         const result = await deliveryStatus(name); // Passing the entire order object
-  //         const status = result || "Unknown";
-  //         dynamicObject.status = status;
-
-  //         items[index] = dynamicObject;
-  //       } catch (error) {
-  //         console.error(error);
-  //         // If an error occurs, handle it gracefully
-  //         dynamicArray.push("Error");
-  //         items[index] = dynamicObject;
-  //       }
-  //     });
-
-  //     try {
-  //       await Promise.all(promises);
-  //       setData(items);
-  //       setIsLoading(false);
-  //     } catch (error) {
-  //       console.error(error);
-  //       setData([]); // Clear the data in case of an error
-  //       setIsLoading(false);
-  //     }
-  //   };
-
-  //   fetchData();
-  // }, [orderData]);
-
-  const [tableData, setTableData] = useState({ data: [] });
-
   useEffect(() => {
-    console.log("Fetch additional data for cards");
-
     const fetchAdditionalCardData = async () => {
       try {
-        console.log('Data from the third API:', data);
+        const data = await fetchTableData(); // Call the third API
         setTableData(data);
-        console.log("table data start");
-        console.log(tableData)
-        console.log("table data end")
+        setIsLoading(false); // Set loading to false when data is fetched
       } catch (error) {
         console.error('Failed to fetch additional data:', error);
       }
@@ -163,59 +113,28 @@ export function ListTable({ orderData }) {
     fetchAdditionalCardData();
   }, []);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const items = [];
-      const orderdata = await fetchTableData(); 
-      const promises = orderData.map(async (order, index) => {
-        
-        const dynamicObject = {}; // Define dynamicArray here
-        const name = order.name;
-        dynamicObject.index = index + 1;
-        dynamicObject.name = name;
-        dynamicObject.amount = "not given";
-        dynamicObject.creation = order.creation;
-        dynamicObject.total_qty = order.total_qty;
-        dynamicObject.status = 1;
+  let currentIndex = 0;
 
-
-        try {
-          const result = await deliveryStatus(name); // Passing the entire order object
-          const status = result || "Unknown";
-          dynamicObject.status = status;
-
-          items[index] = dynamicObject;
-        } catch (error) {
-          console.error(error);
-          // If an error occurs, handle it gracefully
-          dynamicArray.push("Error");
-          items[index] = dynamicObject;
-        }
-      });
-
-      try {
-        await Promise.all(promises);
-        setData(items);
-        setIsLoading(false);
-      } catch (error) {
-        console.error(error);
-        setData([]); // Clear the data in case of an error
-        setIsLoading(false);
-      }
+  const extractedData = tableData.data.map(item => {
+    currentIndex++; 
+    return {
+      index: currentIndex, 
+      name: item.name,
+      amount: item.total_qty,
+      creation: item.creation,
+      total_qty: item.total_qty,
+      status: item.delivery_status
     };
-
-    fetchData();
-  }, [orderData]);
-
+  });
 
   return (
     <>
       {isLoading ? (
-        <p> Loading.. </p>
-      ) : tableData.length > 1 ? (
+        <p>Loading...</p>
+      ) : extractedData.length > 0 ? (
         <MaterialReactTable
           columns={columns}
-          data={tableData}
+          data={extractedData}
           positionToolbarAlertBanner="bottom"
           renderTopToolbarCustomActions={({ table }) => (
             <Box
@@ -229,8 +148,7 @@ export function ListTable({ orderData }) {
             >
               <Button
                 color="primary"
-                //export all data that is currently in the table (ignore pagination, sorting, filtering, etc.)
-                onClick={handleExportData}
+                // onClick={handleExportData}
                 startIcon={<FileDownloadIcon />}
                 variant="contained"
               >
@@ -245,11 +163,9 @@ export function ListTable({ orderData }) {
           }}
         />
       ) : (
-        <p> No data available .</p>
+        <p>No data available.</p>
       )}
-       <div>
-    
-    </div>
     </>
   );
 }
+
