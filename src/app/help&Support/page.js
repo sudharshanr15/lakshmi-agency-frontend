@@ -106,7 +106,7 @@ export default function Main() {
               Where can I see the status of my refund ?
             </span>
           </div>
-          <s className="ml-6">Refund requests are submitted immediately to your payment processor or financial institution after Udemy has received and processed your request. It may take 5 to 10 business days or longer to post the funds in your account, depending on your financial institution or location.</span>
+          <span className="ml-6">Refund requests are submitted immediately to your payment processor or financial institution after Udemy has received and processed your request. It may take 5 to 10 business days or longer to post the funds in your account, depending on your financial institution or location.</span>
 
         </div>
       </div>
