@@ -6,7 +6,7 @@ import { ListTable } from "./action/recentOrder";
 // import { setOptions } from "react-chartjs-2/dist/utils";
 
 async function fetchDataForStore(day) {
-  const baseURL = `https://test01.lakshmiagency.com/api/method/lakshmiagency.v1.store.report.order.get`;
+  const baseURL = `http://94.237.78.193/api/method/lakshmiagency.v1.store.report.order.get`;
 
   try {
     const response = await axios.get(baseURL, {
@@ -15,7 +15,7 @@ async function fetchDataForStore(day) {
       },
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Token 4738b2b17fc8459:9cf183be1badf5a",
+        Authorization: "Token 7289ea03c732955:c0734d67d9c686f",
       },
     });
 
