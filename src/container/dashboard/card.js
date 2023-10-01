@@ -2,70 +2,77 @@
 import React, { useEffect, useState, createContext, useContext } from "react";
 import axios from "axios";
 import { ListTable } from "./action/recentOrder";
+// import { getDataList } from "@/utils/getData";
+// import { setOptions } from "react-chartjs-2/dist/utils";
+import { fetchDataForStore } from "@/utils/dashboardController";
 
-async function fetchDataForStore(storeItem) {
-  const baseURL = `https://test01.lakshmiagency.com/api/method/lakshmiagency.v1.store.${storeItem}.get_list`;
-  const headers = {
-    "Content-Type": "application/json",
-    Authorization: "token 69e0234a0664f91:35470717fb585f3",
-  };
-
-  try {
-    const response = await axios.get(baseURL, { headers });
-    return response.data;
-  } catch (error) {
-    console.error(error);
-    return null;
-  }
-}
-
-function LoadingScreen() {
-  return <>Loding...</>;
-}
-
-function useOrderData() {
-  const [orderList, setOrderList] = useState([]);
-  const [quoteList, setQuoteList] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-
-  const store = ["order", "quotation"];
-
-  useEffect(() => {
-    async function fetchData() {
-      const promises = store.map((item) => fetchDataForStore(item));
-      const responses = await Promise.all(promises);
-      const result = responses.filter((response) => response !== null);
-      setOrderList(result[0]["data"]);
-      setQuoteList(result[1]["data"]);
-      setIsLoading(false); // Mark loading as false once the data is fetched
-    }
-    fetchData();
-  }, []);
-
-  return { orderList, quoteList, isLoading };
-}
 
 export function Card() {
+  const [isLoading, setIsLoading] = useState(true);
+  const [orderList, setOrderList] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
-  const { orderList, quoteList, isLoading } = useOrderData();
+  // const { orderList, isLoading } = useOrderData();
+  const [selectedDay, setSelectedDay] = useState("30"); // Initialize with a default day
 
-  const toggleDropdown = () => {
+ 
+
+  const toggleFilter = (day) => {
+    if (day) {
+      console.log("function : toogle filet ", day);
+      setSelectedDay(day); // Update the selected day to trigger useEffect
+    }
+
     setIsOpen(!isOpen);
   };
 
+  const days = [
+    {
+      id: 1,
+      days: "30",
+    },
+  ];
+
+  const [orders, setOrders] = useState(null);
+  const [quotes, setQuotes] = useState(null);
+  const [savings, setSavings] = useState(null);
+  const [purchasedAmount, setPurchasedAmount] = useState(null);
+
+  useEffect(() => {
+    console.log("Fetch api for cards");
+    const days = 30; // Change this to the desired number of days
+
+    const fetchCardData = async () => {
+      try {
+        const data = await fetchDataForStore(days); // Call the second API
+        console.log('Data from the second API:', data);
+        setOrders(data.data.orders);
+        setQuotes(data.data.quotes);
+        setSavings(data.data.savings);
+        setPurchasedAmount(data.data.purchased_amount);
+      } catch (error) {
+        console.error('Failed to fetch data:', error);
+      }
+    };
+
+    fetchCardData();
+  }, []);
+
+
+
+
   return (
     <>
-      <div className="">
-        <div className="lg:mx-5 mx-2 lg:mt-44 md:mt-16">
+      <div className="md:mt-40">
+        <div className="lg:mx-5 mx-2 lg:mt-52 md:mt-16">
           <div className="flex justify-between mt-3">
             <h1 className="text-black text-2xl font-bold">Statics</h1>
             <div className="mr-0">
               <div className="relative">
                 <button
-                  onClick={toggleDropdown}
+                  onClick={() => toggleFilter()}
                   className="px-4 py-2  text-[#004b71] bg-[#e5eef1]   rounded-md focus:outline-none flex font-semibold"
                 >
-                  Last 30 days{" "}
+                  
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -83,39 +90,25 @@ export function Card() {
                 </button>
                 {isOpen && (
                   <ul className="absolute right-0 mt-2 py-2 w-48 bg-white rounded-md shadow-lg">
-                    <li>
-                      <a
-                        href="#"
-                        className="block px-4 py-2 text-gray-800 hover:bg-blue-500 hover:text-white"
-                      >
-                        Option 1
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="#"
-                        className="block px-4 py-2 text-gray-800 hover:bg-blue-500 hover:text-white"
-                      >
-                        Option 2
-                      </a>
-                    </li>
-                    <li>
-                      <a
-                        href="#"
-                        className="block px-4 py-2 text-gray-800 hover:bg-blue-500 hover:text-white"
-                      >
-                        Option 3
-                      </a>
-                    </li>
+                    {days.map((item) => (
+                      <li key={item.id}>
+                        <a
+                          href="#"
+                          className="block px-4 py-2 text-gray-800 hover:bg-blue-500 hover:text-white"
+                        >
+                          <button onClick={() => toggleFilter(item.days)}>
+                            Last {item.days} days
+                          </button>
+                        </a>
+                      </li>
+                    ))}
                   </ul>
                 )}
               </div>
             </div>
           </div>
         </div>
-        {isLoading ? (
-          <LoadingScreen />
-        ) : (
+       
           <>
             <div className=" grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 w-auto mx-2 gap-2 lg:gap-7 md:mx-auto justify-between lg:mx-20 lg:mt-7 mt-1  p-5 rounded-md">
               <div className="bg-[#f6e9be] rounded-lg">
@@ -141,9 +134,11 @@ export function Card() {
                     <div className="flex">
                       <p className="mt-1 font-bold text-1xl md:text-2xl">
                         {" "}
-                        {orderList.length}{" "}
+                        {orders !== null
+                          ? orders
+                          : 0}
                       </p>
-                      <div className="flex  text-lime-600 ">
+                      {/* <div className="flex  text-lime-600 ">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"
@@ -159,7 +154,7 @@ export function Card() {
                           />
                         </svg>
                         <p className="mt-2  md:text-1xl ">12.3%</p>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                 </div>
@@ -187,25 +182,11 @@ export function Card() {
                     <h1 className="text-[#555961] text-2-xl">Quote</h1>
                     <div className="flex">
                       <p className="mt-1 font-bold text-1xl md:text-2xl">
-                        {quoteList.length}
+                        {quotes !== null
+                          ? quotes
+                          : 0}
                       </p>
-                      <div className="flex  text-lime-600 ">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          strokeWidth={1.5}
-                          stroke="currentColor"
-                          className="w-4 h-4 mt-3"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M15.75 17.25L12 21m0 0l-3.75-3.75M12 21V3"
-                          />
-                        </svg>
-                        <p className="mt-2  md:text-1xl ">12.3%</p>
-                      </div>
+                     
                     </div>
                   </div>
                 </div>
@@ -232,24 +213,13 @@ export function Card() {
                   <div className="ml-4">
                     <h1 className="text-[#555961] text-2-xl">Savings</h1>
                     <div className="flex">
-                      <p className="mt-1 font-bold text-1xl md:text-2xl">0</p>
-                      <div className="flex text-[#fd517e]">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          strokeWidth={1.5}
-                          stroke="currentColor"
-                          className="w-4 h-4 mt-3"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M15.75 17.25L12 21m0 0l-3.75-3.75M12 21V3"
-                          />
-                        </svg>
-                        <p className="mt-2  md:text-1xl ">12.3%</p>
-                      </div>
+                      <p className="mt-1 font-bold text-1xl md:text-2xl">
+                        
+                        {savings !== null
+                          ? savings
+                          : 0} 
+                      </p>
+                    
                     </div>
                   </div>
                 </div>
@@ -276,38 +246,47 @@ export function Card() {
                   <div className="ml-4">
                     <h1 className="text-[#555961] text-2-xl">Purchased</h1>
                     <div className="flex">
-                      <p className="mt-1 font-bold text-1xl md:text-2xl">0</p>
-                      <div className="flex text-[#fd517e]">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          strokeWidth={1.5}
-                          stroke="currentColor"
-                          className="w-4 h-4 mt-3"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M15.75 17.25L12 21m0 0l-3.75-3.75M12 21V3"
-                          />
-                        </svg>
-                        <p className="mt-2  md:text-1xl ">12.3%</p>
-                      </div>
+                      <p className="mt-1 font-bold text-1xl md:text-2xl">
+                        {purchasedAmount !== null
+                          ? purchasedAmount
+                          : 0}
+                      </p>
+                     
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </>
-        )}
       </div>
     </>
   );
 }
 
+async function fetchRecentOrder() {
+  const baseURL = `https://test01.lakshmiagency.com/api/method/lakshmiagency.v1.store.order.get`;
+
+  try {
+    const response = await axios.get(baseURL, {
+      params: {
+        status: "Not Delivered",
+        start: parseInt(0),
+        page_length: parseInt(12),
+      },
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Token 4738b2b17fc8459:9cf183be1badf5a",
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    return null;
+  }
+}
+
 export function RecentOrder() {
-  const { orderList, quoteList, isLoading } = useOrderData();
+  const { orderList } = fetchRecentOrder();
 
   return (
     <div className="lg:mx-24 mx-6 lg:mt-10 mt-4 p-5 rounded-md">
