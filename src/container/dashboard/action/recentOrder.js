@@ -9,7 +9,8 @@ import { ExportToCsv } from "export-to-csv"; //or use your library of choice her
 import { generatePDF } from "@/utils/pdfUtils";
 import { isElement } from "react-is";
 import { darken } from "@mui/material";
-
+import { fetchTableData } from "@/utils/dashboardController";
+import { NodeNextRequest } from "next/dist/server/base-http/node";
 //defining columns outside of the component is fine, is stable
 const columns = [
   {
@@ -102,10 +103,72 @@ export function ListTable({ orderData }) {
     // generatePDF(data,columns);
   };
 
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     const items = [];
+  //     const promises = orderData.map(async (order, index) => {
+  //       const dynamicObject = {}; // Define dynamicArray here
+  //       const name = order.name;
+  //       dynamicObject.index = index + 1;
+  //       dynamicObject.name = name;
+  //       dynamicObject.amount = "not given";
+  //       dynamicObject.creation = order.creation;
+  //       dynamicObject.total_qty = order.total_qty;
+
+  //       try {
+  //         const result = await deliveryStatus(name); // Passing the entire order object
+  //         const status = result || "Unknown";
+  //         dynamicObject.status = status;
+
+  //         items[index] = dynamicObject;
+  //       } catch (error) {
+  //         console.error(error);
+  //         // If an error occurs, handle it gracefully
+  //         dynamicArray.push("Error");
+  //         items[index] = dynamicObject;
+  //       }
+  //     });
+
+  //     try {
+  //       await Promise.all(promises);
+  //       setData(items);
+  //       setIsLoading(false);
+  //     } catch (error) {
+  //       console.error(error);
+  //       setData([]); // Clear the data in case of an error
+  //       setIsLoading(false);
+  //     }
+  //   };
+
+  //   fetchData();
+  // }, [orderData]);
+
+  const [tableData, setTableData] = useState({ data: [] });
+
+  useEffect(() => {
+    console.log("Fetch additional data for cards");
+
+    const fetchAdditionalCardData = async () => {
+      try {
+        console.log('Data from the third API:', data);
+        setTableData(data);
+        console.log("table data start");
+        console.log(tableData)
+        console.log("table data end")
+      } catch (error) {
+        console.error('Failed to fetch additional data:', error);
+      }
+    };
+
+    fetchAdditionalCardData();
+  }, []);
+
   useEffect(() => {
     const fetchData = async () => {
       const items = [];
+      const orderdata = await fetchTableData(); 
       const promises = orderData.map(async (order, index) => {
+        
         const dynamicObject = {}; // Define dynamicArray here
         const name = order.name;
         dynamicObject.index = index + 1;
@@ -113,6 +176,8 @@ export function ListTable({ orderData }) {
         dynamicObject.amount = "not given";
         dynamicObject.creation = order.creation;
         dynamicObject.total_qty = order.total_qty;
+        dynamicObject.status = 1;
+
 
         try {
           const result = await deliveryStatus(name); // Passing the entire order object
@@ -142,14 +207,15 @@ export function ListTable({ orderData }) {
     fetchData();
   }, [orderData]);
 
+
   return (
     <>
       {isLoading ? (
         <p> Loading.. </p>
-      ) : Data.length > 1 ? (
+      ) : tableData.length > 1 ? (
         <MaterialReactTable
           columns={columns}
-          data={Data}
+          data={tableData}
           positionToolbarAlertBanner="bottom"
           renderTopToolbarCustomActions={({ table }) => (
             <Box
@@ -181,6 +247,9 @@ export function ListTable({ orderData }) {
       ) : (
         <p> No data available .</p>
       )}
+       <div>
+    
+    </div>
     </>
   );
 }

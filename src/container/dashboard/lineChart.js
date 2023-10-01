@@ -5,7 +5,7 @@ import Chart from "chart.js/auto";
 import { CategoryScale } from "chart.js";
 import { Line } from "react-chartjs-2";
 import { Data } from "@/utils/Data";
-import { fetchGraphDataa } from "@/utils/dashboardController";
+import { fetchGraphData} from "@/utils/dashboardController";
 
 Chart.register(CategoryScale);
 
@@ -130,7 +130,7 @@ export function LineChart() {
       console.log("Fetch graph");
       try {
         console.log("try block");
-        const data = await fetchGraphDataa(selectedDay); 
+        const data = await fetchGraphData(selectedDay); 
         console.log(data.data);
         setGraphData(data.data);
         console.log("end");
