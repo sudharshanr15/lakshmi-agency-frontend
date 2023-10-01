@@ -4,30 +4,8 @@ import axios from "axios";
 import { ListTable } from "./action/recentOrder";
 // import { getDataList } from "@/utils/getData";
 // import { setOptions } from "react-chartjs-2/dist/utils";
+import { fetchDataForStore } from "@/utils/dashboardController";
 
-async function fetchDataForStore(day) {
-  const baseURL = `http://94.237.78.193/api/method/lakshmiagency.v1.store.report.order.get`;
-
-  try {
-    const response = await axios.get(baseURL, {
-      params: {
-        days: parseInt(day),
-      },
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Token 7289ea03c732955:c0734d67d9c686f",
-      },
-    });
-
-    return response.data;
-  } catch (error) {
-    return null;
-  }
-}
-
-function LoadingScreen() {
-  return <>Loading...</>;
-}
 
 export function Card() {
   const [isLoading, setIsLoading] = useState(true);
@@ -36,17 +14,7 @@ export function Card() {
   // const { orderList, isLoading } = useOrderData();
   const [selectedDay, setSelectedDay] = useState("30"); // Initialize with a default day
 
-  useEffect(() => {
-    async function fetchData() {
-      const result = await fetchDataForStore(selectedDay);
-      console.log("use effect happening...");
-      console.log(result);
-      setOrderList(result);
-      setIsLoading(false);
-    }
-
-    fetchData();
-  }, [selectedDay]);
+ 
 
   const toggleFilter = (day) => {
     if (day) {
@@ -64,6 +32,34 @@ export function Card() {
     },
   ];
 
+  const [orders, setOrders] = useState(null);
+  const [quotes, setQuotes] = useState(null);
+  const [savings, setSavings] = useState(null);
+  const [purchasedAmount, setPurchasedAmount] = useState(null);
+
+  useEffect(() => {
+    console.log("Fetch api for cards");
+    const days = 30; // Change this to the desired number of days
+
+    const fetchCardData = async () => {
+      try {
+        const data = await fetchDataForStore(days); // Call the second API
+        console.log('Data from the second API:', data);
+        setOrders(data.data.orders);
+        setQuotes(data.data.quotes);
+        setSavings(data.data.savings);
+        setPurchasedAmount(data.data.purchased_amount);
+      } catch (error) {
+        console.error('Failed to fetch data:', error);
+      }
+    };
+
+    fetchCardData();
+  }, []);
+
+
+
+
   return (
     <>
       <div className="md:mt-40">
@@ -76,7 +72,7 @@ export function Card() {
                   onClick={() => toggleFilter()}
                   className="px-4 py-2  text-[#004b71] bg-[#e5eef1]   rounded-md focus:outline-none flex font-semibold"
                 >
-                  Last 30 days{" "}
+                  
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -112,9 +108,7 @@ export function Card() {
             </div>
           </div>
         </div>
-        {isLoading ? (
-          <LoadingScreen />
-        ) : (
+       
           <>
             <div className=" grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 w-auto mx-2 gap-2 lg:gap-7 md:mx-auto justify-between lg:mx-20 lg:mt-7 mt-1  p-5 rounded-md">
               <div className="bg-[#f6e9be] rounded-lg">
@@ -140,11 +134,11 @@ export function Card() {
                     <div className="flex">
                       <p className="mt-1 font-bold text-1xl md:text-2xl">
                         {" "}
-                        {orderList.data.orders !== null
-                          ? orderList.data.orders
+                        {orders !== null
+                          ? orders
                           : 0}
                       </p>
-                      <div className="flex  text-lime-600 ">
+                      {/* <div className="flex  text-lime-600 ">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"
@@ -160,7 +154,7 @@ export function Card() {
                           />
                         </svg>
                         <p className="mt-2  md:text-1xl ">12.3%</p>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
                 </div>
@@ -188,27 +182,11 @@ export function Card() {
                     <h1 className="text-[#555961] text-2-xl">Quote</h1>
                     <div className="flex">
                       <p className="mt-1 font-bold text-1xl md:text-2xl">
-                        {orderList.data.quotes !== null
-                          ? orderList.data.quotes
+                        {quotes !== null
+                          ? quotes
                           : 0}
                       </p>
-                      <div className="flex  text-lime-600 ">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          strokeWidth={1.5}
-                          stroke="currentColor"
-                          className="w-4 h-4 mt-3"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M15.75 17.25L12 21m0 0l-3.75-3.75M12 21V3"
-                          />
-                        </svg>
-                        <p className="mt-2  md:text-1xl ">12.3%</p>
-                      </div>
+                     
                     </div>
                   </div>
                 </div>
@@ -236,30 +214,12 @@ export function Card() {
                     <h1 className="text-[#555961] text-2-xl">Savings</h1>
                     <div className="flex">
                       <p className="mt-1 font-bold text-1xl md:text-2xl">
-                        {" "}
-                        {orderList.data.savings !== null
-                          ? orderList.data.savings
-                          : 0}
+                        
+                        {savings !== null
+                          ? savings
+                          : 0} 
                       </p>
-                      <div className="flex text-[#fd517e]">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          strokeWidth={1.5}
-                          stroke="currentColor"
-                          className="w-4 h-4 mt-3"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M15.75 17.25L12 21m0 0l-3.75-3.75M12 21V3"
-                          />
-                        </svg>
-                        {/* <p className="mt-2  md:text-1xl ">
-                          {orderList["data"]["savings"]}
-                        </p> */}
-                      </div>
+                    
                     </div>
                   </div>
                 </div>
@@ -287,34 +247,17 @@ export function Card() {
                     <h1 className="text-[#555961] text-2-xl">Purchased</h1>
                     <div className="flex">
                       <p className="mt-1 font-bold text-1xl md:text-2xl">
-                        {orderList.data.purchased_amount !== null
-                          ? orderList.data.purchased_amount
+                        {purchasedAmount !== null
+                          ? purchasedAmount
                           : 0}
                       </p>
-                      <div className="flex text-[#fd517e]">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          strokeWidth={1.5}
-                          stroke="currentColor"
-                          className="w-4 h-4 mt-3"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M15.75 17.25L12 21m0 0l-3.75-3.75M12 21V3"
-                          />
-                        </svg>
-                        <p className="mt-2  md:text-1xl ">12.3% </p>
-                      </div>
+                     
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </>
-        )}
       </div>
     </>
   );

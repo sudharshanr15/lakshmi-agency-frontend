@@ -11,5 +11,17 @@ export const Data = [
       year: 2017,
       userGain: 45677,
       userLost: 345
+    },
+    {
+      id: 3,
+      year: 2018,
+      userGain: 50000,
+      userLost: 345
+    },
+    {
+      id: 4,
+      year: 2019,
+      userGain: 70000,
+      userLost: 345
     }
   ];

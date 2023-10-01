@@ -18,7 +18,7 @@ export default function Page() {
       <Quote />
       <RecentOrder />
       <Project />
-      <RecentOrder />
+      {/* <RecentOrder /> */}
       <Footer />
     </>
   );
