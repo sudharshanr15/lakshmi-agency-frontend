@@ -6,7 +6,9 @@ import {
   RecentOrder,
   LineChart,
   Quote,
-  Project,
+  UpcomingDue
+
+  
 } from "@/container/dashboard/";
 
 export default function Page() {
@@ -17,8 +19,7 @@ export default function Page() {
       <LineChart />
       <Quote />
       <RecentOrder />
-      <Project />
-      {/* <RecentOrder /> */}
+      <UpcomingDue />
       <Footer />
     </>
   );

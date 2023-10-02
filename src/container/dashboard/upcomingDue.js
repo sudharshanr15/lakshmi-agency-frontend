@@ -10,6 +10,7 @@ import { generatePDF } from "@/utils/pdfUtils";
 import { isElement } from "react-is";
 import { darken } from "@mui/material";
 import { fetchTableData } from "@/utils/dashboardController";
+import { fetchShipmentInvoiceData } from "@/utils/dashboardController";
 import { NodeNextRequest } from "next/dist/server/base-http/node";
 import NativeSelectInput from "@mui/material/NativeSelect/NativeSelectInput";
 //defining columns outside of the component is fine, is stable
@@ -21,30 +22,27 @@ const columns = [
   },
   {
     accessorKey: "name",
-    header: " Name",
+    header: " ID",
     size: 120,
   },
-
   {
     accessorKey: "creation",
     header: "Date",
     size: 120,
   },
-
   {
-    accessorKey: "total_qty",
-    header: "Total quantity",
+    accessorKey: "rounded_total",
+    header: "Total Amount",
     size: 120,
   },
-
   {
     accessorKey: "status",
-    header: "Delivery status",
-    size: 300,
+    header: "Status",
+    size: 120,
     Cell: ({ cell }) => (
       <span
         style={{
-          color: cell.getValue() === "Dispatched" ? "green" : "red",
+          color: cell.getValue() === "Overdue" ? "red" : "green",
           backgroundColor: "#EFF5E7",
           padding: "10px",
         }}
@@ -67,14 +65,14 @@ const csvOptions = {
 
 const csvExporter = new ExportToCsv(csvOptions);
 
-export function ListTable() {
+export function UpcomingDue() {
   const [tableData, setTableData] = useState({ data: [] });
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const fetchAdditionalCardData = async () => {
+    const fetchShipmentData = async () => {
       try {
-        const data = await fetchTableData(); // Call the third API
+        const data = await fetchShipmentInvoiceData(); // Call the third API
         setTableData(data);
         setIsLoading(false); // Set loading to false when data is fetched
       } catch (error) {
@@ -82,7 +80,7 @@ export function ListTable() {
       }
     };
 
-    fetchAdditionalCardData();
+    fetchShipmentData();
   }, []);
 
   let currentIndex = 0;
@@ -92,10 +90,9 @@ export function ListTable() {
     return {
       index: currentIndex, 
       name: item.name,
-      // amount: item.total_qty,
       creation: item.creation,
-      total_qty: item.total_qty,
-      status: item.delivery_status
+      rounded_total: item.rounded_total,
+      status: item.status
     };
   });
 
@@ -104,8 +101,17 @@ export function ListTable() {
     // generatePDF(data,columns);
   };
 
+
   return (
     <>
+    <div className="lg:mx-24 mx-6 lg:mt-10 mt-4 p-5 rounded-md">
+      <div className="flex justify-between">
+        <h1 className="text-black text-1xl md:text-2xl font-semibold">
+          Upcoming due
+        </h1>
+      </div>
+
+      <div className="relative overflow-x-auto shadow-md md:mt-8 mt-5">
       {isLoading ? (
         <p>Loading...</p>
       ) : extractedData.length > 0 ? (
@@ -142,6 +148,8 @@ export function ListTable() {
       ) : (
         <p>No data available.</p>
       )}
+      </div>
+    </div>
     </>
   );
 }
