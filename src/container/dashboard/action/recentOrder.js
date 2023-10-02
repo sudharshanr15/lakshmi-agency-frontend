@@ -24,11 +24,6 @@ const columns = [
     header: " Name",
     size: 120,
   },
-  // {
-  //   accessorKey: "amount",
-  //   header: "Amount",
-  //   size: 120,
-  // },
 
   {
     accessorKey: "creation",
@@ -49,7 +44,7 @@ const columns = [
     Cell: ({ cell }) => (
       <span
         style={{
-          color: cell.getValue() === "Fully Delivered" ? "green" : "red",
+          color: cell.getValue() === "Dispatched" ? "green" : "red",
           backgroundColor: "#EFF5E7",
           padding: "10px",
         }}
@@ -72,30 +67,7 @@ const csvOptions = {
 
 const csvExporter = new ExportToCsv(csvOptions);
 
-async function deliveryStatus(name) {
-  const baseURL = `https://test01.lakshmiagency.com/api/method/lakshmiagency.v1.store.order.get`;
-  const headers = {
-    "Content-Type": "application/json",
-    Authorization: "token 69e0234a0664f91:35470717fb585f3",
-  };
-
-  const config = {
-    headers: headers,
-    params: {
-      id: name,
-    },
-  };
-
-  try {
-    const response = await axios.get(baseURL, config);
-    return response.data.data.delivery_status; // Assuming the API response contains the data you need
-  } catch (error) {
-    console.error("Error fetching data:", error);
-    throw error; // Rethrow the error to handle it further up the call stack
-  }
-}
-
-export function ListTable({ orderData }) {
+export function ListTable() {
   const [tableData, setTableData] = useState({ data: [] });
   const [isLoading, setIsLoading] = useState(true);
 
@@ -127,6 +99,11 @@ export function ListTable({ orderData }) {
     };
   });
 
+  const handleExportData = () => {
+    csvExporter.generateCsv(extractedData);
+    // generatePDF(data,columns);
+  };
+
   return (
     <>
       {isLoading ? (
@@ -148,7 +125,7 @@ export function ListTable({ orderData }) {
             >
               <Button
                 color="primary"
-                // onClick={handleExportData}
+                onClick={handleExportData}
                 startIcon={<FileDownloadIcon />}
                 variant="contained"
               >

@@ -26,31 +26,31 @@ const columns = [
     size: 120,
   },
   {
-    accessorKey: "outstanding_amount",
-    header: "Pending",
+    accessorKey: "creation",
+    header: "Date",
     size: 120,
   },
   {
     accessorKey: "rounded_total",
     header: "Total Amount",
     size: 120,
-  }
-//   {
-//     accessorKey: "rounded_total",
-//     header: "Total Amoujt",
-//     size: 300,
-//     Cell: ({ cell }) => (
-//       <span
-//         style={{
-//           color: cell.getValue() === "Fully Delivered" ? "green" : "red",
-//           backgroundColor: "#EFF5E7",
-//           padding: "10px",
-//         }}
-//       >
-//         {cell.getValue()}
-//       </span>
-//     ),
-//   },
+  },
+  {
+    accessorKey: "status",
+    header: "Status",
+    size: 120,
+    Cell: ({ cell }) => (
+      <span
+        style={{
+          color: cell.getValue() === "Overdue" ? "red" : "green",
+          backgroundColor: "#EFF5E7",
+          padding: "10px",
+        }}
+      >
+        {cell.getValue()}
+      </span>
+    ),
+  },
 ];
 
 const csvOptions = {
@@ -64,29 +64,6 @@ const csvOptions = {
 };
 
 const csvExporter = new ExportToCsv(csvOptions);
-
-async function deliveryStatus(name) {
-  const baseURL = `https://test01.lakshmiagency.com/api/method/lakshmiagency.v1.store.order.get`;
-  const headers = {
-    "Content-Type": "application/json",
-    Authorization: "token 69e0234a0664f91:35470717fb585f3",
-  };
-
-  const config = {
-    headers: headers,
-    params: {
-      id: name,
-    },
-  };
-
-  try {
-    const response = await axios.get(baseURL, config);
-    return response.data.data.delivery_status; // Assuming the API response contains the data you need
-  } catch (error) {
-    console.error("Error fetching data:", error);
-    throw error; // Rethrow the error to handle it further up the call stack
-  }
-}
 
 export function UpcomingDue() {
   const [tableData, setTableData] = useState({ data: [] });
@@ -113,12 +90,17 @@ export function UpcomingDue() {
     return {
       index: currentIndex, 
       name: item.name,
-      // amount: item.total_qty,
       creation: item.creation,
-      outstanding_amount: item.outstanding_amount,
-      rounded_total: item.rounded_total
+      rounded_total: item.rounded_total,
+      status: item.status
     };
   });
+
+  const handleExportData = () => {
+    csvExporter.generateCsv(extractedData);
+    // generatePDF(data,columns);
+  };
+
 
   return (
     <>
@@ -149,7 +131,7 @@ export function UpcomingDue() {
             >
               <Button
                 color="primary"
-                // onClick={handleExportData}
+                onClick={handleExportData}
                 startIcon={<FileDownloadIcon />}
                 variant="contained"
               >
