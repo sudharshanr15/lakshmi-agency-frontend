@@ -1,3 +1,4 @@
+import { Upcoming } from '@mui/icons-material';
 import axios from 'axios';
 
 // Graph API data
@@ -62,6 +63,31 @@ export const fetchTableData = async () => {
 
     return response.data;
   } catch (error) {
+    return null;
+  }
+};
+
+// UpcomingDue API data
+
+export const fetchShipmentInvoiceData = async () => {
+  const baseURLShipmentInvoice = 'http://94.237.78.193/api/method/lakshmiagency.v1.store.shipment.invoice.get_list';
+
+  try {
+    const response = await axios.get(baseURLShipmentInvoice, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Token 7289ea03c732955:c0734d67d9c686f',
+      },
+      params: {
+        start: '0',
+        page_length: '6',
+      },
+    });
+
+    // Return the data from the second API request
+    return response.data;
+  } catch (error) {
+    console.error('Error:', error);
     return null;
   }
 };
