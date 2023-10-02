@@ -24,11 +24,11 @@ const columns = [
     header: " Name",
     size: 120,
   },
-  {
-    accessorKey: "amount",
-    header: "Amount",
-    size: 120,
-  },
+  // {
+  //   accessorKey: "amount",
+  //   header: "Amount",
+  //   size: 120,
+  // },
 
   {
     accessorKey: "creation",
@@ -120,7 +120,7 @@ export function ListTable({ orderData }) {
     return {
       index: currentIndex, 
       name: item.name,
-      amount: item.total_qty,
+      // amount: item.total_qty,
       creation: item.creation,
       total_qty: item.total_qty,
       status: item.delivery_status
