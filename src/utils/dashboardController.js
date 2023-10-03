@@ -1,8 +1,9 @@
-import { Upcoming } from '@mui/icons-material';
 import axios from 'axios';
 
 // Graph API data
 export const fetchGraphData = async (days) => {
+  console.log("fetch graph data api fuction inside coming ")
+  console.log(days)
   const baseURL = `http://94.237.78.193/api/method/lakshmiagency.v1.store.report.order.get_order_list`;
 
   try {

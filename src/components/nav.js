@@ -22,14 +22,20 @@ import {
   Sanitwaryware,
   BathroomFittings,
 } from "@/utils/desktopNavContent";
+// import { fetchGraphData} from "@/utils/dashboardController";
+import { fetchSidebarCategory } from "@/utils/categoryController";
+import { fetchSidebarSubCategory } from "@/utils/categoryController";
+
 
 export function Nav() {
   //DESKTOP SIDEBAR CONTENT START
 
   const [isDesktopSidebarOpen, setDesktopSidebarOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(null);
+  const [categList , setCategList] = useState([]);
 
   const toggleDesktopSidebar = () => {
+    console.log("sidebar opening");
     setDesktopSidebarOpen(!isDesktopSidebarOpen);
     if (selectedCategory) {
       setSelectedCategory(!selectedCategory);
@@ -39,16 +45,51 @@ export function Nav() {
     } else if (setDesktopSidebarOpen === true) {
       console.log("DesktopSidebar Closed");
     }
+
+    const fetchData = async () => {
+      console.log("Fetch graph");
+      try {
+        console.log("try block in sidebar");
+        const data = await fetchSidebarCategory(); 
+        setCategList(data.data)
+        console.log(data.data);
+        console.log("end");
+      } catch (error) {
+        console.error('Failed to fetch data:', error);
+      }
+    };
+
+    fetchData();
   };
+
+  
+  
+  
 
   const toggleCloseAll = () => {
     setSelectedCategory(false);
   };
 
-  const toggleSubList = (submenu) => {
-    const Item = submenu;
+  const [selectedSubCategory , setSelectedSubCategory] = useState(null);
 
-    setSelectedCategory(submenu);
+  const toggleSubList = (submenu) => {
+
+    setSelectedSubCategory(submenu);
+
+    const fetchData = async () => {
+      console.log("Fetch graph");
+      try {
+        console.log("try block in subcategory");
+        const data = await fetchSidebarSubCategory(submenu); 
+        // setCategList(data.data)
+        console.log(data.data);
+        console.log("end");
+      } catch (error) {
+        console.error('Failed to fetch data:', error);
+      }
+    };
+
+    fetchData();
 
     if (!selectedCategory) {
       setSelectedCategory(true);
@@ -548,7 +589,7 @@ export function Nav() {
         {isDesktopSidebarOpen && (
           <div
             id="drawer-navigation"
-            className={`fixed top-36 left-0 z-40 w-80 md:mb-32 bg-[#f2f2f2] h-screen p-4 overflow-y-auto transition-transform ${
+            className={`fixed top-36 left-0 z-60 w-80 md:mb-32 bg-[#f2f2f2] h-screen p-4 overflow-y-auto transition-transform ${
               isDesktopSidebarOpen ? "" : "-translate-x-full"
             } bg-[#f2f2f2] dark:bg-gray-800`}
             tabIndex="-1"
@@ -558,19 +599,23 @@ export function Nav() {
               <ul className="py-5">
                 {categList.map((item) => (
                   <li
-                    key={item.id}
+                    // key={item.id}
                     className="px-3 space-x-5 flex py-3 text-gray-700 justify-between dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600 cursor-pointer"
                     type="button"
                     onClick={() => {
-                      toggleSubList(item.categoryName);
+                      toggleSubList(item.name);
                     }}>
                     <div className="flex">
-                      <img
-                        src={item.link}
+                      <span>
+                          <img
+                        src={item.image}
                         alt="category image"
                         className="-mt-3 rounded-full w-12 h-12 border-4 border-yellow-400"
                       />
-                      <span className="ml-4">{item.categoryName} </span>
+
+                      </span>
+                    
+                      <span className="ml-4">{item.name} </span>
                     </div>
 
                     <span className="mt-2">
@@ -599,7 +644,7 @@ export function Nav() {
         {selectedCategory && (
           <div
             id="drawer-navigation"
-            className={`fixed top-36 left-80 z-40 w-80 md:mb-32 bg-white h-screen p-4 overflow-y-auto transition-transform ${
+            className={`fixed top-44 left-80 z-40 w-80 md:mb-32 bg-white h-screen p-4 overflow-y-auto transition-transform ${
               selectedCategory ? "" : "-translate-x-full"
             } bg-[#f2f2f2] dark:bg-gray-800`}
             tabIndex="-1"
