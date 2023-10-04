@@ -26,13 +26,12 @@ import {
 import { fetchSidebarCategory } from "@/utils/categoryController";
 import { fetchSidebarSubCategory } from "@/utils/categoryController";
 
-
 export function Nav() {
   //DESKTOP SIDEBAR CONTENT START
 
   const [isDesktopSidebarOpen, setDesktopSidebarOpen] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState(null);
-  const [categList , setCategList] = useState([]);
+  const [categList, setCategList] = useState([]);
 
   const toggleDesktopSidebar = () => {
     console.log("sidebar opening");
@@ -50,42 +49,41 @@ export function Nav() {
       console.log("Fetch graph");
       try {
         console.log("try block in sidebar");
-        const data = await fetchSidebarCategory(); 
-        setCategList(data.data)
+        const data = await fetchSidebarCategory();
+        setCategList(data.data);
+        console.log(typeof(categList))
         console.log(data.data);
         console.log("end");
       } catch (error) {
-        console.error('Failed to fetch data:', error);
+        console.error("Failed to fetch data:", error);
       }
     };
 
     fetchData();
   };
 
-  
-  
-  
-
   const toggleCloseAll = () => {
     setSelectedCategory(false);
   };
 
-  const [selectedSubCategory , setSelectedSubCategory] = useState(null);
+  const [SubCategList, setSubCategList] = useState([]);
 
   const toggleSubList = (submenu) => {
-
-    setSelectedSubCategory(submenu);
+    setSubCategList(submenu);
 
     const fetchData = async () => {
       console.log("Fetch graph");
       try {
         console.log("try block in subcategory");
-        const data = await fetchSidebarSubCategory(submenu); 
+        const data = await fetchSidebarSubCategory(submenu);
         // setCategList(data.data)
-        console.log(data.data);
+        setSubCategList(data.data);
+        console.log(SubCategList);
+        console.log(typeof(SubCategList))
+        console.log(data);
         console.log("end");
       } catch (error) {
-        console.error('Failed to fetch data:', error);
+        console.error("Failed to fetch data:", error);
       }
     };
 
@@ -125,14 +123,16 @@ export function Nav() {
           className="flex"
           type="button"
           onClick={toggleDesktopSidebar}
-          aria-controls="drawer-navigation">
+          aria-controls="drawer-navigation"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-6 h-6 -mt-0.5">
+            className="w-6 h-6 -mt-0.5"
+          >
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -155,7 +155,8 @@ export function Nav() {
           viewBox="0 0 24 24"
           strokeWidth={1.5}
           stroke="currentColor"
-          className="w-5 h-5 mr-1">
+          className="w-5 h-5 mr-1"
+        >
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -176,7 +177,8 @@ export function Nav() {
           viewBox="0 0 24 24"
           strokeWidth={1.5}
           stroke="currentColor"
-          className="w-5 h-5 mr-1">
+          className="w-5 h-5 mr-1"
+        >
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -197,7 +199,8 @@ export function Nav() {
           viewBox="0 0 24 24"
           strokeWidth={1.5}
           stroke="currentColor"
-          className="w-5 h-5 mr-1">
+          className="w-5 h-5 mr-1"
+        >
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -310,14 +313,16 @@ export function Nav() {
           className=""
           type="button"
           onClick={toggleMobileHome} //Function for redirecting to dashboard page
-          aria-controls="drawer-navigation">
+          aria-controls="drawer-navigation"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-6 h-6">
+            className="w-6 h-6"
+          >
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -359,14 +364,16 @@ export function Nav() {
           className=""
           type="button"
           onClick={toggleMobileCategory}
-          aria-controls="drawer-navigation">
+          aria-controls="drawer-navigation"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-6 h-6">
+            className="w-6 h-6"
+          >
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -387,14 +394,16 @@ export function Nav() {
           className=""
           type="button"
           onClick={toggleMobileProfile}
-          aria-controls="drawer-navigation">
+          aria-controls="drawer-navigation"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-6 h-6">
+            className="w-6 h-6"
+          >
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -417,7 +426,8 @@ export function Nav() {
           viewBox="0 0 24 24"
           strokeWidth="1.5"
           stroke="currentColor"
-          className="w-6 h-6 ">
+          className="w-6 h-6 "
+        >
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -436,7 +446,8 @@ export function Nav() {
           viewBox="0 0 24 24"
           strokeWidth="1.5"
           stroke="currentColor"
-          className="w-6 h-6">
+          className="w-6 h-6"
+        >
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -455,7 +466,8 @@ export function Nav() {
           viewBox="0 0 24 24"
           strokeWidth="1.5"
           stroke="currentColor"
-          className="w-6 h-6">
+          className="w-6 h-6"
+        >
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -474,7 +486,8 @@ export function Nav() {
           viewBox="0 0 24 24"
           strokeWidth="1.5"
           stroke="currentColor"
-          className="w-6 h-6">
+          className="w-6 h-6"
+        >
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -493,7 +506,8 @@ export function Nav() {
           viewBox="0 0 24 24"
           strokeWidth="1.5"
           stroke="currentColor"
-          className="w-6 h-6">
+          className="w-6 h-6"
+        >
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -513,7 +527,8 @@ export function Nav() {
           viewBox="0 0 24 24"
           strokeWidth="1.5"
           stroke="currentColor"
-          className="w-6 h-6">
+          className="w-6 h-6"
+        >
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -532,7 +547,8 @@ export function Nav() {
           viewBox="0 0 24 24"
           strokeWidth="1.5"
           stroke="currentColor"
-          className="w-6 h-6">
+          className="w-6 h-6"
+        >
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -589,11 +605,12 @@ export function Nav() {
         {isDesktopSidebarOpen && (
           <div
             id="drawer-navigation"
-            className={`fixed top-36 left-0 z-60 w-80 md:mb-32 bg-[#f2f2f2] h-screen p-4 overflow-y-auto transition-transform ${
+            className={`fixed top-44 left-0 z-80 w-80 md:mb-32 bg-[#f2f2f2] h-screen p-4 overflow-y-auto transition-transform ${
               isDesktopSidebarOpen ? "" : "-translate-x-full"
             } bg-[#f2f2f2] dark:bg-gray-800`}
             tabIndex="-1"
-            aria-labelledby="drawer-navigation-label">
+            aria-labelledby="drawer-navigation-label"
+          >
             {/* list of items */}
             {isDesktopSidebarOpen && (
               <ul className="py-5">
@@ -604,18 +621,18 @@ export function Nav() {
                     type="button"
                     onClick={() => {
                       toggleSubList(item.name);
-                    }}>
+                    }}
+                  >
                     <div className="flex">
                       <span>
-                          <img
-                        src={item.image}
-                        alt="category image"
-                        className="-mt-3 rounded-full w-12 h-12 border-4 border-yellow-400"
-                      />
-
+                        <img
+                          src={item.image}
+                          alt="category image"
+                          className="-mt-3 rounded-full w-12 h-12 border-4 border-yellow-400"
+                        />
                       </span>
-                    
-                      <span className="ml-4">{item.name} </span>
+
+                      <span className="ml-7">{item.name} </span>
                     </div>
 
                     <span className="mt-2">
@@ -626,7 +643,8 @@ export function Nav() {
                           viewBox="0 0 24 24"
                           strokeWidth={1.5}
                           stroke="currentColor"
-                          className="w-4 h-4">
+                          className="w-4 h-4"
+                        >
                           <path
                             strokeLinecap="round"
                             strokeLinejoin="round"
@@ -648,142 +666,99 @@ export function Nav() {
               selectedCategory ? "" : "-translate-x-full"
             } bg-[#f2f2f2] dark:bg-gray-800`}
             tabIndex="-1"
-            aria-labelledby="drawer-navigation-label">
+            aria-labelledby="drawer-navigation-label"
+          >
             <button
               type="button"
               onClick={toggleCloseAll}
               data-drawer-hide="drawer-navigation"
               aria-controls="drawer-navigation"
-              className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 absolute top-2.5 right-2.5 inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white">
+              className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 absolute top-2.5 right-2.5 inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+            >
               <svg
                 aria-hidden="true"
                 className="w-5 h-5"
                 fill="currentColor"
                 viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg">
+                xmlns="http://www.w3.org/2000/svg"
+              >
                 <path
                   fillRule="evenodd"
                   d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                  clipRule="evenodd"></path>
+                  clipRule="evenodd"
+                ></path>
               </svg>
               <span className="sr-only">Close menu</span>
             </button>
 
             <ul className="py-4">
-              {pipes.map((item) => (
-                <li
-                  key={item.id}
-                  className={`px-3 space-x-5 flex py-5 text-gray-700 justify-between dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600 ${
-                    selectedCategory === "Fittings" ||
-                    selectedCategory === "Valves" ||
-                    selectedCategory === "Hoses" ||
-                    selectedCategory === "Water Tanks" ||
-                    selectedCategory === "Valves" ||
-                    selectedCategory === "Wires" ||
-                    selectedCategory === "Paints" ||
-                    selectedCategory === "Valves" ||
-                    selectedCategory === "Motor and Pumps" ||
-                    selectedCategory === "Sanitary wares" ||
-                    selectedCategory === "Bathroom fittings"
-                      ? "hidden"
-                      : ""
-                  }`}>
-                  <div className="flex">
-                    <span className="ml-4 underline">{item.name}</span>
-                  </div>
-                </li>
-              ))}
+              {/* {SubCategList !== null ? (
+                SubCategList.length > 0 ? (
+                  SubCategList.map((item) => (
+                    <li
+                      // key={item.id}
+                      className="px-3 space-x-5 flex py-5 text-gray-700 justify-between dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600"
+                    >
+                      <div className="flex">
+                        <span className="ml-4 underline">{item.name}</span>
+                      </div>
+                    </li>
+                  ))
+                ) : (
+                  <li className="px-3 space-x-5 flex py-5 text-gray-700 justify-between dark:text-white">
+                    There is no value in this state
+                  </li>
+                )
+              ) : null} */}
+             
+             {Array.isArray(SubCategList) && SubCategList.length > 0 ? (
+  SubCategList.map((item) => (
+    <li
+      key={item.name} // Assuming that "name" is a unique identifier
+      className="px-3 space-x-5 flex py-3 text-gray-700 justify-between dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600 cursor-pointer"
+      type="button"
+      onClick={() => {
+        toggleSubList(item.name);
+      }}
+    >
+      <div className="flex">
+        {/* You can uncomment the image rendering code here if needed */}
+        {/* <span>
+          <img
+            src={item.image}
+            alt="category image"
+            className="-mt-3 rounded-full w-12 h-12 border-4 border-yellow-400"
+          />
+        </span> */}
 
-              {selectedCategory === "Fittings" &&
-                Fittings.map((item) => (
-                  <li
-                    key={item.id}
-                    className={`px-3 space-x-5 flex py-5 text-gray-700 justify-between dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600`}>
-                    <div className="flex">
-                      <span className="ml-4 underline">{item.name}</span>
-                    </div>
-                  </li>
-                ))}
-              {selectedCategory === "Valves" &&
-                Valves.map((item) => (
-                  <li
-                    key={item.id}
-                    className="px-3 space-x-5 flex py-5 text-gray-700 justify-between dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600">
-                    <div className="flex">
-                      <span className="ml-4 underline">{item.name}</span>
-                    </div>
-                  </li>
-                ))}
-              {selectedCategory === "Hoses" &&
-                Hoses.map((item) => (
-                  <li
-                    key={item.id}
-                    className="px-3 space-x-5 flex py-5 text-gray-700 justify-between dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600">
-                    <div className="flex">
-                      <span className="ml-4 underline">{item.name}</span>
-                    </div>
-                  </li>
-                ))}
-              {selectedCategory === "Water Tanks" &&
-                Tank.map((item) => (
-                  <li
-                    key={item.id}
-                    className="px-3 space-x-5 flex py-5 text-gray-700 justify-between dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600">
-                    <div className="flex">
-                      <span className="ml-4 underline">{item.name}</span>
-                    </div>
-                  </li>
-                ))}
-              {selectedCategory === "Wires" &&
-                Wires.map((item) => (
-                  <li
-                    key={item.id}
-                    className="px-3 space-x-5 flex py-5 text-gray-700 justify-between dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600">
-                    <div className="flex">
-                      <span className="ml-4 underline">{item.name}</span>
-                    </div>
-                  </li>
-                ))}
-              {selectedCategory === "Paints" &&
-                Paints.map((item) => (
-                  <li
-                    key={item.id}
-                    className="px-3 space-x-5 flex py-5 text-gray-700 justify-between dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600">
-                    <div className="flex">
-                      <span className="ml-4 underline">{item.name}</span>
-                    </div>
-                  </li>
-                ))}
-              {selectedCategory === "Motor and Pumps" &&
-                Motors.map((item) => (
-                  <li
-                    key={item.id}
-                    className="px-3 space-x-5 flex py-5 text-gray-700 justify-between dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600">
-                    <div className="flex">
-                      <span className="ml-4 underline">{item.name}</span>
-                    </div>
-                  </li>
-                ))}
-              {selectedCategory === "Sanitary wares" &&
-                Sanitwaryware.map((item) => (
-                  <li
-                    key={item.id}
-                    className="px-3 space-x-5 flex py-5 text-gray-700 justify-between dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600">
-                    <div className="flex">
-                      <span className="ml-4 underline">{item.name}</span>
-                    </div>
-                  </li>
-                ))}
-              {selectedCategory === "Bathroom fittings" &&
-                BathroomFittings.map((item) => (
-                  <li
-                    key={item.id}
-                    className="px-3 space-x-5 flex py-5 text-gray-700 justify-between dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600">
-                    <div className="flex">
-                      <span className="ml-4 underline">{item.name}</span>
-                    </div>
-                  </li>
-                ))}
+        <span className="ml-4">{item.name} </span>
+      </div>
+
+      <span className="mt-2">
+        <button>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            strokeWidth={1.5}
+            stroke="currentColor"
+            className="w-4 h-4"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              d="M8.25 4.5l7.5 7.5-7.5 7.5"
+            />
+          </svg>
+        </button>
+      </span>
+    </li>
+  ))
+) : (
+  <p className="text-white">No values in the subCategList</p>
+)}
+
+
             </ul>
           </div>
         )}
@@ -807,7 +782,8 @@ export function Nav() {
                     viewBox="0 0 24 24"
                     strokeWidth={1.5}
                     stroke="currentColor"
-                    className="w-6 h-6 text-white">
+                    className="w-6 h-6 text-white"
+                  >
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -836,7 +812,8 @@ export function Nav() {
                       viewBox="0 0 24 24"
                       strokeWidth={1.5}
                       stroke="currentColor"
-                      className="w-6 h-6 mr-2  text-white">
+                      className="w-6 h-6 mr-2  text-white"
+                    >
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -856,7 +833,8 @@ export function Nav() {
                       viewBox="0 0 24 24"
                       strokeWidth={1.5}
                       stroke="currentColor"
-                      className="w-6 h-6 mr-2 text-white cursor-pointer">
+                      className="w-6 h-6 mr-2 text-white cursor-pointer"
+                    >
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -875,14 +853,16 @@ export function Nav() {
                   type="button"
                   className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
                   aria-controls="navbar-sticky"
-                  aria-expanded="false">
+                  aria-expanded="false"
+                >
                   <span className="sr-only">Open main menu</span>
                   <svg
                     className="w-5 h-5"
                     aria-hidden="true"
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
-                    viewBox="0 0 17 14">
+                    viewBox="0 0 17 14"
+                  >
                     <path
                       stroke="currentColor"
                       strokeLinecap="round"
@@ -913,7 +893,8 @@ export function Nav() {
                           viewBox="0 0 24 24"
                           strokeWidth={1.5}
                           stroke="currentColor"
-                          className="w-6 h-6">
+                          className="w-6 h-6"
+                        >
                           <path
                             strokeLinecap="round"
                             strokeLinejoin="round"
@@ -936,7 +917,8 @@ export function Nav() {
                         className="text-sm"
                         key={item.name}
                         href={item.href}
-                        aria-current={item.current ? "page" : undefined}>
+                        aria-current={item.current ? "page" : undefined}
+                      >
                         <div className="flex">
                           <span className="">{item.icon} </span>
                           <span className="ml-1">{item.name} </span>&nbsp;{" "}
@@ -962,7 +944,8 @@ export function Nav() {
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 20 20"
                   fill="currentColor"
-                  className="mx-3 w-5 h-5">
+                  className="mx-3 w-5 h-5"
+                >
                   <path
                     fillRule="evenodd"
                     d="M10 18a8 8 0 100-16 8 8 0 000 16zM6.75 9.25a.75.75 0 000 1.5h4.59l-2.1 1.95a.75.75 0 001.02 1.1l3.5-3.25a.75.75 0 000-1.1l-3.5-3.25a.75.75 0 10-1.02 1.1l2.1 1.95H6.75z"
@@ -993,7 +976,8 @@ export function Nav() {
                 isMobileCategory ? "" : "-translate-x-full"
               } bg-[#f2f2f2] dark:bg-gray-800`}
               tabIndex="-1"
-              aria-labelledby="drawer-navigation-label">
+              aria-labelledby="drawer-navigation-label"
+            >
               <div className="text-gray-400 bg-[#004b71] hover:text-white flex text-sm p-2.5 -mt-4 left-0 absolute  w-full items-center">
                 <div className="">
                   <button
@@ -1001,14 +985,16 @@ export function Nav() {
                     onClick={toggleClose}
                     data-drawer-hide="drawer-navigation"
                     aria-controls="drawer-navigation"
-                    className="">
+                    className=""
+                  >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
                       viewBox="0 0 24 24"
                       strokeWidth="1.5"
                       stroke="currentColor"
-                      className="w-6 h-6 text-yellow-400">
+                      className="w-6 h-6 text-yellow-400"
+                    >
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -1053,7 +1039,8 @@ export function Nav() {
                 isMobileProfile ? "" : "-translate-x-full"
               } bg-[#f2f2f2] dark:bg-gray-800`}
               tabIndex="-1"
-              aria-labelledby="drawer-navigation-label">
+              aria-labelledby="drawer-navigation-label"
+            >
               <div className="text-gray-400 bg-[#004b71] hover:text-white flex text-sm p-2.5 -mt-4 left-0 absolute  w-full items-center">
                 <div className="">
                   <button
@@ -1061,14 +1048,16 @@ export function Nav() {
                     onClick={toggleCloseProfile}
                     data-drawer-hide="drawer-navigation"
                     aria-controls="drawer-navigation"
-                    className="">
+                    className=""
+                  >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       fill="none"
                       viewBox="0 0 24 24"
                       strokeWidth="1.5"
                       stroke="currentColor"
-                      className="w-6 h-6 text-yellow-400">
+                      className="w-6 h-6 text-yellow-400"
+                    >
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -1090,11 +1079,13 @@ export function Nav() {
                   {ProfileItems.map((item) => (
                     <li
                       className="h-full w-full md:space-y-6 space-x-4 py-3"
-                      key={item.id}>
+                      key={item.id}
+                    >
                       <button
                         type="button"
                         onClick={() => handleItemClick(item.name)}
-                        className="flex items-center p-3">
+                        className="flex items-center p-3"
+                      >
                         <span className="space-y-3">{item.icon}</span>
                         <span className="space-y-1 ml-6">{item.name}</span>
                       </button>
@@ -1106,7 +1097,8 @@ export function Nav() {
                   <button
                     type="button"
                     onClick={handleBackToProfile}
-                    className="p-3 mt-8">
+                    className="p-3 mt-8"
+                  >
                     Back to Profile
                   </button>
                   <div className="mt-4">
@@ -1133,7 +1125,8 @@ export function Nav() {
         {mobilenav.map((item) => (
           <div
             key={item.id}
-            className="flex flex-col items-center justify-center hover:text-yellow-300 hover:underline">
+            className="flex flex-col items-center justify-center hover:text-yellow-300 hover:underline"
+          >
             <span>{item.icon}</span>
             <span className="mt-1">{item.name}</span>
           </div>
