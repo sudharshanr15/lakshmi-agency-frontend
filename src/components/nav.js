@@ -448,7 +448,7 @@ export function Nav() {
     <div>
 
       
-      {/* DESKTOP NAVBAR START */}
+      {/* DESKTOP NAVBAR START */ }
 
       <div className={`desktop-sidebar ${isDesktopSidebarOpen ? "open" : ""}`}>
         {isDesktopSidebarOpen && (
