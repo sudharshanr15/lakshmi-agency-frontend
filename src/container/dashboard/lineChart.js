@@ -1,11 +1,11 @@
 "use client";
 
-import { useState , useEffect } from "react";
+import { useState, useEffect } from "react";
 import Chart from "chart.js/auto";
 import { CategoryScale } from "chart.js";
 import { Line } from "react-chartjs-2";
 import { Data } from "@/utils/Data";
-import { fetchGraphData} from "@/utils/dashboardController";
+import { fetchGraphData } from "@/utils/dashboardController";
 
 Chart.register(CategoryScale);
 
@@ -31,45 +31,38 @@ function ChartDiagram({ chartData }) {
   );
 }
 
-
 export function LineChart() {
-
-
   const [isLoading, setIsLoading] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedDay , setSelectedDay] = useState("30");
-
-
+  const [selectedDay, setSelectedDay] = useState("30");
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
 
-
   const day = [
     {
-      id : 1,
-      days : "30"
+      id: 1,
+      days: "30",
     },
     {
-      id : 2,
-      days : "60"
+      id: 2,
+      days: "60",
     },
     {
-      id : 3,
-      days : "90"
-    }
-  ]
+      id: 3,
+      days: "90",
+    },
+  ];
 
   const ToggleGraphFilter = (day) => {
-    if(day){
-      console.log(day)
+    if (day) {
+      console.log(day);
       setSelectedDay(day);
-      console.log(day)
-
+      console.log(day);
     }
     setIsOpen(!isOpen);
-  }
+  };
 
   // const [graphData, setGraphData] = useState([]);
 
@@ -91,7 +84,6 @@ export function LineChart() {
 
   //   fetchData();
   // }, []);
-
 
   // const [chartData, setChartData] = useState({
   //   labels: Data.map((data) => data.year),
@@ -118,30 +110,22 @@ export function LineChart() {
   //       ))}
   //     </ul>
 
-
-
-  
   const [graphData, setGraphData] = useState([]);
 
   useEffect(() => {
-    console.log("graph data use effect");
-
     const fetchData = async () => {
       console.log("Fetch graph");
       try {
-        console.log("try block");
-        const data = await fetchGraphData(selectedDay); 
+        const data = await fetchGraphData(selectedDay);
         console.log(data.data);
         setGraphData(data.data);
-        console.log("end");
       } catch (error) {
-        console.error('Failed to fetch data:', error);
+        console.error("Failed to fetch data:", error);
       }
     };
 
     fetchData();
-  }, []); 
-
+  }, []);
 
   const chartData = {
     labels: graphData.map((item) => item.creation), // X-axis: "creation" data
@@ -188,19 +172,22 @@ export function LineChart() {
                 </button>
                 {isOpen && (
                   <ul className="absolute right-0 mt-2 py-2 w-48 bg-white rounded-md shadow-lg">
-                    {day.map((items) =>(
-                       <li key={items.id}>
-                       <a
-                         href="#"
-                         className="block px-4 py-2 text-gray-800 hover:bg-blue-500 hover:text-white"
-                       >
-                       <button type="button" onClick={() => ToggleGraphFilter(items.days)}> last {items.days} days</button>
-                       </a>
-                     </li>
-
-                    )) }
-                   
-                  
+                    {day.map((items) => (
+                      <li key={items.id}>
+                        <a
+                          href="#"
+                          className="block px-4 py-2 text-gray-800 hover:bg-blue-500 hover:text-white"
+                        >
+                          <button
+                            type="button"
+                            onClick={() => ToggleGraphFilter(items.days)}
+                          >
+                            {" "}
+                            last {items.days} days
+                          </button>
+                        </a>
+                      </li>
+                    ))}
                   </ul>
                 )}
               </div>
@@ -211,7 +198,6 @@ export function LineChart() {
           <div className="w-full p-10 md:p-20">
             <ChartDiagram chartData={chartData} />
           </div>
-          
         </div>
       </div>
     </>

@@ -448,72 +448,71 @@ export function Nav() {
     <div>
 
       
-      {/* DESKTOP NAVBAR START */ }
+      {/* DESKTOP NAVBAR START */}
 
       <div className={`desktop-sidebar ${isDesktopSidebarOpen ? "open" : ""}`}>
         {isDesktopSidebarOpen && (
-        <div
-  id="drawer-navigation"
-  className={`fixed top-44 left-0 z-40 w-96 md:mb-32 bg-[#f2f2f2] h-screen p-4 overflow-y-auto transition-transform ${
-    isDesktopSidebarOpen ? "" : "-translate-x-full"
-  } bg-[#f2f2f2] dark:bg-gray-800`}
-  tabIndex="-1"
-  aria-labelledby="drawer-navigation-label"
->
-  {/* list of items */}
-  {isDesktopSidebarOpen && (
-    <ul className="py-5 h-[calc(100vh-176px)] overflow-y-auto">
-      {categList.map((category) => (
-        <li
-          key={category.id}
-          className="px-3 space-x-5 flex py-3 text-gray-700 justify-between dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600 cursor-pointer"
-          type="button"
-          onClick={() => {
-            toggleSubList(category.name);
-          }}
-        >
-          <div className="flex">
-            <span>
-              <img
-                src={category.image}
-                alt="category image"
-                className="-mt-3 rounded-full w-12 h-12 border-4 border-yellow-400"
-              />
-            </span>
-
-            <span className="ml-7">{category.name} </span>
-          </div>
-
-          <span className="mt-2">
-            <button>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="w-4 h-4"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M8.25 4.5l7.5 7.5-7.5 7.5"
-                />
-              </svg>
-            </button>
-          </span>
-        </li>
-      ))}
-    </ul>
-  )}
-</div>
-
+         <div
+         id="drawer-navigation"
+         className={`fixed top-44 left-0 z-80 w-80 md:mb-32 bg-[#f2f2f2] h-screen p-4 overflow-y-auto transition-transform ${
+           isDesktopSidebarOpen ? "" : "-translate-x-full"
+         } bg-[#f2f2f2] dark:bg-gray-800`}
+         tabIndex="-1"
+         aria-labelledby="drawer-navigation-label"
+       >
+         {/* list of items */}
+         {isDesktopSidebarOpen && (
+           <ul className="py-5">
+             {categList.map((category) => (
+               <li
+                 key={category.id} 
+                 className="px-3 space-x-5 flex py-3 text-gray-700 justify-between dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600 cursor-pointer"
+                 type="button"
+                 onClick={() => {
+                   toggleSubList(category.name);
+                 }}
+               >
+                 <div className="flex">
+                   <span>
+                     <img
+                       src={category.image}
+                       alt="category image"
+                       className="-mt-3 rounded-full w-12 h-12 border-4 border-yellow-400"
+                     />
+                   </span>
+       
+                   <span className="ml-7">{category.name} </span>
+                 </div>
+       
+                 <span className="mt-2">
+                   <button>
+                     <svg
+                       xmlns="http://www.w3.org/2000/svg"
+                       fill="none"
+                       viewBox="0 0 24 24"
+                       strokeWidth={1.5}
+                       stroke="currentColor"
+                       className="w-4 h-4"
+                     >
+                       <path
+                         strokeLinecap="round"
+                         strokeLinejoin="round"
+                         d="M8.25 4.5l7.5 7.5-7.5 7.5"
+                       />
+                     </svg>
+                   </button>
+                 </span>
+               </li>
+             ))}
+           </ul>
+         )}
+       </div>
        
          )}
         {selectedCategory && (
           <div
             id="drawer-navigation"
-            className={`fixed top-44 left-96 full z-40 w-80 md:mb-32 bg-white h-screen p-4 overflow-y-auto transition-transform ${
+            className={`fixed top-44 left-80 z-40 w-80 md:mb-32 bg-white h-screen p-4 overflow-y-auto transition-transform ${
               selectedCategory ? "" : "-translate-x-full"
             } bg-[#f2f2f2] dark:bg-gray-800`}
             tabIndex="-1"
@@ -565,7 +564,7 @@ export function Nav() {
                   </li>
                 ))
               ) : (
-                <p className="dark:text-white text-black">No values in the SubCategList</p>
+                <p className="text-white">No values in the SubCategList</p>
               )}
             </ul>
           </div>

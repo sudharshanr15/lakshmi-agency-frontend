@@ -104,52 +104,53 @@ export function UpcomingDue() {
 
   return (
     <>
-    <div className="lg:mx-24 mx-6 lg:mt-10 mt-4 p-5 rounded-md">
-      <div className="flex justify-between">
-        <h1 className="text-black text-1xl md:text-2xl font-semibold">
-          Upcoming due
-        </h1>
-      </div>
+    <div className="lg:mx-24 mx-6 lg:mt-10 mt-4 p-5 rounded-md z-50">
+  <div className="flex justify-between">
+    <h1 className="text-black text-1xl md:text-2xl font-semibold">
+      Upcoming due
+    </h1>
+  </div>
 
-      <div className="relative overflow-x-auto shadow-md md:mt-8 mt-5">
-      {isLoading ? (
-        <p>Loading...</p>
-      ) : extractedData.length > 0 ? (
-        <MaterialReactTable
-          columns={columns}
-          data={extractedData}
-          positionToolbarAlertBanner="bottom"
-          renderTopToolbarCustomActions={({ table }) => (
-            <Box
-              sx={{
-                display: "flex",
-                gap: "1rem",
-                p: "0.5rem",
-                flexWrap: "wrap",
-                color: "red",
-              }}
+  <div className="relative overflow-x-auto shadow-md md:mt-8 mt-5">
+    {isLoading ? (
+      <p>Loading...</p>
+    ) : extractedData.length > 0 ? (
+      <MaterialReactTable
+        columns={columns}
+        data={extractedData}
+        positionToolbarAlertBanner="bottom"
+        renderTopToolbarCustomActions={({ table }) => (
+          <Box
+            sx={{
+              display: "flex",
+              gap: "1rem",
+              p: "0.5rem",
+              flexWrap: "wrap",
+              color: "red",
+            }}
+          >
+            <Button
+              color="primary"
+              onClick={handleExportData}
+              startIcon={<FileDownloadIcon />}
+              variant="contained"
             >
-              <Button
-                color="primary"
-                onClick={handleExportData}
-                startIcon={<FileDownloadIcon />}
-                variant="contained"
-              >
-                Export into csv
-              </Button>
-            </Box>
-          )}
-          muiTableHeadCellProps={{
-            sx: {
-              backgroundColor: "#E7EEF1",
-            },
-          }}
-        />
-      ) : (
-        <p>No data available.</p>
-      )}
-      </div>
-    </div>
+              Export into csv
+            </Button>
+          </Box>
+        )}
+        muiTableHeadCellProps={{
+          sx: {
+            backgroundColor: "#E7EEF1",
+          },
+        }}
+      />
+    ) : (
+      <p>No data available.</p>
+    )}
+  </div>
+</div>
+
     </>
   );
 }
