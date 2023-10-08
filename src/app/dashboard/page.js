@@ -6,9 +6,7 @@ import {
   RecentOrder,
   LineChart,
   Quote,
-  UpcomingDue
-
-  
+  UpcomingDue,
 } from "@/container/dashboard/";
 
 export default function Page() {
