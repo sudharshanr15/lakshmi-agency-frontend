@@ -447,112 +447,73 @@ export function Nav() {
   return (
     <div>
 
-
-<div class="text-center">
-   <button class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800" type="button" data-drawer-target="drawer-contact" data-drawer-show="drawer-contact" aria-controls="drawer-contact">
-   Show contact form
-   </button>
-</div>
-
-<div id="drawer-contact" class="fixed top-0 left-0 z-40 h-screen p-4 overflow-y-auto transition-transform -translate-x-full bg-white w-80 dark:bg-gray-800" tabindex="-1" aria-labelledby="drawer-contact-label">
-   <h5 id="drawer-label" class="inline-flex items-center mb-6 text-base font-semibold text-gray-500 uppercase dark:text-gray-400"><svg class="w-4 h-4 mr-2.5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 16">
-    <path d="m10.036 8.278 9.258-7.79A1.979 1.979 0 0 0 18 0H2A1.987 1.987 0 0 0 .641.541l9.395 7.737Z"/>
-    <path d="M11.241 9.817c-.36.275-.801.425-1.255.427-.428 0-.845-.138-1.187-.395L0 2.6V14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2.5l-8.759 7.317Z"/>
-  </svg>Contact us</h5>
-   <button type="button" data-drawer-hide="drawer-contact" aria-controls="drawer-contact" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 absolute top-2.5 right-2.5 inline-flex items-center justify-center dark:hover:bg-gray-600 dark:hover:text-white" >
-      <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-         <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-      </svg>
-      <span class="sr-only">Close menu</span>
-   </button>
-   <form action="#" class="mb-6">
-      <div class="mb-6">
-         <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
-         <input type="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@company.com" required />
-      </div>
-      <div class="mb-6">
-         <label for="subject" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Subject</label>
-         <input type="text" id="subject" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Let us know how we can help you" required />
-      </div>
-      <div class="mb-6">
-         <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your message</label>
-         <textarea id="message" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Your message..."></textarea>
-      </div>
-      <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 w-full focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 block">Send message</button>
-   </form>
-   <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
-      <a href="#" class="hover:underline">info@company.com</a>
-   </p>
-   <p class="text-sm text-gray-500 dark:text-gray-400">
-      <a href="#" class="hover:underline">212-456-7890</a>
-   </p>
-</div>
-
+      
       {/* DESKTOP NAVBAR START */}
 
-      {/* <div className={`desktop-sidebar ${isDesktopSidebarOpen ? "open" : ""}`}>
+      <div className={`desktop-sidebar ${isDesktopSidebarOpen ? "open" : ""}`}>
         {isDesktopSidebarOpen && (
-         <div
-         id="drawer-navigation"
-         className={`fixed top-44 left-0 z-80 w-80 md:mb-32 bg-[#f2f2f2] h-screen p-4 overflow-y-auto transition-transform ${
-           isDesktopSidebarOpen ? "" : "-translate-x-full"
-         } bg-[#f2f2f2] dark:bg-gray-800`}
-         tabIndex="-1"
-         aria-labelledby="drawer-navigation-label"
-       >
-         {/* list of items */}
-         {isDesktopSidebarOpen && (
-           <ul className="py-5">
-             {categList.map((category) => (
-               <li
-                 key={category.id} 
-                 className="px-3 space-x-5 flex py-3 text-gray-700 justify-between dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600 cursor-pointer"
-                 type="button"
-                 onClick={() => {
-                   toggleSubList(category.name);
-                 }}
-               >
-                 <div className="flex">
-                   <span>
-                     <img
-                       src={category.image}
-                       alt="category image"
-                       className="-mt-3 rounded-full w-12 h-12 border-4 border-yellow-400"
-                     />
-                   </span>
-       
-                   <span className="ml-7">{category.name} </span>
-                 </div>
-       
-                 <span className="mt-2">
-                   <button>
-                     <svg
-                       xmlns="http://www.w3.org/2000/svg"
-                       fill="none"
-                       viewBox="0 0 24 24"
-                       strokeWidth={1.5}
-                       stroke="currentColor"
-                       className="w-4 h-4"
-                     >
-                       <path
-                         strokeLinecap="round"
-                         strokeLinejoin="round"
-                         d="M8.25 4.5l7.5 7.5-7.5 7.5"
-                       />
-                     </svg>
-                   </button>
-                 </span>
-               </li>
-             ))}
-           </ul>
-         )}
-       </div>
+        <div
+  id="drawer-navigation"
+  className={`fixed top-44 left-0 z-40 w-96 md:mb-32 bg-[#f2f2f2] h-screen p-4 overflow-y-auto transition-transform ${
+    isDesktopSidebarOpen ? "" : "-translate-x-full"
+  } bg-[#f2f2f2] dark:bg-gray-800`}
+  tabIndex="-1"
+  aria-labelledby="drawer-navigation-label"
+>
+  {/* list of items */}
+  {isDesktopSidebarOpen && (
+    <ul className="py-5 h-[calc(100vh-176px)] overflow-y-auto">
+      {categList.map((category) => (
+        <li
+          key={category.id}
+          className="px-3 space-x-5 flex py-3 text-gray-700 justify-between dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600 cursor-pointer"
+          type="button"
+          onClick={() => {
+            toggleSubList(category.name);
+          }}
+        >
+          <div className="flex">
+            <span>
+              <img
+                src={category.image}
+                alt="category image"
+                className="-mt-3 rounded-full w-12 h-12 border-4 border-yellow-400"
+              />
+            </span>
+
+            <span className="ml-7">{category.name} </span>
+          </div>
+
+          <span className="mt-2">
+            <button>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                strokeWidth={1.5}
+                stroke="currentColor"
+                className="w-4 h-4"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M8.25 4.5l7.5 7.5-7.5 7.5"
+                />
+              </svg>
+            </button>
+          </span>
+        </li>
+      ))}
+    </ul>
+  )}
+</div>
+
        
          )}
         {selectedCategory && (
           <div
             id="drawer-navigation"
-            className={`fixed top-44 left-80 z-40 w-80 md:mb-32 bg-white h-screen p-4 overflow-y-auto transition-transform ${
+            className={`fixed top-44 left-96 full z-40 w-80 md:mb-32 bg-white h-screen p-4 overflow-y-auto transition-transform ${
               selectedCategory ? "" : "-translate-x-full"
             } bg-[#f2f2f2] dark:bg-gray-800`}
             tabIndex="-1"
@@ -604,7 +565,7 @@ export function Nav() {
                   </li>
                 ))
               ) : (
-                <p className="text-white">No values in the SubCategList</p>
+                <p className="dark:text-white text-black">No values in the SubCategList</p>
               )}
             </ul>
           </div>
@@ -804,7 +765,7 @@ export function Nav() {
             </p>
           </nav>
         </div>
-      </div> */}
+      </div>
 
       {/* DESKTOP NAVBAR END */}
 
