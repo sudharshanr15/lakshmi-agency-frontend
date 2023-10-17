@@ -1,6 +1,6 @@
 "use client";
 import "../globals.css";
-import { Nav, Footer } from "@/components/";
+import {  Footer } from "@/components/";
 import {
   Card,
   RecentOrder,
@@ -12,7 +12,6 @@ import {
 export default function Page() {
   return (
     <>
-      <Nav />
       <Card />
       <LineChart />
       <Quote />

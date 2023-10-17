@@ -5,13 +5,8 @@ import axios from "axios";
 import { MaterialReactTable } from "material-react-table";
 import { Box, Button, duration } from "@mui/material";
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
-import { ExportToCsv } from "export-to-csv"; //or use your library of choice here
-import { generatePDF } from "@/utils/pdfUtils";
-import { isElement } from "react-is";
-import { darken } from "@mui/material";
-import { fetchTableData } from "@/utils/dashboardController";
-import { NodeNextRequest } from "next/dist/server/base-http/node";
-import NativeSelectInput from "@mui/material/NativeSelect/NativeSelectInput";
+import { ExportToCsv } from "export-to-csv"; //or use your library of choice here;
+import { fetchTableData } from "@/controller/dashboardController";
 //defining columns outside of the component is fine, is stable
 const columns = [
   {

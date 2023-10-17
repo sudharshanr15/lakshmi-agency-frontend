@@ -4,8 +4,7 @@ import { useState, useEffect } from "react";
 import Chart from "chart.js/auto";
 import { CategoryScale } from "chart.js";
 import { Line } from "react-chartjs-2";
-import { Data } from "@/utils/Data";
-import { fetchGraphData } from "@/utils/dashboardController";
+import { fetchGraphData } from "@/controller/dashboardController";
 
 Chart.register(CategoryScale);
 
