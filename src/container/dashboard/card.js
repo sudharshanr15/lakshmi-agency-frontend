@@ -1,17 +1,12 @@
 "use client";
-import React, { useEffect, useState, createContext, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { ListTable } from "./action/recentOrder";
-// import { getDataList } from "@/utils/getData";
-// import { setOptions } from "react-chartjs-2/dist/utils";
-import { fetchDataForStore } from "@/utils/dashboardController";
+import { fetchDataForStore } from "@/controller/dashboardController";
 
 
 export function Card() {
-  const [isLoading, setIsLoading] = useState(true);
-  const [orderList, setOrderList] = useState([]);
   const [isOpen, setIsOpen] = useState(false);
-  // const { orderList, isLoading } = useOrderData();
   const [selectedDay, setSelectedDay] = useState("30"); // Initialize with a default day
 
  
