@@ -33,7 +33,7 @@ export function Footer() {
           </div>
 
           <div className="mt-2 md:mt-20 mx-2  p-4">
-            <h1 className="text-2xl text-[#004b71] mt-5 font-bold mt-2">
+            <h1 className="text-2xl text-[#004b71] font-bold mt-2">
               Resources
             </h1>
             <p className="mt-4 mx-auto"></p>
