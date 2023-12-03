@@ -1,15 +1,12 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { ListTable } from "./action/recentOrder";
-import { fetchDataForStore } from "@/controller/dashboardController";
+// import { ListTable } from "./action/recentOrder";
 
 
 export function Card() {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedDay, setSelectedDay] = useState("30"); // Initialize with a default day
-
- 
 
   const toggleFilter = (day) => {
     if (day) {
@@ -36,20 +33,6 @@ export function Card() {
     console.log("Fetch api for cards");
     const days = 30; // Change this to the desired number of days
 
-    const fetchCardData = async () => {
-      try {
-        const data = await fetchDataForStore(days); // Call the second API
-        console.log('Data from the second API:', data);
-        setOrders(data.data.orders);
-        setQuotes(data.data.quotes);
-        setSavings(data.data.savings);
-        setPurchasedAmount(data.data.purchased_amount);
-      } catch (error) {
-        console.error('Failed to fetch data:', error);
-      }
-    };
-
-    fetchCardData();
   }, []);
 
 
@@ -128,10 +111,7 @@ export function Card() {
                     <h1 className="text-[#555961] text-2-xl">Orders</h1>
                     <div className="flex">
                       <p className="mt-1 font-bold text-1xl md:text-2xl">
-                        {" "}
-                        {orders !== null
-                          ? orders
-                          : 0}
+                        123
                       </p>
                       {/* <div className="flex  text-lime-600 ">
                         <svg
@@ -177,9 +157,7 @@ export function Card() {
                     <h1 className="text-[#555961] text-2-xl">Quote</h1>
                     <div className="flex">
                       <p className="mt-1 font-bold text-1xl md:text-2xl">
-                        {quotes !== null
-                          ? quotes
-                          : 0}
+                        32
                       </p>
                      
                     </div>
@@ -209,10 +187,7 @@ export function Card() {
                     <h1 className="text-[#555961] text-2-xl">Savings</h1>
                     <div className="flex">
                       <p className="mt-1 font-bold text-1xl md:text-2xl">
-                        
-                        {savings !== null
-                          ? savings
-                          : 0} 
+                       123 
                       </p>
                     
                     </div>
@@ -242,9 +217,7 @@ export function Card() {
                     <h1 className="text-[#555961] text-2-xl">Purchased</h1>
                     <div className="flex">
                       <p className="mt-1 font-bold text-1xl md:text-2xl">
-                        {purchasedAmount !== null
-                          ? purchasedAmount
-                          : 0}
+                       423
                       </p>
                      
                     </div>
@@ -255,6 +228,112 @@ export function Card() {
           </>
       </div>
     </>
+  );
+}
+
+export function RecentOrder() {
+  return (
+    <div className="lg:mx-24 mx-6 lg:mt-10 mt-4 p-5 rounded-md">
+      <div className="flex justify-between">
+        <h1 className="text-black text-1xl md:text-2xl font-semibold">
+          Recent Orders
+        </h1>
+      </div>
+      <div class="relative overflow-x-auto shadow-md md:mt-8 mt-5">
+        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+          <thead class="text-xs text-gray-700 uppercase bg-[#e4eef1] dark:text-gray-400  md:mx-6">
+            <tr>
+              <th scope="col" class="px-6 py-3">
+                ID
+              </th>
+              <th scope="col" class="px-6 py-3">
+                Date
+              </th>
+              <th scope="col" class="px-6 py-3">
+                Product name
+              </th>
+              <th scope="col" class="px-6 py-3">
+                Amount
+              </th>
+              <th scope="col" class="px-6 py-3">
+                Delivery status
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="bg-white border-b   hover:bg-gray-50 dark:hover:bg-gray-600 md:mx-8">
+              <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap">
+                1223456QEA
+              </th>
+              <td class="px-6 py-4">12 Jan23</td>
+              <td class="px-6 py-4">Astral CPVC Pro - 40mm pipe,3mtr</td>
+              <td class="px-6 py-4">₹14,0000</td>
+              <td class="px-6 py-4 text-right">
+                <button className="float-left bg-[#ecf7e7] text-[#50e364] p-2">
+                  Delivered
+                </button>
+              </td>
+            </tr>
+
+            <tr class="bg-white border-b   hover:bg-gray-50 dark:hover:bg-gray-600 md:mx-8">
+              <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap">
+                1223456QEA
+              </th>
+              <td class="px-6 py-4">12 Jan23</td>
+              <td class="px-6 py-4">Astral CPVC Pro - 40mm pipe,3mtr</td>
+              <td class="px-6 py-4">₹14,0000</td>
+              <td class="px-6 py-4 text-right">
+                <button className="float-left bg-[#ecf7e7] text-[#50e364] p-2">
+                  Delivered
+                </button>
+              </td>
+            </tr>
+
+            <tr class="bg-white border-b   hover:bg-gray-50 dark:hover:bg-gray-600 md:mx-8">
+              <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap">
+                1223456QEA
+              </th>
+              <td class="px-6 py-4">12 Jan23</td>
+              <td class="px-6 py-4">Astral CPVC Pro - 40mm pipe,3mtr</td>
+              <td class="px-6 py-4">₹14,0000</td>
+              <td class="px-6 py-4 text-right">
+                <button className="float-left bg-[#ecf7e7] text-[#50e364] p-2">
+                  Delivered
+                </button>
+              </td>
+            </tr>
+
+            <tr class="bg-white border-b   hover:bg-gray-50 dark:hover:bg-gray-600 md:mx-8">
+              <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap">
+                1223456QEA
+              </th>
+              <td class="px-6 py-4">12 Jan23</td>
+              <td class="px-6 py-4">Astral CPVC Pro - 40mm pipe,3mtr</td>
+              <td class="px-6 py-4">₹14,0000</td>
+              <td class="px-6 py-4 text-right">
+                <button className="float-left bg-[#ecf7e7] text-[#50e364] p-2">
+                  Delivered
+                </button>
+              </td>
+            </tr>
+
+            <tr class="bg-white border-b   hover:bg-gray-50 dark:hover:bg-gray-600 md:mx-8">
+              <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap">
+                1223456QEA
+              </th>
+              <td class="px-6 py-4">12 Jan23</td>
+              <td class="px-6 py-4">Astral CPVC Pro - 40mm pipe,3mtr</td>
+              <td class="px-6 py-4">₹14,0000</td>
+              <td class="px-6 py-4 text-right">
+                <button className="float-left bg-[#ecf7e7] text-[#50e364] p-2">
+                  Delivered
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   );
 }
 
@@ -280,7 +359,7 @@ async function fetchRecentOrder() {
   }
 }
 
-export function RecentOrder() {
+function TableWithExport() {
   const { orderList } = fetchRecentOrder();
 
   return (
