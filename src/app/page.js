@@ -1,12 +1,12 @@
 "use client";
 import "./globals.css";
 import React, { useEffect, useState } from "react";
-import { SignUp } from "@/container/signUp";
+import { Auth } from "@/container/auth";
 
 export default function Main() {
   return (
     <>
-      <SignUp />
+      <Auth />
     </>
   );
 }

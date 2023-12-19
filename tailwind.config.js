@@ -10,6 +10,9 @@ module.exports = {
   ],
   theme: {
     extend: {
+      backgroundColor: {
+        "blue-highlight": "#0A4E71",
+      },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
