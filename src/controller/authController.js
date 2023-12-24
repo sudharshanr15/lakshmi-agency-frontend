@@ -74,8 +74,8 @@ export const OTPSubmit = async (body) => {
       // console.log(data);
       const accessToken = data.access_token;
       const refreshToken = data.refresh_token;
-      localStorage.setItem("access_token", accessToken);
-      localStorage.setItem("refresh_token", refreshToken);
+      sessionStorage.setItem("access_token", accessToken);
+      sessionStorage.setItem("refresh_token", refreshToken);
 
       //  GO TO HOMEPAGE PAGE
     })
@@ -86,8 +86,8 @@ export const OTPSubmit = async (body) => {
 };
 
 export const refreshToken = async () => {
-  const refreshToken = localStorage.getItem("refresh_token");
-  const accessToken = localStorage.getItem("access_token");
+  const refreshToken = sessionStorage.getItem("refresh_token");
+  const accessToken = sessionStorage.getItem("access_token");
 
   config.method = "POST";
   config.data = {

@@ -3,14 +3,23 @@ import { Mobilenav } from "./mobileNav";
 import { Mobilefooter } from "./mobileFooter";
 import Image from "next/image";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import {
+  getCategories,
+  getSubCategories,
+} from "@/controller/dashboardController";
 
 export function Nav() {
-  
   const [isDrawerOpen, setDrawerOpen] = useState(false);
   const [isPipeOpen, setPipeOpen] = useState(false);
+  const [categories, setCategories] = useState([]);
+  const [subCategories, setSubCategories] = useState([]);
+
   const toggleDrawer = () => {
-    console.log("log ");
+    console.log("log drawer");
+    if (isDrawerOpen == false) {
+      getCategories(setCategories);
+    }
     setDrawerOpen(!isDrawerOpen);
     if (isPipeOpen) {
       setPipeOpen(!isPipeOpen);
@@ -22,104 +31,18 @@ export function Nav() {
     setDrawerOpen(!isDrawerOpen);
   };
 
-  const togglePipe = () => {
-    console.log("log ");
+  const togglePipe = (parent) => {
+    console.log(parent);
+    if (parent && isPipeOpen == false) {
+      getSubCategories(setSubCategories, parent);
+    }
     setPipeOpen(!isPipeOpen);
   };
-  // Dummy list items
-  const categList = [
-    {
-      id: 1,
-      link: "/image/pipes.jpg",
-      categoryName: "Pipes",
-    },
-    {
-      id: 2,
-      link: "/image/fittings.jpg",
-      categoryName: "Fittings",
-    },
-    {
-      id: 3,
-      link: "/image/valves.jpg",
-      categoryName: "Valves",
-    },
-    {
-      id: 4,
-      link: "/image/hoses.jpg",
-      categoryName: "Hoses",
-    },
-    {
-      id: 5,
-      link: "/image/watertank.jpg",
-      categoryName: "Water Tanks",
-    },
-    {
-      id: 6,
-      link: "/image/wires.jpg",
-      categoryName: "Wires",
-    },
-    {
-      id: 7,
-      link: "/image/paints.jpg",
-      categoryName: "Paints",
-    },
-    {
-      id: 8,
-      link: "/image/motor.jpg",
-      categoryName: "Motor and Pumps",
-    },
-    {
-      id: 9,
-      link: "/image/sanitaryware.jpg",
-      categoryName: "Sanitary wares",
-    },
-    {
-      id: 10,
-      link: "/image/bathfittings.jpg",
-      categoryName: "Bathroom fittings",
-    },
-  ];
-
-  const pipeList = [
-    {
-      id: 1,
-      name: "Steel valves",
-    },
-    {
-      id: 2,
-      name: "PCV valves",
-    },
-    {
-      id: 3,
-      name: "Glass valves",
-    },
-    {
-      id: 4,
-      name: "Iron valves",
-    },
-    {
-      id: 5,
-      name: "Gate valves",
-    },
-  ];
-
-  const fittingList = [
-    {
-      id: 1,
-
-      categoryName: "Pipes",
-    },
-    {
-      id: 2,
-      link: "/image/fittings.jpg",
-      categoryName: "Fittings",
-    },
-  ];
 
   const categoryMenu = [
     {
       id: 1,
-      name: "All categoryMenu",
+      name: "Categories",
       href: "#",
       current: false,
       icon: (
@@ -127,14 +50,16 @@ export function Nav() {
           className=""
           type="button"
           onClick={toggleDrawer}
-          aria-controls="drawer-navigation">
+          aria-controls="drawer-navigation"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
             strokeWidth={1.5}
             stroke="currentColor"
-            className="w-6 h-6">
+            className="w-6 h-6"
+          >
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -146,7 +71,7 @@ export function Nav() {
     },
     {
       id: 2,
-      name: "Quotes",
+      name: "Orders",
       href: "#",
       current: false,
       icon: (
@@ -156,7 +81,8 @@ export function Nav() {
           viewBox="0 0 24 24"
           strokeWidth={1.5}
           stroke="currentColor"
-          className="w-5 h-5 mr-1">
+          className="w-5 h-5 mr-1"
+        >
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -165,53 +91,53 @@ export function Nav() {
         </svg>
       ),
     },
-    {
-      id: 3,
-      name: "Reach us",
-      href: "#",
-      current: false,
-      icon: (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={1.5}
-          stroke="currentColor"
-          className="w-5 h-5 mr-1">
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z"
-          />
-        </svg>
-      ),
-    },
-    {
-      id: 4,
-      name: "Our stores",
-      href: "#",
-      current: false,
-      icon: (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={1.5}
-          stroke="currentColor"
-          className="w-5 h-5 mr-1">
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"
-          />
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"
-          />
-        </svg>
-      ),
-    },
+    // {
+    //   id: 3,
+    //   name: "Reach us",
+    //   href: "#",
+    //   current: false,
+    //   icon: (
+    //     <svg
+    //       xmlns="http://www.w3.org/2000/svg"
+    //       fill="none"
+    //       viewBox="0 0 24 24"
+    //       strokeWidth={1.5}
+    //       stroke="currentColor"
+    //       className="w-5 h-5 mr-1">
+    //       <path
+    //         strokeLinecap="round"
+    //         strokeLinejoin="round"
+    //         d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z"
+    //       />
+    //     </svg>
+    //   ),
+    // },
+    // {
+    //   id: 4,
+    //   name: "Our stores",
+    //   href: "#",
+    //   current: false,
+    //   icon: (
+    //     <svg
+    //       xmlns="http://www.w3.org/2000/svg"
+    //       fill="none"
+    //       viewBox="0 0 24 24"
+    //       strokeWidth={1.5}
+    //       stroke="currentColor"
+    //       className="w-5 h-5 mr-1">
+    //       <path
+    //         strokeLinecap="round"
+    //         strokeLinejoin="round"
+    //         d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"
+    //       />
+    //       <path
+    //         strokeLinecap="round"
+    //         strokeLinejoin="round"
+    //         d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"
+    //       />
+    //     </svg>
+    //   ),
+    // },
   ];
   return (
     <div>
@@ -222,7 +148,8 @@ export function Nav() {
             isDrawerOpen ? "" : "-translate-x-full"
           } bg-[#f2f2f2] dark:bg-gray-800`}
           tabIndex="-1"
-          aria-labelledby="drawer-navigation-label">
+          aria-labelledby="drawer-navigation-label"
+        >
           {/* <button
     type="button"
     onClick={toggleClose} // This will close the sidebar
@@ -245,22 +172,23 @@ export function Nav() {
           {/* list of items */}
           {isDrawerOpen && (
             <ul className="py-5">
-              {categList.map((item) => (
+              {categories.map((item, i) => (
                 <li
-                  key={item.id}
+                  key={i}
                   className="px-3 space-x-5 flex py-3 text-gray-700 justify-between dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600"
                   type="button"
-                  onClick={togglePipe}>
+                  onClick={() => togglePipe(item.name)}
+                >
                   <div className="flex">
                     <img
-                      src={item.link}
+                      src={item.image}
                       alt="category image"
                       className="-mt-3 rounded-full w-12 h-12 border-4 border-yellow-400"
                     />
-                    <span className="ml-4">{item.categoryName} </span>
+                    <span className="ml-4">{item.name} </span>
                   </div>
 
-                  <span className="mt-2">
+                  <div className="mt-2">
                     <button>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -268,7 +196,8 @@ export function Nav() {
                         viewBox="0 0 24 24"
                         strokeWidth={1.5}
                         stroke="currentColor"
-                        className="w-4 h-4">
+                        className="w-4 h-4"
+                      >
                         <path
                           strokeLinecap="round"
                           strokeLinejoin="round"
@@ -276,7 +205,7 @@ export function Nav() {
                         />
                       </svg>
                     </button>
-                  </span>
+                  </div>
                 </li>
               ))}
             </ul>
@@ -290,33 +219,38 @@ export function Nav() {
             isPipeOpen ? "" : "-translate-x-full"
           } bg-[#f2f2f2] dark:bg-gray-800`}
           tabIndex="-1"
-          aria-labelledby="drawer-navigation-label">
+          aria-labelledby="drawer-navigation-label"
+        >
           <button
             type="button"
-            onClick={togglePipe} // This will close the sidebar
+            onClick={() => togglePipe("")} // This will close the sidebar
             data-drawer-hide="drawer-navigation"
             aria-controls="drawer-navigation"
-            className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 absolute top-2.5 right-2.5 inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white">
+            className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 absolute top-2.5 right-2.5 inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+          >
             <svg
               aria-hidden="true"
               className="w-5 h-5"
               fill="currentColor"
               viewBox="0 0 20 20"
-              xmlns="http://www.w3.org/2000/svg">
+              xmlns="http://www.w3.org/2000/svg"
+            >
               <path
                 fillRule="evenodd"
                 d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                clipRule="evenodd"></path>
+                clipRule="evenodd"
+              ></path>
             </svg>
             <span className="sr-only">Close menu</span>
           </button>
 
           {isDrawerOpen && (
             <ul className="py-4">
-              {pipeList.map((item) => (
+              {subCategories.map((item, i) => (
                 <li
-                  key={item.id}
-                  className="px-3 space-x-5 flex py-5 text-gray-700 justify-between dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600 hover:{console.log('Hello')">
+                  key={i}
+                  className="px-3 space-x-5 flex py-5 text-gray-700 justify-between dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600 hover:{console.log('Hello')"
+                >
                   <div className="flex">
                     <span className="ml-4 underline">{item.name} </span>
                   </div>
@@ -348,7 +282,8 @@ export function Nav() {
                   viewBox="0 0 24 24"
                   strokeWidth={1.5}
                   stroke="currentColor"
-                  className="w-6 h-6 text-white">
+                  className="w-6 h-6 text-white"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -377,7 +312,8 @@ export function Nav() {
                     viewBox="0 0 24 24"
                     strokeWidth={1.5}
                     stroke="currentColor"
-                    className="w-6 h-6 mr-2  text-white">
+                    className="w-6 h-6 mr-2  text-white"
+                  >
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -397,7 +333,8 @@ export function Nav() {
                     viewBox="0 0 24 24"
                     strokeWidth={1.5}
                     stroke="currentColor"
-                    className="w-6 h-6 mr-2 text-white cursor-pointer">
+                    className="w-6 h-6 mr-2 text-white cursor-pointer"
+                  >
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -414,14 +351,16 @@ export function Nav() {
                 type="button"
                 className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
                 aria-controls="navbar-sticky"
-                aria-expanded="false">
+                aria-expanded="false"
+              >
                 <span className="sr-only">Open main menu</span>
                 <svg
                   className="w-5 h-5"
                   aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
-                  viewBox="0 0 17 14">
+                  viewBox="0 0 17 14"
+                >
                   <path
                     stroke="currentColor"
                     strokeLinecap="round"
@@ -452,7 +391,8 @@ export function Nav() {
                         viewBox="0 0 24 24"
                         strokeWidth={1.5}
                         stroke="currentColor"
-                        className="w-6 h-6">
+                        className="w-6 h-6"
+                      >
                         <path
                           strokeLinecap="round"
                           strokeLinejoin="round"
@@ -466,20 +406,22 @@ export function Nav() {
             </div>
           </div>
           <hr />
+          {/* CATEGORIES */}
           <div className="hidden md:block bg-[#004b71] text-white ">
             <div className=" max-w-2 p-1.5 flex flex-wrap items-center justify-between mx-auto ">
               <div className="hidden sm:ml-6 sm:block">
                 <div className="flex space-x-3">
                   {categoryMenu.map((item) => (
-                    <a
+                    <button
                       key={item.name}
-                      href={item.href}
-                      aria-current={item.current ? "page" : undefined}>
+                      aria-current={item.current ? "page" : undefined}
+                      onClick={toggleDrawer}
+                    >
                       <div className="flex">
                         <span className="mr-1">{item.icon} </span>
                         {item.name} &nbsp; <span> | </span>
                       </div>
-                    </a>
+                    </button>
                   ))}
                 </div>
               </div>

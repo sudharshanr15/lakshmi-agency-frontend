@@ -1,6 +1,5 @@
-"use client";
 import "../globals.css";
-import { Nav, Footer } from "@/components/";
+import { Footer } from "@/components/";
 import Image from "next/image";
 
 const caurosel = [
@@ -61,7 +60,7 @@ export default function Page() {
             </div>
             <button
               type="button"
-              class="focus:outline-none text-black bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900"
+              className="focus:outline-none text-black bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900"
             >
               Shop Now
             </button>
@@ -94,7 +93,12 @@ export default function Page() {
             {caurosel.map((items, i) => (
               <div key={i} className="text-center w-[200px] ">
                 <div className="relative text-center">
-                  <Image src={items.image} width={200} height={300} />
+                  <Image
+                    src={items.image}
+                    width={200}
+                    height={300}
+                    alt="images"
+                  />
                   <div className="bg-[#F9C74F] absolute bottom-2 translate-x-3/4 p-1 rounded-md">
                     <h2>{items.offer}% off</h2>
                   </div>
@@ -112,6 +116,7 @@ export default function Page() {
             height={0}
             sizes="100vw"
             style={{ width: "100%", height: "auto" }}
+            alt="images"
           />
         </div>
         {/* OUR BRANDS */}
@@ -123,7 +128,12 @@ export default function Page() {
           <div className="p-2 flex justify-evenly overflow-hidden">
             {brands.map((items, i) => (
               <div key={i} className="text-center w-[200px] ">
-                <Image src={items.image} width={180} height={100} />
+                <Image
+                  src={items.image}
+                  width={180}
+                  height={100}
+                  alt="images"
+                />
               </div>
             ))}
           </div>
@@ -138,6 +148,7 @@ export default function Page() {
             height={0}
             sizes="100vw"
             style={{ width: "100%", height: "auto" }}
+            alt="images"
           />
         </div>
         {/* FOOTER */}

@@ -30,7 +30,7 @@ function OTP({ otp, setOtp, onOTPFormSubmit }) {
   return (
     <>
       {/* Desktop version */}
-      <div className="hidden md:block max-h-screen overflow-hidden bg-[url('/image/paint-bucket.jpg')] bg-cover bg-center">
+      <div className="hidden md:block h-screen overflow-hidden bg-[url('/image/paint-bucket.jpg')] bg-cover bg-center">
         <div className="grid grid-cols-1 md:grid-cols-2 ">
           <div className="mx-9 md:mx-16 float-left md:left-10  lg:mt-96 md:mt-52">
             <h1 className="text-white text-2xl md:text-3xl font-bold md:font-bold">
