@@ -7,3 +7,11 @@
   width: 40px !important;
   border-radius: 6px;
 }
+
+.rc-collapse-header {
+  padding: 2px;
+}
+
+.rc-collapse-item {
+  border: none !important;
+}

@@ -8,15 +8,21 @@ import {
   Quote,
   UpcomingDue,
 } from "@/container/dashboard/";
+import { getOrders } from "@/controller/dashboardController";
+import { useEffect, useState } from "react";
 
 export default function Page() {
+  const [orders, setOrders] = useState([]);
+  useEffect(() => {
+    getOrders(setOrders);
+  }, []);
   return (
     <>
-      <Nav/>
+      <Nav />
       <Card />
       <LineChart />
       <Quote />
-      <RecentOrder />
+      <RecentOrder orders={orders} />
       <UpcomingDue />
       <Footer />
     </>

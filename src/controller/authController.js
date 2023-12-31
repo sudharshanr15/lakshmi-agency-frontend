@@ -60,12 +60,12 @@ export const login = async (body, setTempID, setAuthState) => {
 };
 
 // OTP
-export const OTPSubmit = async (body) => {
+export const OTPSubmit = async (body, router) => {
   config.method = "POST";
   config.data = body;
   config.url = baseUrl + "/libnext.auth.verify";
   // console.log(config);
-  refreshToken();
+  // refreshToken();
 
   axios
     .request(config)
@@ -78,6 +78,7 @@ export const OTPSubmit = async (body) => {
       sessionStorage.setItem("refresh_token", refreshToken);
 
       //  GO TO HOMEPAGE PAGE
+      router.push("/dashboard");
     })
     .catch((err) => {
       console.log("Login failed");

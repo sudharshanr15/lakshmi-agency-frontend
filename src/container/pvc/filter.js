@@ -84,7 +84,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Example() {
+export default function Example({ product }) {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
   return (
@@ -384,7 +384,7 @@ export default function Example() {
           </section>
         </main>
         <div className="w-full">
-          <Content />
+          <Content product={product} />
         </div>
       </div>
     </div>

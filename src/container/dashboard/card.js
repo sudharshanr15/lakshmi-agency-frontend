@@ -29,7 +29,7 @@ export function Card() {
   const [purchasedAmount, setPurchasedAmount] = useState(null);
 
   useEffect(() => {
-    console.log("Fetch api for cards");
+    // console.log("Fetch api for cards");
     const days = 30; // Change this to the desired number of days
   }, []);
 
@@ -214,7 +214,7 @@ export function Card() {
   );
 }
 
-export function RecentOrder() {
+export function RecentOrder({ orders }) {
   return (
     <div className="lg:mx-24 mx-6 lg:mt-10 mt-4 p-5 rounded-md">
       <div className="flex justify-between">
@@ -244,90 +244,27 @@ export function RecentOrder() {
             </tr>
           </thead>
           <tbody>
-            <tr className="bg-white border-b   hover:bg-gray-50 dark:hover:bg-gray-600 md:mx-8">
-              <th
-                scope="row"
-                className="px-6 py-4 font-medium whitespace-nowrap"
+            {orders.map((order, i) => (
+              <tr
+                key={i}
+                className="bg-white border-b   hover:bg-gray-50 dark:hover:bg-gray-600 md:mx-8"
               >
-                1223456QEA
-              </th>
-              <td className="px-6 py-4">12 Jan23</td>
-              <td className="px-6 py-4">Astral CPVC Pro - 40mm pipe,3mtr</td>
-              <td className="px-6 py-4">₹14,0000</td>
-              <td className="px-6 py-4 text-right">
-                <button className="float-left bg-[#ecf7e7] text-[#50e364] p-2">
-                  Delivered
-                </button>
-              </td>
-            </tr>
-
-            <tr className="bg-white border-b   hover:bg-gray-50 dark:hover:bg-gray-600 md:mx-8">
-              <th
-                scope="row"
-                className="px-6 py-4 font-medium whitespace-nowrap"
-              >
-                1223456QEA
-              </th>
-              <td className="px-6 py-4">12 Jan23</td>
-              <td className="px-6 py-4">Astral CPVC Pro - 40mm pipe,3mtr</td>
-              <td className="px-6 py-4">₹14,0000</td>
-              <td className="px-6 py-4 text-right">
-                <button className="float-left bg-[#ecf7e7] text-[#50e364] p-2">
-                  Delivered
-                </button>
-              </td>
-            </tr>
-
-            <tr className="bg-white border-b   hover:bg-gray-50 dark:hover:bg-gray-600 md:mx-8">
-              <th
-                scope="row"
-                className="px-6 py-4 font-medium whitespace-nowrap"
-              >
-                1223456QEA
-              </th>
-              <td className="px-6 py-4">12 Jan23</td>
-              <td className="px-6 py-4">Astral CPVC Pro - 40mm pipe,3mtr</td>
-              <td className="px-6 py-4">₹14,0000</td>
-              <td className="px-6 py-4 text-right">
-                <button className="float-left bg-[#ecf7e7] text-[#50e364] p-2">
-                  Delivered
-                </button>
-              </td>
-            </tr>
-
-            <tr className="bg-white border-b   hover:bg-gray-50 dark:hover:bg-gray-600 md:mx-8">
-              <th
-                scope="row"
-                className="px-6 py-4 font-medium whitespace-nowrap"
-              >
-                1223456QEA
-              </th>
-              <td className="px-6 py-4">12 Jan23</td>
-              <td className="px-6 py-4">Astral CPVC Pro - 40mm pipe,3mtr</td>
-              <td className="px-6 py-4">₹14,0000</td>
-              <td className="px-6 py-4 text-right">
-                <button className="float-left bg-[#ecf7e7] text-[#50e364] p-2">
-                  Delivered
-                </button>
-              </td>
-            </tr>
-
-            <tr className="bg-white border-b   hover:bg-gray-50 dark:hover:bg-gray-600 md:mx-8">
-              <th
-                scope="row"
-                className="px-6 py-4 font-medium whitespace-nowrap"
-              >
-                1223456QEA
-              </th>
-              <td className="px-6 py-4">12 Jan23</td>
-              <td className="px-6 py-4">Astral CPVC Pro - 40mm pipe,3mtr</td>
-              <td className="px-6 py-4">₹14,0000</td>
-              <td className="px-6 py-4 text-right">
-                <button className="float-left bg-[#ecf7e7] text-[#50e364] p-2">
-                  Delivered
-                </button>
-              </td>
-            </tr>
+                <th
+                  scope="row"
+                  className="px-6 py-4 font-medium whitespace-nowrap"
+                >
+                  {order.name}
+                </th>
+                <td className="px-6 py-4">{order.creation.substring(0, 10)}</td>
+                <td className="px-6 py-4">{order.items[0].item_name}</td>
+                <td className="px-6 py-4">₹14,0000</td>
+                <td className="px-6 py-4 text-right">
+                  <button className="float-left bg-[#ecf7e7] text-[#50e364] p-2">
+                    {order.delivery_status}
+                  </button>
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>

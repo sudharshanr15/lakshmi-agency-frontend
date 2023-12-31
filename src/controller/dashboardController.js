@@ -5,12 +5,12 @@ export const getCategories = async (setCategories) => {
   config.method = "GET";
   config.url = baseUrl + "/lakshmiagency.v1.store.category.get_list";
   config.params = "";
-  console.log("CATEGORIES");
+  // console.log("CATEGORIES");
 
   axios
     .request(config)
     .then((res) => {
-      console.log(res.data);
+      // console.log(res.data);
       setCategories(res.data.data);
     })
     .catch((err) => {
@@ -25,14 +25,36 @@ export const getSubCategories = async (setSubCategories, parent) => {
   config.params = {
     parent: parent,
   };
-  console.log("SUB CATEGORIES");
+  // console.log("SUB CATEGORIES");
   // console.log(config);
 
   axios
     .request(config)
     .then((res) => {
-      console.log(res.data);
+      // console.log(res.data);
       setSubCategories(res.data.data);
+    })
+    .catch((err) => {
+      console.log("Something went wrong");
+      console.log(err);
+    });
+};
+
+export const getOrders = async (setOrders) => {
+  config.method = "get";
+  config.url = baseUrl + "/lakshmiagency.v1.store.order.get_list";
+  config.params = {
+    status: "order",
+    start: "0",
+    page_length: "6",
+  };
+  // console.log(config);
+
+  axios
+    .request(config)
+    .then((res) => {
+      // console.log(res.data);
+      setOrders(res.data.data);
     })
     .catch((err) => {
       console.log("Something went wrong");

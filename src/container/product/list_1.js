@@ -1,20 +1,19 @@
+"use client"
 import Content from "./content";
+import { useSelector } from "react-redux";
 
-const Total = () => {
+const Total = ({ cart }) => {
   return (
     <div className="w-full fixed bottom-16 md:bottom-0 lg:bottom-0 lg:relative bg-gray-100 py-8">
       <div className="lg:mt-36 mx-5 lg:mx-10 text-sm flex justify-between">
         <div>
-          <p className="text-gray-400">4 products selected</p>
+          <p className="text-gray-400">{cart.length} products selected</p>
           <h1 className="text-2xl lg:text-3xl mt-3 text-blue-900">Total</h1>
         </div>
         <div>
           <a className="text-blue-600 underline underline-offset-2 font-thin">
             View Products
           </a>
-          <h1 className="text-2xl lg:text-3xl mt-3 font-bold text-blue-900">
-            &#8377;27,000
-          </h1>
         </div>
       </div>
       <div className="lg:flex lg:justify-end mx-5 lg:mx-10 mt-5">
@@ -29,11 +28,12 @@ const Total = () => {
   );
 };
 export function List() {
+  const cart = useSelector((state) => state.product.cart);
   return (
     <>
       <div>
-        <Total />
-        <Content />
+        <Total cart={cart} />
+        <Content cart={cart} />
       </div>
     </>
   );

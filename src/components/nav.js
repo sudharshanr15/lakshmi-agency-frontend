@@ -2,6 +2,7 @@
 import { Mobilenav } from "./mobileNav";
 import { Mobilefooter } from "./mobileFooter";
 import Image from "next/image";
+import Link from "next/link";
 
 import { useEffect, useState } from "react";
 import {
@@ -16,7 +17,7 @@ export function Nav() {
   const [subCategories, setSubCategories] = useState([]);
 
   const toggleDrawer = () => {
-    console.log("log drawer");
+    // console.log("log drawer");
     if (isDrawerOpen == false) {
       getCategories(setCategories);
     }
@@ -32,7 +33,7 @@ export function Nav() {
   };
 
   const togglePipe = (parent) => {
-    console.log(parent);
+    // console.log(parent);
     if (parent && isPipeOpen == false) {
       getSubCategories(setSubCategories, parent);
     }
@@ -181,7 +182,7 @@ export function Nav() {
                 >
                   <div className="flex">
                     <img
-                      src={item.image}
+                      src={"https://test01.lakshmiagency.com/" + item.image}
                       alt="category image"
                       className="-mt-3 rounded-full w-12 h-12 border-4 border-yellow-400"
                     />
@@ -247,14 +248,13 @@ export function Nav() {
           {isDrawerOpen && (
             <ul className="py-4">
               {subCategories.map((item, i) => (
-                <li
-                  key={i}
-                  className="px-3 space-x-5 flex py-5 text-gray-700 justify-between dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600 hover:{console.log('Hello')"
-                >
-                  <div className="flex">
-                    <span className="ml-4 underline">{item.name} </span>
-                  </div>
-                </li>
+                <Link key={i} href={"/dashboard/pvc/" + item.name}>
+                  <li className="px-3 space-x-5 flex py-5 text-gray-700 justify-between dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600 hover:{console.log('Hello')">
+                    <div className="flex">
+                      <span className="ml-4 underline">{item.name} </span>
+                    </div>
+                  </li>
+                </Link>
               ))}
             </ul>
           )}

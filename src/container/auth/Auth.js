@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { login, signUp, OTPSubmit } from "@/controller/authController";
+import { useRouter } from "next/navigation";
 import SignUp from "./SignUp";
 import Login from "./Login";
 import OTP from "./OTP";
@@ -14,6 +15,8 @@ export function Auth() {
   // temp ID
   const [tempID, setTempID] = useState("");
   const [otp, setOtp] = useState("");
+  //
+  const router = useRouter();
 
   function onSignupFormSubmit(e) {
     e.preventDefault();
@@ -50,7 +53,7 @@ export function Auth() {
     };
 
     // console.log(body);
-    OTPSubmit(body);
+    OTPSubmit(body, router);
   }
 
   function validatePhoneNumber(mobile) {

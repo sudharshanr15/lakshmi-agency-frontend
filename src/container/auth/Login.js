@@ -41,6 +41,7 @@ function Login({ onLoginFormSubmit, setAuthState, setMobile }) {
                       <input
                         type="text"
                         required
+                        defaultValue={6382344165}
                         onChange={(e) => setMobile(e.target.value)}
                         className="-ml-1 p-5 py-1   w-full focus:ring-blue-500 focus:outline-none"
                       />
