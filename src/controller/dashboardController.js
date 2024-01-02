@@ -53,7 +53,7 @@ export const getOrders = async (setOrders) => {
   axios
     .request(config)
     .then((res) => {
-      // console.log(res.data);
+      console.log(res.data.data);
       setOrders(res.data.data);
     })
     .catch((err) => {
