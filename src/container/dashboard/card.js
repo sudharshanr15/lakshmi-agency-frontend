@@ -1,6 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { getOrderStatistics } from "@/controller/dashboardController";
 // import { ListTable } from "./action/recentOrder";
 
 export function Card() {
@@ -21,17 +22,17 @@ export function Card() {
       id: 1,
       days: "30",
     },
+    {
+      id: 2,
+      days: "90",
+    },
   ];
 
-  const [orders, setOrders] = useState(null);
-  const [quotes, setQuotes] = useState(null);
-  const [savings, setSavings] = useState(null);
-  const [purchasedAmount, setPurchasedAmount] = useState(null);
+  const [orderStatistics, setOrdersStatistics] = useState(null);
 
   useEffect(() => {
-    // console.log("Fetch api for cards");
-    const days = 30; // Change this to the desired number of days
-  }, []);
+    getOrderStatistics(setOrdersStatistics, selectedDay);
+  }, [selectedDay]);
 
   return (
     <>
@@ -64,14 +65,11 @@ export function Card() {
                   <ul className="absolute right-0 mt-2 py-2 w-48 bg-white rounded-md shadow-lg">
                     {days.map((item) => (
                       <li key={item.id}>
-                        <a
-                          href="#"
-                          className="block px-4 py-2 text-gray-800 hover:bg-blue-500 hover:text-white"
-                        >
-                          <button onClick={() => toggleFilter(item.days)}>
+                        <button onClick={() => toggleFilter(item.days)}>
+                          <div className="block px-4 py-2 text-gray-800 hover:bg-blue-500 hover:text-white">
                             Last {item.days} days
-                          </button>
-                        </a>
+                          </div>
+                        </button>
                       </li>
                     ))}
                   </ul>
@@ -104,7 +102,9 @@ export function Card() {
                 <div className="ml-4">
                   <h1 className="text-[#555961] text-2-xl">Orders</h1>
                   <div className="flex">
-                    <p className="mt-1 font-bold text-1xl md:text-2xl">123</p>
+                    <p className="mt-1 font-bold text-1xl md:text-2xl">
+                      {orderStatistics && orderStatistics.orders}
+                    </p>
                     {/* <div className="flex  text-lime-600 ">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -148,7 +148,9 @@ export function Card() {
                 <div className="ml-4">
                   <h1 className="text-[#555961] text-2-xl">Quote</h1>
                   <div className="flex">
-                    <p className="mt-1 font-bold text-1xl md:text-2xl">32</p>
+                    <p className="mt-1 font-bold text-1xl md:text-2xl">
+                      {orderStatistics && orderStatistics.quotes}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -175,7 +177,9 @@ export function Card() {
                 <div className="ml-4">
                   <h1 className="text-[#555961] text-2-xl">Savings</h1>
                   <div className="flex">
-                    <p className="mt-1 font-bold text-1xl md:text-2xl">123</p>
+                    <p className="mt-1 font-bold text-1xl md:text-2xl">
+                      {orderStatistics && orderStatistics.savings}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -202,7 +206,9 @@ export function Card() {
                 <div className="ml-4">
                   <h1 className="text-[#555961] text-2-xl">Purchased</h1>
                   <div className="flex">
-                    <p className="mt-1 font-bold text-1xl md:text-2xl">423</p>
+                    <p className="mt-1 font-bold text-1xl md:text-2xl">
+                      {orderStatistics && orderStatistics.purchased_amount}
+                    </p>
                   </div>
                 </div>
               </div>

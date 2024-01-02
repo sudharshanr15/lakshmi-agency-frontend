@@ -1,6 +1,5 @@
 "use client";
 import Card from "./card";
-import { useSelector } from "react-redux";
 
 const Content = ({ cart }) => {
   return (
@@ -9,6 +8,7 @@ const Content = ({ cart }) => {
         <Card
           name={val.item_name}
           itemCode={val.item_code}
+          quantity={val.qty}
           key={pos}
         />
       ))}

@@ -48,3 +48,25 @@ export const getProductDetails = async (setProductDetail, itemCode) => {
       console.log(err);
     });
 };
+
+export const placeOrder = async (billing_address, delivery_address, items) => {
+  // console.log(itemCode);
+  config.method = "GET";
+  config.url = baseUrl + "/lakshmiagency.v1.store.quotation.add";
+  config.params = {
+    billing_address: billing_address,
+    delivery_address: delivery_address,
+    items: items,
+  };
+  // console.log(config);
+
+  axios
+    .request(config)
+    .then((res) => {
+      console.log(res.data);
+    })
+    .catch((err) => {
+      console.log("Something went wrong");
+      console.log(err);
+    });
+};

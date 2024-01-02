@@ -1,18 +1,22 @@
-import { FaFacebookF,FaLinkedinIn,FaInstagram,FaTwitter } from 'react-icons/fa';
+import {
+  FaFacebookF,
+  FaLinkedinIn,
+  FaInstagram,
+  FaTwitter,
+} from "react-icons/fa";
 
 export function Footer() {
   return (
-    <div className='bg-[#F8F9FA]'>
+    <div className="bg-[#F8F9FA] z-[100]">
       <div className="lg:mx-28 mx-10 mt-12  lg:mt-16 mb-5">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 ">
           <div className="mx-2">
             <div className="flex items-center p-5">
               <img
-                src="logo_with_name.svg"
+                src={"/logo_with_name.svg"}
                 alt="Logo"
                 className="w-40 h-20"
               />
-             
             </div>
             <p className="">
               The lakshmi agency Lorem ipsum dolor sit amet consectetur
@@ -57,28 +61,41 @@ export function Footer() {
 
       <footer className="hidden md:block shadow bg-[#0A4E71]">
         <div className="w-full p-4 md:flex md:items-center md:justify-between">
-
           <ul className="flex flex-wrap items-center mt-3 text-sm font-medium text-white  sm:mt-0">
             <li>
-              <a href="#" className="mr-4 hover:underline md:mr-6">Copyrights@2022.All rights reserved by Lakshmi Agency</a>
+              <a href="#" className="mr-4 hover:underline md:mr-6">
+                Copyrights@2022.All rights reserved by Lakshmi Agency
+              </a>
             </li>
             <li>
-              <span href="#" className="mr-4 hover:underline md:mr-6">|</span>
+              <span href="#" className="mr-4 hover:underline md:mr-6">
+                |
+              </span>
             </li>
             <li>
-              <a href="#" className="mr-4 hover:underline md:mr-6">Privacy Policy</a>
+              <a href="#" className="mr-4 hover:underline md:mr-6">
+                Privacy Policy
+              </a>
             </li>
             <li>
-              <span href="#" className="mr-4 hover:underline md:mr-6">|</span>
+              <span href="#" className="mr-4 hover:underline md:mr-6">
+                |
+              </span>
             </li>
             <li>
-              <a href="#" className="mr-4 hover:underline md:mr-6">Cookie policy</a>
+              <a href="#" className="mr-4 hover:underline md:mr-6">
+                Cookie policy
+              </a>
             </li>
             <li>
-              <span href="#" className="mr-4 hover:underline md:mr-6">|</span>
+              <span href="#" className="mr-4 hover:underline md:mr-6">
+                |
+              </span>
             </li>
             <li>
-              <a href="#" className="hover:underline">Terms of use</a>
+              <a href="#" className="hover:underline">
+                Terms of use
+              </a>
             </li>
           </ul>
 
@@ -101,12 +118,6 @@ export function Footer() {
           </span>
         </div>
       </footer>
-
-
     </div>
-
-
-
   );
 }
-

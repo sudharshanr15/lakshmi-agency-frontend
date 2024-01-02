@@ -62,6 +62,26 @@ export const getOrders = async (setOrders) => {
     });
 };
 
+export const getOrderStatistics = async (setOrdersStatistics, selectedDay) => {
+  config.method = "get";
+  config.url = baseUrl + "/lakshmiagency.v1.store.report.order.get";
+  config.params = {
+    days: selectedDay,
+  };
+  // console.log(config);
+
+  axios
+    .request(config)
+    .then((res) => {
+      // console.log(res.data);
+      setOrdersStatistics(res.data.data);
+    })
+    .catch((err) => {
+      console.log("Something went wrong");
+      console.log(err);
+    });
+};
+
 // Graph API data
 // export const fetchGraphData = async (days) => {
 //   console.log("fetch graph data api fuction inside coming ")

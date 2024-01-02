@@ -5,8 +5,9 @@ import {
   setSelectedProduct,
 } from "@/lib/features/productSlice";
 import { useState } from "react";
+import Image from "next/image";
 
-const Card = ({ name, itemCode }) => {
+const Card = ({ name, itemCode, quantity }) => {
   const dispatch = useDispatch();
   function showProductDetailCard() {
     // console.log("product clicked", itemCode);
@@ -14,56 +15,33 @@ const Card = ({ name, itemCode }) => {
     dispatch(setSelectedProduct(itemCode));
   }
 
-  const [qty, setQty] = useState(0);
-  const [isChecked, setIsChecked] = useState(false);
+  const [qty, setQty] = useState(quantity);
 
-  function checkBoxChanged() {
-    setIsChecked(!isChecked);
-    if (!isChecked) {
-      addProduct(itemCode, qty);
-    } else {
-      removeProduct(itemCode);
-    }
-  }
-
-  function addProduct(itemCode, qty) {
-    if (qty == 0) {
-      setQty(1);
-    }
-    const payload = {
-      item_code: itemCode,
-      item_name: name,
-      qty: qty == 0 ? 1 : qty,
-    };
-    dispatch(addProductsInCart(payload));
-  }
-
-  function removeProduct(itemCode) {
+  function removeProduct() {
     setQty(0);
     dispatch(removeProductFromCart(itemCode));
   }
 
   function changeQty(qty) {
     setQty(qty);
-    if (isChecked) {
-      // add product
-      const payload = {
-        item_code: itemCode,
-        item_name: name,
-        qty: qty,
-      };
-      dispatch(addProductsInCart(payload));
-    }
+    // add product
+    const payload = {
+      item_code: itemCode,
+      item_name: name,
+      qty: qty,
+    };
+    dispatch(addProductsInCart(payload));
   }
 
   return (
     <div className="p-4 border rounded-md text-gray-500">
       <div className="flex items-start">
-        <input
-          type="checkbox"
-          className="mt-2"
-          checked={isChecked}
-          onChange={checkBoxChanged}
+        <Image
+          src={"/image/icons/delete_icon.png"}
+          height={20}
+          width={20}
+          className="cursor-pointer"
+          onClick={() => removeProduct()}
         />
         <h3
           className="ml-2 underline font-medium cursor-pointer"
