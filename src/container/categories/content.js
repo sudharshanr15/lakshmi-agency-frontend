@@ -13,23 +13,19 @@ const Content = ({ product }) => {
     getProductsList(setProducts, itemName);
   }, []);
 
-  const content = products.map((val, pos) => (
-    <Card
-      name={val.name}
-      description={val.description}
-      itemCode={val.item_code}
-      key={pos}
-    />
-    // <Card
-    //   name={val.name}
-    //   mrp={val.mrp}
-    //   price={val.price}
-    //   gst={val.gst}
-    //   deliveryfee={val.deliveryFee}
-    //   deliverydate={val.deliveryDate}
-    //   key={pos}
-    // />
-  ));
+  const content = products.map((val, pos) =>
+    val.has_variants != 1 ? (
+      <Card
+        name={val.name}
+        description={val.description}
+        itemCode={val.item_code}
+        wished={val.wished}
+        key={pos}
+      />
+    ) : (
+      <></>
+    )
+  );
 
   return (
     <>

@@ -31,6 +31,7 @@ function ChartDiagram({ chartData }) {
 }
 
 export function LineChart() {
+  
   const [chartData, setChartData] = useState({
     labels: Data.map((data) => data.year), 
     datasets: [

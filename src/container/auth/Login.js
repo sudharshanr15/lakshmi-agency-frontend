@@ -1,11 +1,20 @@
 import React from "react";
 
-function Login({ onLoginFormSubmit, setAuthState, setMobile }) {
+function Login({ onLoginFormSubmit, setMobile, mobile }) {
   return (
     <>
       {/* DESKTOP VERSION */}
-      <div className="hidden md:block h-screen overflow-hidden bg-[url('/image/paint-bucket.jpg')] bg-cover bg-center">
-        <div className="grid grid-cols-1 md:grid-cols-2 ">
+      <div
+        className="hidden md:block h-screen overflow-hidden"
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)) ,url('/image/paint-bucket.jpg')",
+          backgroundPosition: "center",
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
+        }}
+      >
+        <div className="grid grid-cols-1 md:grid-cols-2 z-50">
           <div className="mx-9 md:mx-16 float-left md:left-10  lg:mt-96 md:mt-52">
             <h1 className="text-white text-2xl md:text-3xl font-bold md:font-bold">
               Join <span className="text-yellow-300"> Lakshmi Agency</span>
@@ -41,7 +50,7 @@ function Login({ onLoginFormSubmit, setAuthState, setMobile }) {
                       <input
                         type="text"
                         required
-                        defaultValue={6382344165}
+                        value={mobile}
                         onChange={(e) => setMobile(e.target.value)}
                         className="-ml-1 p-5 py-1   w-full focus:ring-blue-500 focus:outline-none"
                       />
@@ -58,13 +67,7 @@ function Login({ onLoginFormSubmit, setAuthState, setMobile }) {
 
                 <div className="flex justify-center mt-6">
                   <button
-                    className="w-64 py-2 text-[#718d99] bg-white border border-[#718d99] rounded-lg hover:bg-blue-600 mr-4"
-                    onClick={() => setAuthState("signup")}
-                  >
-                    SignUp
-                  </button>
-                  <button
-                    className="w-64 py-2 bg-[#f9c650] text-white rounded-lg "
+                    className="w-full py-2 mt-2 bg-[#f9c650] text-white rounded-lg "
                     type="submit"
                   >
                     Submit
@@ -78,7 +81,16 @@ function Login({ onLoginFormSubmit, setAuthState, setMobile }) {
       {/* MOBILE VERSION */}
       <div className="block md:hidden">
         <div className="flex flex-col md:flex-row">
-          <div className=" bg-[url('/image/paint-bucket.jpg')] bg-cover bg-center h-60 p-4 ">
+          <div
+            className="h-60 p-4 "
+            style={{
+              backgroundImage:
+                "linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)) ,url('/image/paint-bucket.jpg')",
+              backgroundPosition: "center",
+              backgroundSize: "cover",
+              backgroundRepeat: "no-repeat",
+            }}
+          >
             <div className="m-4 mt-4">
               <h1 className="text-white text-2xl  font-bold mt-9">
                 Join <span className="text-yellow-300 "> Lakshmi Agency</span>
@@ -112,6 +124,7 @@ function Login({ onLoginFormSubmit, setAuthState, setMobile }) {
                         type="text"
                         required
                         className="-ml-1 p-5 py-1 border-0 w-full focus:ring-blue-500 focus:outline-none"
+                        defaultValue={"6382344165"}
                         onChange={(e) => setMobile(e.target.value)}
                       />
                     </div>
@@ -131,7 +144,7 @@ function Login({ onLoginFormSubmit, setAuthState, setMobile }) {
                       className="w-full py-2 bg-[#f9c650] text-white rounded-lg"
                       type="submit"
                     >
-                      Signin
+                      Login
                     </button>
                   </div>
                 </div>

@@ -1,20 +1,24 @@
 "use client";
 import { Mobilenav } from "./mobileNav";
 import { Mobilefooter } from "./mobileFooter";
-import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
-import {useState } from "react";
+import { useState, useEffect } from "react";
 import {
   getCategories,
   getSubCategories,
 } from "@/controller/dashboardController";
+import { getBillingAddress } from "@/controller/profileController";
 
 export function Nav() {
   const [isDrawerOpen, setDrawerOpen] = useState(false);
   const [isPipeOpen, setPipeOpen] = useState(false);
   const [categories, setCategories] = useState([]);
   const [subCategories, setSubCategories] = useState([]);
+  const [parent, setParent] = useState("");
+
+  const router = useRouter();
 
   const toggleDrawer = () => {
     // console.log("log drawer");
@@ -27,6 +31,12 @@ export function Nav() {
     }
   };
 
+  const [billingAddress, setBillingAddress] = useState("");
+
+  useEffect(() => {
+    getBillingAddress(setBillingAddress);
+  }, []);
+
   const toggleClose = () => {
     setPipeOpen(!isPipeOpen);
     setDrawerOpen(!isDrawerOpen);
@@ -35,6 +45,7 @@ export function Nav() {
   const togglePipe = (parent) => {
     // console.log(parent);
     if (parent && isPipeOpen == false) {
+      setParent(parent);
       getSubCategories(setSubCategories, parent);
     }
     setPipeOpen(!isPipeOpen);
@@ -92,84 +103,24 @@ export function Nav() {
         </svg>
       ),
     },
-    // {
-    //   id: 3,
-    //   name: "Reach us",
-    //   href: "#",
-    //   current: false,
-    //   icon: (
-    //     <svg
-    //       xmlns="http://www.w3.org/2000/svg"
-    //       fill="none"
-    //       viewBox="0 0 24 24"
-    //       strokeWidth={1.5}
-    //       stroke="currentColor"
-    //       className="w-5 h-5 mr-1">
-    //       <path
-    //         strokeLinecap="round"
-    //         strokeLinejoin="round"
-    //         d="M8.625 12a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H8.25m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0H12m4.125 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm0 0h-.375M21 12c0 4.556-4.03 8.25-9 8.25a9.764 9.764 0 01-2.555-.337A5.972 5.972 0 015.41 20.97a5.969 5.969 0 01-.474-.065 4.48 4.48 0 00.978-2.025c.09-.457-.133-.901-.467-1.226C3.93 16.178 3 14.189 3 12c0-4.556 4.03-8.25 9-8.25s9 3.694 9 8.25z"
-    //       />
-    //     </svg>
-    //   ),
-    // },
-    // {
-    //   id: 4,
-    //   name: "Our stores",
-    //   href: "#",
-    //   current: false,
-    //   icon: (
-    //     <svg
-    //       xmlns="http://www.w3.org/2000/svg"
-    //       fill="none"
-    //       viewBox="0 0 24 24"
-    //       strokeWidth={1.5}
-    //       stroke="currentColor"
-    //       className="w-5 h-5 mr-1">
-    //       <path
-    //         strokeLinecap="round"
-    //         strokeLinejoin="round"
-    //         d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z"
-    //       />
-    //       <path
-    //         strokeLinecap="round"
-    //         strokeLinejoin="round"
-    //         d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z"
-    //       />
-    //     </svg>
-    //   ),
-    // },
   ];
+
+  function routeToSubCategories(itemName) {
+    sessionStorage.setItem("category", parent);
+    router.push("/dashboard/categories/" + itemName);
+  }
+
   return (
     <div>
       {isDrawerOpen && (
         <div
           id="drawer-navigation"
-          className={`fixed top-36 left-0 z-40 w-80 md:mb-32 bg-[#f2f2f2] h-screen p-4 overflow-y-auto transition-transform ${
+          className={`fixed top-32 left-0 z-40 w-80 md:mb-32 bg-[#f2f2f2] h-screen p-4 overflow-y-auto transition-transform ${
             isDrawerOpen ? "" : "-translate-x-full"
           } bg-[#f2f2f2] dark:bg-gray-800`}
           tabIndex="-1"
           aria-labelledby="drawer-navigation-label"
         >
-          {/* <button
-    type="button"
-    onClick={toggleClose} // This will close the sidebar
-    data-drawer-hide="drawer-navigation"
-    aria-controls="drawer-navigation"
-    className="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 absolute top-2.5 right-2.5 inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white">
-    <svg
-      aria-hidden="true"
-      className="w-5 h-5" 
-      fill="currentColor"
-      viewBox="0 0 20 20"
-      xmlns="http://www.w3.org/2000/svg">
-      <path
-        fillRule="evenodd"
-        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-        clipRule="evenodd"></path>
-    </svg>
-    <span className="sr-only">Close menu</span>
-  </button> */}
           {/* list of items */}
           {isDrawerOpen && (
             <ul className="py-5">
@@ -180,7 +131,7 @@ export function Nav() {
                   type="button"
                   onClick={() => togglePipe(item.name)}
                 >
-                  <div className="flex">
+                  <div className="flex cursor-pointer">
                     <img
                       src={"https://test01.lakshmiagency.com/" + item.image}
                       alt="category image"
@@ -216,7 +167,7 @@ export function Nav() {
       {isPipeOpen ? (
         <div
           id="drawer-navigation"
-          className={`fixed top-36 left-80 z-40 w-80 md:mb-32 bg-white h-screen p-4 overflow-y-auto transition-transform ${
+          className={`fixed top-32 left-80 z-40 w-80 md:mb-32 bg-white h-screen p-4 overflow-y-auto transition-transform ${
             isPipeOpen ? "" : "-translate-x-full"
           } bg-[#f2f2f2] dark:bg-gray-800`}
           tabIndex="-1"
@@ -248,13 +199,17 @@ export function Nav() {
           {isDrawerOpen && (
             <ul className="py-4">
               {subCategories.map((item, i) => (
-                <Link key={i} href={"/dashboard/pvc/" + item.name}>
+                <div
+                  key={i}
+                  onClick={() => routeToSubCategories(item.name)}
+                  className="cursor-pointer"
+                >
                   <li className="px-3 space-x-5 flex py-5 text-gray-700 justify-between dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600 hover:{console.log('Hello')">
                     <div className="flex">
                       <span className="ml-4 underline">{item.name} </span>
                     </div>
                   </li>
-                </Link>
+                </div>
               ))}
             </ul>
           )}
@@ -297,34 +252,15 @@ export function Nav() {
                 </svg>
 
                 <span className="self-center  font-semibold whitespace-nowrap text-white">
-                  Delivered to Trichy -{" "}
-                  <span className="text-yellow-300">622023</span>{" "}
+                  Delivered to {billingAddress.city} -{" "}
+                  <span className="text-yellow-300">
+                    {billingAddress.pincode}
+                  </span>{" "}
                 </span>
               </div>
             </a>
 
             <div className="flex md:order-2">
-              <div className="flex m-3 md:hidden lg:block ">
-                <div className="flex">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="w-6 h-6 mr-2  text-white"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z"
-                    />
-                  </svg>
-
-                  <span className="mr-7 text-white ">Cart</span>
-                </div>
-              </div>
-
               <div className="flex m-3 md:hidden lg:block ">
                 <div className="flex">
                   <svg
@@ -372,7 +308,7 @@ export function Nav() {
               </button>
             </div>
             <div className="flex-grow flex justify-center ml-3">
-              <div className="w-full max-w-2xl">
+              <div className="w-[80%] max-w-2xl">
                 <label htmlFor="search" className="sr-only">
                   Search
                 </label>
@@ -408,14 +344,19 @@ export function Nav() {
           <hr />
           {/* CATEGORIES */}
           <div className="hidden md:block bg-[#004b71] text-white ">
-            <div className=" max-w-2 p-1.5 flex flex-wrap items-center justify-between mx-auto ">
+            <div className=" max-w-2 p-2 flex flex-wrap items-center justify-between mx-auto ">
               <div className="hidden sm:ml-6 sm:block">
                 <div className="flex space-x-3">
                   {categoryMenu.map((item) => (
                     <button
                       key={item.name}
                       aria-current={item.current ? "page" : undefined}
-                      onClick={toggleDrawer}
+                      onClick={() => {
+                        if (item.name == "Categories") toggleDrawer();
+                        else {
+                          router.push("/dashboard/orders");
+                        }
+                      }}
                     >
                       <div className="flex">
                         <span className="mr-1">{item.icon} </span>
@@ -423,13 +364,6 @@ export function Nav() {
                       </div>
                     </button>
                   ))}
-                </div>
-              </div>
-              <div className="flex md:order-2 md:mr-8 lg:mr-12  ">
-                <div className="relative hidden md:block">
-                  <button className="rounded-md border border-yellow-300 text-yellow-300 p-3 hover:bg-yellow-300 hover:text-white">
-                    Become a seller
-                  </button>
                 </div>
               </div>
             </div>

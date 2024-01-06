@@ -31,7 +31,7 @@ export const getSubCategories = async (setSubCategories, parent) => {
   axios
     .request(config)
     .then((res) => {
-      // console.log(res.data);
+      console.log(res.data);
       setSubCategories(res.data.data);
     })
     .catch((err) => {
@@ -53,8 +53,50 @@ export const getOrders = async (setOrders) => {
   axios
     .request(config)
     .then((res) => {
-      console.log(res.data.data);
+      // console.log(res.data.data);
       setOrders(res.data.data);
+    })
+    .catch((err) => {
+      console.log("Something went wrong");
+      console.log(err);
+    });
+};
+
+export const getDues = async (setDues) => {
+  config.method = "get";
+  config.url =
+    baseUrl + "/lakshmiagency.v1.store.report.invoice.get_pending_list";
+  config.params = {
+    start: "0",
+    page_length: "6",
+  };
+  // console.log(config);
+
+  axios
+    .request(config)
+    .then((res) => {
+      console.log(res.data.data);
+      setDues(res.data.data);
+    })
+    .catch((err) => {
+      console.log("Something went wrong");
+      console.log(err);
+    });
+};
+
+export const getOrderByID = async (setOrder, OrderId) => {
+  config.method = "get";
+  config.url = baseUrl + "/lakshmiagency.v1.store.order.get";
+  config.params = {
+    id: OrderId,
+  };
+  // console.log(config);
+
+  axios
+    .request(config)
+    .then((res) => {
+      console.log(res.data.data);
+      // setOrder(res.data.data);
     })
     .catch((err) => {
       console.log("Something went wrong");
@@ -75,6 +117,24 @@ export const getOrderStatistics = async (setOrdersStatistics, selectedDay) => {
     .then((res) => {
       // console.log(res.data);
       setOrdersStatistics(res.data.data);
+    })
+    .catch((err) => {
+      console.log("Something went wrong");
+      console.log(err);
+    });
+};
+
+export const getChartData = async (setChartData) => {
+  config.method = "get";
+  config.url = baseUrl + "/lakshmiagency.v1.store.report.purchased.get";
+  config.params = {};
+  // console.log(config);
+
+  axios
+    .request(config)
+    .then((res) => {
+      console.log(res.data);
+      setChartData(res.data.data);
     })
     .catch((err) => {
       console.log("Something went wrong");

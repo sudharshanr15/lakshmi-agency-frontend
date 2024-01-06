@@ -23,11 +23,7 @@ export const getAddressList = async (setAddress) => {
     });
 };
 
-export const getBillingAddress = async (
-  dispatch,
-  setDeliveryAddress,
-  setBillingAddress
-) => {
+export const getBillingAddress = async (setBillingAddress) => {
   config.method = "GET";
   config.url = baseUrl + "/lakshmiagency.v1.store.address.get_list";
   config.params = {
@@ -40,9 +36,10 @@ export const getBillingAddress = async (
   axios
     .request(config)
     .then((res) => {
-      // console.log(res.data);
-      dispatch(setDeliveryAddress(res.data.data[0]));
-      dispatch(setBillingAddress(res.data.data[0]));
+      console.log(res.data);
+      // dispatch(setDeliveryAddress(res.data.data[0]));
+      // dispatch(setBillingAddress(res.data.data[0]));
+      setBillingAddress(res.data.data[0]);
     })
     .catch((err) => {
       console.log("Something went wrong");

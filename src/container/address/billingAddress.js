@@ -8,9 +8,9 @@ import { useDispatch, useSelector } from "react-redux";
 
 function BillingAddress() {
   const dispatch = useDispatch();
-  useEffect(() => {
-    getBillingAddress(dispatch, setDeliveryAddress, setBillingAddress);
-  }, []);
+  // useEffect(() => {
+  //   getBillingAddress(dispatch, setDeliveryAddress, setBillingAddress);
+  // }, []);
   const address = useSelector((state) => state.product.billing_address);
   return (
     <div className="mt-4">

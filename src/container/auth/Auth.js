@@ -1,36 +1,19 @@
 "use client";
 import React, { useState } from "react";
-import { login, signUp, OTPSubmit } from "@/controller/authController";
+import { login, OTPSubmit } from "@/controller/authController";
 import { useRouter } from "next/navigation";
-import SignUp from "./SignUp";
 import Login from "./Login";
 import OTP from "./OTP";
 
 export function Auth() {
-  const [authState, setAuthState] = useState("signup");
+  const [authState, setAuthState] = useState("login");
   //
-  const [fullName, setFullName] = useState("");
-  const [mobile, setMobile] = useState("");
-  const [email, setEmail] = useState("");
+  const [mobile, setMobile] = useState("6382344165");
   // temp ID
   const [tempID, setTempID] = useState("");
   const [otp, setOtp] = useState("");
   //
   const router = useRouter();
-
-  function onSignupFormSubmit(e) {
-    e.preventDefault();
-    if (validatePhoneNumber(mobile)) {
-      let body = {
-        full_name: fullName,
-        mobile_number: mobile,
-        email: email,
-      };
-      signUp(body);
-    } else {
-      console.log("enter correct phone number");
-    }
-  }
 
   function onLoginFormSubmit(e) {
     e.preventDefault();
@@ -61,25 +44,23 @@ export function Auth() {
     return re.test(mobile);
   }
 
-  if (authState == "signup") {
-    return (
-      <SignUp
-        onSignupFormSubmit={onSignupFormSubmit}
-        setFullName={setFullName}
-        setEmail={setEmail}
-        setMobile={setMobile}
-        setAuthState={setAuthState}
-      />
-    );
-  } else if (authState == "login") {
+  if (authState == "login") {
     return (
       <Login
         onLoginFormSubmit={onLoginFormSubmit}
         setMobile={setMobile}
         setAuthState={setAuthState}
+        mobile={mobile}
       />
     );
   } else {
-    return <OTP otp={otp} setOtp={setOtp} onOTPFormSubmit={onOTPFormSubmit} />;
+    return (
+      <OTP
+        otp={otp}
+        setOtp={setOtp}
+        onOTPFormSubmit={onOTPFormSubmit}
+        mobile={mobile}
+      />
+    );
   }
 }

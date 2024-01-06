@@ -1,25 +1,25 @@
 "use client";
 import Content from "./content";
 import { useSelector } from "react-redux";
-
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 
 const Total = ({ cart }) => {
+  const router = useRouter();
   return (
     <div className="w-full fixed bottom-16 md:bottom-0 lg:bottom-0 lg:relative bg-gray-100 py-8">
       <div className="lg:mt-36 mx-5 lg:mx-10 text-sm flex justify-between">
         <div>
-          <p className="text-gray-400">{cart.length} products selected</p>
-          <h1 className="text-2xl lg:text-3xl mt-3 text-blue-900">Total</h1>
-        </div>
-        <div>
-          <a className="text-blue-600 underline underline-offset-2 font-thin">
-            View Products
-          </a>
+          <h1 className="text-xl lg:text-2xl mt-3 text-blue-900">
+            Total {cart.length} products selected
+          </h1>
         </div>
       </div>
       <div className="lg:flex lg:justify-end mx-5 lg:mx-10 mt-5">
-        <button className="rounded-md w-full lg:w-fit border border-blue-900 text-blue-900 px-14 py-2 font-bold">
+        <button
+          className="rounded-md w-full lg:w-fit border border-blue-900 text-blue-900 px-14 py-2 font-bold"
+          onClick={() => router.back()}
+        >
           Cancel
         </button>
         <Link href={"profile/address"}>

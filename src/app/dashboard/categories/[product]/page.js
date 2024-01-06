@@ -1,10 +1,10 @@
 "use client";
 import "../../../globals.css";
 import { Nav } from "@/components/";
-import { Total, Example, Mobilenav, Sort } from "@/container/pvc";
+import { Total, Example, Mobilenav, Sort } from "@/container/categories";
 import { useSelector, useDispatch } from "react-redux";
 import { setSelectedProduct } from "@/lib/features/productSlice";
-import DetailsTab from "@/container/pvc/DetailsTab";
+import DetailsTab from "@/container/categories/DetailsTab";
 
 const Page = ({ params }) => {
   const dispatch = useDispatch();
@@ -33,8 +33,9 @@ const Page = ({ params }) => {
       <div className="block lg:hidden xl:hidden">
         <Mobilenav />
       </div>
+      <div className="lg:pt-[130px] bg-gray-100"></div>
       {cart.length > 0 && <Total cart={cart} />}
-      <Sort cart={cart} />
+      <Sort currCategory={params.product} />
       <Example product={params.product} />
     </div>
   );

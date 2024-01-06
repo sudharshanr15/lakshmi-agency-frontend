@@ -39,7 +39,7 @@ export function Card() {
       <div className="md:mt-40">
         <div className="lg:mx-5 mx-2 lg:mt-52 md:mt-16">
           <div className="flex justify-between mt-3">
-            <h1 className="text-black text-2xl font-bold">Statics</h1>
+            <h1 className="text-black sm:text-2xl text-xl font-bold sm:ml-20">Statics</h1>
             <div className="mr-0">
               <div className="relative">
                 <button
@@ -64,9 +64,12 @@ export function Card() {
                 {isOpen && (
                   <ul className="absolute right-0 mt-2 py-2 w-48 bg-white rounded-md shadow-lg">
                     {days.map((item) => (
-                      <li key={item.id}>
+                      <li
+                        key={item.id}
+                        className="hover:text-white hover:bg-blue-500 cursor-pointer"
+                      >
                         <button onClick={() => toggleFilter(item.days)}>
-                          <div className="block px-4 py-2 text-gray-800 hover:bg-blue-500 hover:text-white">
+                          <div className="block px-4 py-2 text-gray-800">
                             Last {item.days} days
                           </div>
                         </button>
@@ -105,23 +108,6 @@ export function Card() {
                     <p className="mt-1 font-bold text-1xl md:text-2xl">
                       {orderStatistics && orderStatistics.orders}
                     </p>
-                    {/* <div className="flex  text-lime-600 ">
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          strokeWidth={1.5}
-                          stroke="currentColor"
-                          className="w-4 h-4 mt-3"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M15.75 17.25L12 21m0 0l-3.75-3.75M12 21V3"
-                          />
-                        </svg>
-                        <p className="mt-2  md:text-1xl ">12.3%</p>
-                      </div> */}
                   </div>
                 </div>
               </div>
@@ -222,29 +208,89 @@ export function Card() {
 
 export function RecentOrder({ orders }) {
   return (
-    <div className="lg:mx-24 mx-6 lg:mt-10 mt-4 p-5 rounded-md">
+    <>
+      <div className="lg:mx-24 mx-6 lg:mt-10 p-5 rounded-md hidden sm:block">
+        <div className="flex justify-between">
+          <h1 className="text-black text-1xl md:text-2xl font-semibold">
+            Recent Orders
+          </h1>
+        </div>
+        <div className="relative overflow-x-auto shadow-md md:mt-8 mt-5">
+          <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+            <thead className="text-xs text-gray-700 uppercase bg-[#e4eef1] dark:text-gray-400  md:mx-6">
+              <tr>
+                <th scope="col" className="px-6 py-3">
+                  ID
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Date
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Product name
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Amount
+                </th>
+                <th scope="col" className="px-6 py-3">
+                  Delivery status
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {orders.map((order, i) => (
+                <tr
+                  key={i}
+                  className="bg-white border-b   hover:bg-gray-50 dark:hover:bg-gray-600 md:mx-8"
+                >
+                  <th
+                    scope="row"
+                    className="px-6 py-4 font-medium whitespace-nowrap"
+                  >
+                    {order.name}
+                  </th>
+                  <td className="px-6 py-4">
+                    {order.creation.substring(0, 10)}
+                  </td>
+                  <td className="px-6 py-4">{order.items[0].item_name}</td>
+                  <td className="px-6 py-4">₹14,0000</td>
+                  <td className="px-6 py-4 text-right">
+                    <button className="float-left bg-[#ecf7e7] text-[#50e364] p-2">
+                      {order.delivery_status}
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <MobileRecentOrders orders={orders} />
+    </>
+  );
+}
+
+function MobileRecentOrders({ orders }) {
+  return (
+    <div className="sm:hidden block mt-4 ">
       <div className="flex justify-between">
-        <h1 className="text-black text-1xl md:text-2xl font-semibold">
+        <h1 className="text-black text-1xl md:text-2xl ml-2 font-semibold">
           Recent Orders
         </h1>
       </div>
-      <div className="relative overflow-x-auto shadow-md md:mt-8 mt-5">
+      <div className="overflow-x-auto shadow-md md:mt-8 mt-5">
         <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
           <thead className="text-xs text-gray-700 uppercase bg-[#e4eef1] dark:text-gray-400  md:mx-6">
             <tr>
-              <th scope="col" className="px-6 py-3">
+              <th scope="col" className="px-4 py-3">
                 ID
               </th>
-              <th scope="col" className="px-6 py-3">
+              <th scope="col" className="px-4 py-3">
                 Date
               </th>
-              <th scope="col" className="px-6 py-3">
-                Product name
-              </th>
-              <th scope="col" className="px-6 py-3">
+              <th scope="col" className="px-4 py-3">
                 Amount
               </th>
-              <th scope="col" className="px-6 py-3">
+              <th scope="col" className="px-4 py-3">
                 Delivery status
               </th>
             </tr>
@@ -253,18 +299,19 @@ export function RecentOrder({ orders }) {
             {orders.map((order, i) => (
               <tr
                 key={i}
-                className="bg-white border-b   hover:bg-gray-50 dark:hover:bg-gray-600 md:mx-8"
+                className="bg-white border-b  hover:bg-gray-50 dark:hover:bg-gray-600 md:mx-8"
               >
                 <th
                   scope="row"
-                  className="px-6 py-4 font-medium whitespace-nowrap"
+                  className="px-4 py-3 text-xs font-medium whitespace-nowrap"
                 >
                   {order.name}
                 </th>
-                <td className="px-6 py-4">{order.creation.substring(0, 10)}</td>
-                <td className="px-6 py-4">{order.items[0].item_name}</td>
-                <td className="px-6 py-4">₹14,0000</td>
-                <td className="px-6 py-4 text-right">
+                <td className="px-4 py-3 text-xs">
+                  {order.creation.substring(0, 10)}
+                </td>
+                <td className="px-4 py-3 text-xs">₹14,0000</td>
+                <td className="px-4 py-3 text-xs text-right">
                   <button className="float-left bg-[#ecf7e7] text-[#50e364] p-2">
                     {order.delivery_status}
                   </button>
@@ -278,42 +325,42 @@ export function RecentOrder({ orders }) {
   );
 }
 
-async function fetchRecentOrder() {
-  const baseURL = `https://test01.lakshmiagency.com/api/method/lakshmiagency.v1.store.order.get`;
+// async function fetchRecentOrder() {
+//   const baseURL = `https://test01.lakshmiagency.com/api/method/lakshmiagency.v1.store.order.get`;
 
-  try {
-    const response = await axios.get(baseURL, {
-      params: {
-        status: "Not Delivered",
-        start: parseInt(0),
-        page_length: parseInt(12),
-      },
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Token 4738b2b17fc8459:9cf183be1badf5a",
-      },
-    });
+//   try {
+//     const response = await axios.get(baseURL, {
+//       params: {
+//         status: "Not Delivered",
+//         start: parseInt(0),
+//         page_length: parseInt(12),
+//       },
+//       headers: {
+//         "Content-Type": "application/json",
+//         Authorization: "Token 4738b2b17fc8459:9cf183be1badf5a",
+//       },
+//     });
 
-    return response.data;
-  } catch (error) {
-    return null;
-  }
-}
+//     return response.data;
+//   } catch (error) {
+//     return null;
+//   }
+// }
 
-function TableWithExport() {
-  const { orderList } = fetchRecentOrder();
+// function TableWithExport() {
+//   const { orderList } = fetchRecentOrder();
 
-  return (
-    <div className="lg:mx-24 mx-6 lg:mt-10 mt-4 p-5 rounded-md">
-      <div className="flex justify-between">
-        <h1 className="text-black text-1xl md:text-2xl font-semibold">
-          Recent Orders
-        </h1>
-      </div>
+//   return (
+//     <div className="lg:mx-24 mx-6 lg:mt-10 mt-4 p-5 rounded-md">
+//       <div className="flex justify-between">
+//         <h1 className="text-black text-1xl md:text-2xl font-semibold">
+//           Recent Orders
+//         </h1>
+//       </div>
 
-      <div className="relative overflow-x-auto shadow-md md:mt-8 mt-5">
-        <ListTable orderData={orderList} />
-      </div>
-    </div>
-  );
-}
+//       <div className="relative overflow-x-auto shadow-md md:mt-8 mt-5">
+//         <ListTable orderData={orderList} />
+//       </div>
+//     </div>
+//   );
+// }

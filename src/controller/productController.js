@@ -49,6 +49,46 @@ export const getProductDetails = async (setProductDetail, itemCode) => {
     });
 };
 
+export const addToWishlist = async (itemCode) => {
+  console.log(itemCode);
+  config.method = "POST";
+  config.url = baseUrl + "/lakshmiagency.v1.store.wishlist.add";
+  config.params = {
+    item_code: itemCode,
+  };
+  // console.log(config);
+
+  axios
+    .request(config)
+    .then((res) => {
+      console.log(res.data);
+    })
+    .catch((err) => {
+      console.log("Something went wrong");
+      console.log(err);
+    });
+};
+
+export const removeFromWishlist = async (itemCode) => {
+  console.log(itemCode);
+  config.method = "DELETE";
+  config.url = baseUrl + "/lakshmiagency.v1.store.wishlist.remove";
+  config.params = {
+    item_code: itemCode,
+  };
+  // console.log(config);
+
+  axios
+    .request(config)
+    .then((res) => {
+      console.log(res.data);
+    })
+    .catch((err) => {
+      console.log("Something went wrong");
+      console.log(err);
+    });
+};
+
 export const placeOrder = async (billing_address, delivery_address, items) => {
   // console.log(itemCode);
   config.method = "GET";

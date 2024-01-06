@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import OtpInput from "react18-input-otp";
 
-function OTP({ otp, setOtp, onOTPFormSubmit }) {
+function OTP({ otp, setOtp, onOTPFormSubmit, mobile }) {
   const initialTime = 360; // 6 minutes in seconds
   const [time, setTime] = useState(initialTime);
 
@@ -30,7 +30,16 @@ function OTP({ otp, setOtp, onOTPFormSubmit }) {
   return (
     <>
       {/* Desktop version */}
-      <div className="hidden md:block h-screen overflow-hidden bg-[url('/image/paint-bucket.jpg')] bg-cover bg-center">
+      <div
+        className="hidden md:block h-screen overflow-hidden"
+        style={{
+          backgroundImage:
+            "linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)) ,url('/image/paint-bucket.jpg')",
+          backgroundPosition: "center",
+          backgroundSize: "cover",
+          backgroundRepeat: "no-repeat",
+        }}
+      >
         <div className="grid grid-cols-1 md:grid-cols-2 ">
           <div className="mx-9 md:mx-16 float-left md:left-10  lg:mt-96 md:mt-52">
             <h1 className="text-white text-2xl md:text-3xl font-bold md:font-bold">
@@ -52,8 +61,8 @@ function OTP({ otp, setOtp, onOTPFormSubmit }) {
                     <h1 className="text-left mt-4">
                       We have sent you an One-Time-password of{" "}
                       <span className="font-bold text-black">4-digits</span> to
-                      your registered mobile number. Kindly enter that to Signin
-                      (+91 8870731355)
+                      your registered mobile number. Kindly enter that to Login
+                      (+91 {mobile})
                     </h1>
 
                     <div className="flex items-center justify-center mt-9">
@@ -62,7 +71,7 @@ function OTP({ otp, setOtp, onOTPFormSubmit }) {
                           value={otp}
                           onChange={(e) => setOtp(e)}
                           numInputs={6}
-                          containerStyle="w-[70%] flex justify-between"
+                          containerStyle="w-[100%] flex justify-between"
                           inputStyle="otp-inputs border-black border-2 scale-105"
                           isInputNum="true"
                         />
@@ -92,7 +101,16 @@ function OTP({ otp, setOtp, onOTPFormSubmit }) {
       <div className="block md:hidden">
         <div className="flex flex-col md:flex-row">
           <div className="relative h-60 p-4">
-            <div className="bg-[url('/image/paint-bucket.jpg')] bg-cover bg-center h-full absolute top-0 left-0 right-0 bottom-0 opacity-30"></div>
+            <div
+              className="h-full absolute top-0 left-0 right-0 bottom-0"
+              style={{
+                backgroundImage:
+                  "linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)) ,url('/image/paint-bucket.jpg')",
+                backgroundPosition: "center",
+                backgroundSize: "cover",
+                backgroundRepeat: "no-repeat",
+              }}
+            ></div>
             <div className="m-4 mt-4 relative">
               <h1 className="text-white text-2xl font-bold mt-9">
                 Join <span className="text-yellow-300 "> Lakshmi Agency</span>
@@ -109,8 +127,8 @@ function OTP({ otp, setOtp, onOTPFormSubmit }) {
                 <h1 className="text-left mt-4">
                   We have sent you an One-Time-password of{" "}
                   <span className="font-bold text-black">4-digits</span> to your
-                  registered mobile number. Kindly enter that to Signin (+91
-                  8870731355)
+                  registered mobile number. Kindly enter that to Login (+91{" "}
+                  {mobile})
                 </h1>
                 <div className="flex items-center justify-center mt-9">
                   <div className="w-full flex justify-center space-x-2 sm:space-x-4 md:space-x-6 lg:space-x-8">
@@ -118,7 +136,7 @@ function OTP({ otp, setOtp, onOTPFormSubmit }) {
                       value={otp}
                       onChange={(e) => setOtp(e)}
                       numInputs={6}
-                      containerStyle="w-[70%] flex justify-between"
+                      containerStyle="w-[100%] flex justify-between"
                       inputStyle="otp-inputs border-black border-2 scale-105"
                       isInputNum="true"
                     />
