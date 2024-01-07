@@ -42,6 +42,10 @@ export const getBillingAddress = async (setBillingAddress) => {
         "billing_address",
         JSON.stringify(res.data.data[1])
       );
+      sessionStorage.setItem(
+        "delivery_address",
+        JSON.stringify(res.data.data[1])
+      );
     })
     .catch((err) => {
       console.log("Something went wrong");
