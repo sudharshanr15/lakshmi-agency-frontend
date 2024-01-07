@@ -91,12 +91,13 @@ export const removeFromWishlist = async (itemCode) => {
 
 export const placeOrder = async (billing_address, delivery_address, items) => {
   // console.log(itemCode);
-  config.method = "GET";
+  config.method = "POST";
   config.url = baseUrl + "/lakshmiagency.v1.store.quotation.add";
-  config.params = {
+  config.params = {};
+  config.data = {
+    items: items,
     billing_address: billing_address,
     delivery_address: delivery_address,
-    items: items,
   };
   // console.log(config);
 

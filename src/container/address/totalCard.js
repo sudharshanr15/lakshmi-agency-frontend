@@ -1,17 +1,32 @@
 "use client";
 import { placeOrder } from "@/controller/productController";
-import { useSelector } from "react-redux";
+import { useState, useEffect } from "react";
 
 function TotalCard({ setOrderNow }) {
-  const cart = useSelector((state) => state.product.cart);
-  const deliveryAddress = useSelector(
-    (state) => state.product.delivery_address
-  );
-  const billingAddress = useSelector((state) => state.product.billing_address);
+  const [cart, setCart] = useState(0);
+  useEffect(() => {
+    const products = sessionStorage.getItem("cart");
+    setCart(JSON.parse(products));
+  }, []);
 
   function addOrder() {
     if (cart.length > 0) {
-      placeOrder(billingAddress.name, deliveryAddress.name, cart);
+      const billingAddress = JSON.parse(
+        sessionStorage.getItem("billing_address")
+      );
+      const deliveryAddress = JSON.parse(
+        sessionStorage.getItem("delivery_address")
+      );
+      // console.log(billingAddress);
+      // console.log(deliveryAddress);
+      const items = cart.map((val, i) => {
+        return {
+          item_code: val.item_code,
+          qty: val.qty,
+        };
+      });
+      console.log(items);
+      placeOrder(billingAddress.name, deliveryAddress.name, items);
       setOrderNow(true);
     } else {
       console.log("Cart is empty");
@@ -24,7 +39,7 @@ function TotalCard({ setOrderNow }) {
         <div className="px-6 py-4">
           <div className="font-semibold text-xl mb-2">Total</div>
           <p className="text-gray-700 text-base">
-            {cart ? cart.length : 12} Products
+            {cart ? cart.length : 0} Products
           </p>
         </div>
         <div className="px-4 py-4 flex flex-col">

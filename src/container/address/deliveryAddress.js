@@ -3,7 +3,28 @@ import { useSelector } from "react-redux";
 
 function DeliveryAddress({ setDetailsTab }) {
   const [isChecked, setChecked] = useState(true);
-  const address = useSelector((state) => state.product.delivery_address);
+  const [address, setAddress] = useState(null);
+  useEffect(() => {
+    const add = sessionStorage.getItem("billing_address");
+    setAddress(JSON.parse(add));
+  }, []);
+
+  function getSessionDeliveryAddress() {
+    if (
+      typeof window !== "undefined" &&
+      sessionStorage.getItem("delivery_address")
+    ) {
+      return sessionStorage.getItem("delivery_address");
+    }
+    return null;
+  }
+
+  useEffect(() => {
+    const add = sessionStorage.getItem("delivery_address");
+    if (add) {
+      setAddress(JSON.parse(add));
+    }
+  }, [getSessionDeliveryAddress()]);
 
   const handleCheckboxChange = () => {
     setChecked(!isChecked);

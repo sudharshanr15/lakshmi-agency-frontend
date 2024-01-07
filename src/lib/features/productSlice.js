@@ -31,20 +31,31 @@ export const productSlice = createSlice({
       } else {
         state.cart = prevCart;
       }
+      sessionStorage.setItem("cart", JSON.stringify(state.cart));
     },
     removeProductFromCart(state, action) {
       console.log("Removing form Cart");
       const prevCart = state.cart;
       state.cart = prevCart.filter((val) => val.item_code != action.payload);
+      sessionStorage.setItem("cart", JSON.stringify(state.cart));
     },
     setCartItems(state, action) {
       state.cart = action.payload;
+      sessionStorage.setItem("cart", JSON.stringify(state.cart));
     },
     setDeliveryAddress(state, action) {
       state.delivery_address = action.payload;
+      sessionStorage.setItem(
+        "delivery_address",
+        JSON.stringify(state.delivery_address)
+      );
     },
     setBillingAddress(state, action) {
       state.billing_address = action.payload;
+      sessionStorage.setItem(
+        "billing_address",
+        JSON.stringify(state.billing_address)
+      );
     },
   },
 });

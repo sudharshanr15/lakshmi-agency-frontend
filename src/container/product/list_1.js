@@ -33,7 +33,7 @@ const Total = ({ cart }) => {
 };
 
 export function List() {
-  const cart = useSelector((state) => state.product.cart);
+  const cart = useSelector((state) => state.product.cart) || [];
   return (
     <>
       <div>

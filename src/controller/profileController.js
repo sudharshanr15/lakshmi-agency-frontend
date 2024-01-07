@@ -29,7 +29,7 @@ export const getBillingAddress = async (setBillingAddress) => {
   config.params = {
     address_type: "Billing",
     start: "0",
-    page_length: "1",
+    page_length: "2",
   };
   // console.log(config);
 
@@ -37,9 +37,11 @@ export const getBillingAddress = async (setBillingAddress) => {
     .request(config)
     .then((res) => {
       console.log(res.data);
-      // dispatch(setDeliveryAddress(res.data.data[0]));
-      // dispatch(setBillingAddress(res.data.data[0]));
-      setBillingAddress(res.data.data[0]);
+      setBillingAddress(res.data.data[1]);
+      sessionStorage.setItem(
+        "billing_address",
+        JSON.stringify(res.data.data[1])
+      );
     })
     .catch((err) => {
       console.log("Something went wrong");

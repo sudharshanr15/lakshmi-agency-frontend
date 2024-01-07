@@ -63,10 +63,6 @@ function Address({ setDetailsTab, detailsTab, setOrderNow }) {
           <>
             <BillingAddress />
             <DeliveryAddress setDetailsTab={setDetailsTab} />
-            <h2 className="text-sm mt-3">
-              🚚 Your order will be delivered between{" "}
-              <span className="font-semibold">April 5-9,2022</span>
-            </h2>
           </>
         ) : (
           <></>

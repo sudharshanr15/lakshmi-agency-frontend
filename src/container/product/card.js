@@ -61,13 +61,35 @@ const Card = ({ name, itemCode, quantity }) => {
       </div>
       <div className="flex justify-between py-3 text-sm">
         <div>
-          <input
-            className="p-1 w-20 rounded-md border"
-            type="number"
-            value={qty}
-            min={0}
-            onChange={(e) => changeQty(parseInt(e.target.value))}
-          />
+          <div class="custom-number-input h-10 w-32">
+            <div class="flex flex-row h-10 w-full border rounded-lg relative bg-transparent mt-1">
+              <button
+                data-action="decrement"
+                class=" text-gray-600 hover:text-gray-700 hover:border hover:bg-gray-300 h-full w-20 rounded-l-lg cursor-pointer outline-none"
+                onClick={() => {
+                  if (qty > 1) {
+                    changeQty(qty - 1);
+                  }
+                }}
+              >
+                <span class="m-auto text-2xl font-thin">−</span>
+              </button>
+              <input
+                type="number"
+                class="focus:outline-none text-center w-full bg-white font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700  outline-none"
+                name="custom-input-number"
+                value={qty}
+                min={0}
+              ></input>
+              <button
+                data-action="increment"
+                class="text-gray-600 hover:text-gray-700 hover:bg-gray-300 hover:border h-full w-20 rounded-r-lg cursor-pointer"
+                onClick={(e) => changeQty(qty + 1)}
+              >
+                <span class="m-auto text-2xl font-thin">+</span>
+              </button>
+            </div>
+          </div>
           <p className="py-1 text-green-400">In Stock</p>
           {/* <p className="pt-1">{description}</p> */}
         </div>
