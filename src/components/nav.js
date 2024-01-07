@@ -17,6 +17,7 @@ export function Nav() {
   const [categories, setCategories] = useState([]);
   const [subCategories, setSubCategories] = useState([]);
   const [parent, setParent] = useState("");
+  const [query, setQuery] = useState("");
 
   const router = useRouter();
 
@@ -108,6 +109,14 @@ export function Nav() {
   function routeToSubCategories(itemName) {
     sessionStorage.setItem("category", parent);
     router.push("/dashboard/categories/" + itemName);
+  }
+
+  function routeToSearch(e) {
+    e.preventDefault()
+    if (query) {
+      router.push("/dashboard/search/" + query);
+    }
+    console.log(query);
   }
 
   return (
@@ -312,14 +321,18 @@ export function Nav() {
                 <label htmlFor="search" className="sr-only">
                   Search
                 </label>
-                <div className="relative">
+                <form className="relative" onSubmit={routeToSearch}>
                   <input
                     id="search"
-                    className="block w-full bg-white text-white rounded-md py-2 pl-10 pr-4 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                    className="block w-full bg-white text-black rounded-md py-2 pl-10 pr-4 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                     type="search"
                     placeholder="Search"
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
                   />
-                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                  <div
+                    className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+                  >
                     <span>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -337,7 +350,7 @@ export function Nav() {
                       </svg>
                     </span>
                   </div>
-                </div>
+                </form>
               </div>
             </div>
           </div>

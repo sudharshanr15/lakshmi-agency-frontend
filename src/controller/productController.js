@@ -27,6 +27,32 @@ export const getProductsList = async (setProducts, item) => {
     });
 };
 
+export const searchProducts = async (setProducts, search) => {
+  console.log(item);
+  config.method = "GET";
+  config.url = baseUrl + "/lakshmiagency.v1.store.product.get_list";
+  config.params = {
+    field_filters: "",
+    attribute_filters: "",
+    search: search,
+    item_group: "",
+    start: 0,
+    from_filters: 0,
+  };
+  // console.log("CATEGORIES");
+
+  axios
+    .request(config)
+    .then((res) => {
+      console.log(res.data);
+      setProducts(res.data.data);
+    })
+    .catch((err) => {
+      console.log("Something went wrong");
+      console.log(err);
+    });
+};
+
 export const getProductDetails = async (setProductDetail, itemCode) => {
   console.log(itemCode);
   config.method = "GET";
@@ -42,6 +68,24 @@ export const getProductDetails = async (setProductDetail, itemCode) => {
     .then((res) => {
       console.log(res.data);
       setProductDetail(res.data.data);
+    })
+    .catch((err) => {
+      console.log("Something went wrong");
+      console.log(err);
+    });
+};
+
+export const getBrands = async (setBrands) => {
+  config.method = "GET";
+  config.url = baseUrl + "/lakshmiagency.v1.store.brand.get_list";
+  config.params = {};
+  // console.log(config);
+
+  axios
+    .request(config)
+    .then((res) => {
+      console.log(res.data);
+      setBrands(res.data.data);
     })
     .catch((err) => {
       console.log("Something went wrong");

@@ -13,7 +13,7 @@
   ```
 */
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Disclosure } from "@headlessui/react";
 import {
   ChevronDownIcon,
@@ -21,64 +21,7 @@ import {
   ChevronUpIcon,
 } from "@heroicons/react/20/solid";
 import Content from "./content";
-
-const filters = [
-  {
-    id: "brands",
-    name: "Brands",
-    options: [
-      { value: "Apple Ply", label: "Apple Ply", checked: false },
-      { value: "Green Ply", label: "Green Ply", checked: false },
-      { value: "Century Ply", label: "Century Ply", checked: true },
-      { value: "Delco Plus", label: "Delco Plus", checked: false },
-      { value: "Black Costa", label: "Black Costa", checked: false },
-    ],
-  },
-  {
-    id: "thickness",
-    name: "Thickness",
-    options: [
-      { value: "3 mm", label: "3 mm", checked: false },
-      { value: "4 mm", label: "4 mm", checked: false },
-      { value: "6 mm", label: "6 mm", checked: true },
-      { value: "8 mm", label: "8 mm", checked: false },
-      { value: "9 mm", label: "9 mm", checked: false },
-    ],
-  },
-  {
-    id: "thickness",
-    name: "Thickness",
-    options: [
-      { value: "3 mm", label: "3 mm", checked: false },
-      { value: "4 mm", label: "4 mm", checked: false },
-      { value: "6 mm", label: "6 mm", checked: true },
-      { value: "8 mm", label: "8 mm", checked: false },
-      { value: "9 mm", label: "9 mm", checked: false },
-    ],
-  },
-  {
-    id: "thickness",
-    name: "Thickness",
-    options: [
-      { value: "3 mm", label: "3 mm", checked: false },
-      { value: "4 mm", label: "4 mm", checked: false },
-      { value: "6 mm", label: "6 mm", checked: true },
-      { value: "8 mm", label: "8 mm", checked: false },
-      { value: "9 mm", label: "9 mm", checked: false },
-    ],
-  },
-  {
-    id: "thickness",
-    name: "Thickness",
-    options: [
-      { value: "3 mm", label: "3 mm", checked: false },
-      { value: "4 mm", label: "4 mm", checked: false },
-      { value: "6 mm", label: "6 mm", checked: true },
-      { value: "8 mm", label: "8 mm", checked: false },
-      { value: "9 mm", label: "9 mm", checked: false },
-    ],
-  },
-];
+import { getBrands } from "@/controller/productController";
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
@@ -86,6 +29,69 @@ function classNames(...classes) {
 
 export default function Example({ product }) {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+  const [brands, setBrands] = useState([]);
+
+  const filters = [
+    {
+      id: "brands",
+      name: "Brands",
+      options: [
+        { value: "Apple Ply", label: "Apple Ply", checked: false },
+        { value: "Green Ply", label: "Green Ply", checked: false },
+        { value: "Century Ply", label: "Century Ply", checked: true },
+        { value: "Delco Plus", label: "Delco Plus", checked: false },
+        { value: "Black Costa", label: "Black Costa", checked: false },
+      ],
+    },
+    {
+      id: "thickness",
+      name: "Thickness",
+      options: [
+        { value: "3 mm", label: "3 mm", checked: false },
+        { value: "4 mm", label: "4 mm", checked: false },
+        { value: "6 mm", label: "6 mm", checked: true },
+        { value: "8 mm", label: "8 mm", checked: false },
+        { value: "9 mm", label: "9 mm", checked: false },
+      ],
+    },
+    {
+      id: "thickness",
+      name: "Thickness",
+      options: [
+        { value: "3 mm", label: "3 mm", checked: false },
+        { value: "4 mm", label: "4 mm", checked: false },
+        { value: "6 mm", label: "6 mm", checked: true },
+        { value: "8 mm", label: "8 mm", checked: false },
+        { value: "9 mm", label: "9 mm", checked: false },
+      ],
+    },
+    {
+      id: "thickness",
+      name: "Thickness",
+      options: [
+        { value: "3 mm", label: "3 mm", checked: false },
+        { value: "4 mm", label: "4 mm", checked: false },
+        { value: "6 mm", label: "6 mm", checked: true },
+        { value: "8 mm", label: "8 mm", checked: false },
+        { value: "9 mm", label: "9 mm", checked: false },
+      ],
+    },
+    {
+      id: "thickness",
+      name: "Thickness",
+      options: [
+        { value: "3 mm", label: "3 mm", checked: false },
+        { value: "4 mm", label: "4 mm", checked: false },
+        { value: "6 mm", label: "6 mm", checked: true },
+        { value: "8 mm", label: "8 mm", checked: false },
+        { value: "9 mm", label: "9 mm", checked: false },
+      ],
+    },
+  ];
+
+  useEffect(() => {
+    // getBrands(setBrands);
+  });
 
   return (
     <div className="bg-white">
