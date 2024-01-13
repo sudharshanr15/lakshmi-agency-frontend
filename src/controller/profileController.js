@@ -36,7 +36,7 @@ export const getBillingAddress = async (setBillingAddress) => {
   axios
     .request(config)
     .then((res) => {
-      console.log(res.data);
+      // console.log(res.data);
       setBillingAddress(res.data.data[1]);
       sessionStorage.setItem(
         "billing_address",
@@ -62,7 +62,7 @@ export const postNewAddress = async (address) => {
   axios
     .request(config)
     .then((res) => {
-      console.log(res.data);
+      // console.log(res.data);
     })
     .catch((err) => {
       console.log("Something went wrong");

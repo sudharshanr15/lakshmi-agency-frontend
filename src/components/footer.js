@@ -120,12 +120,6 @@ export function Footer() {
               <span className="flex items-center justify-center h-10 w-10 bg-[#356c88] rounded-md">
                 <FaLinkedinIn className="h-6 w-6 text-white" />
               </span>
-              <span className="flex items-center justify-center h-10 w-10 bg-[#356c88] rounded-md">
-                <FaLinkedinIn className="h-6 w-6 text-white" />
-              </span>
-              <span className="flex items-center justify-center h-10 w-10 bg-[#356c88] rounded-md">
-                <FaLinkedinIn className="h-6 w-6 text-white" />
-              </span>
             </span>
           </div>
         </footer>

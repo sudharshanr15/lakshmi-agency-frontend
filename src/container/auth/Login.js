@@ -4,17 +4,20 @@ function Login({ onLoginFormSubmit, setMobile, mobile }) {
   return (
     <>
       {/* DESKTOP VERSION */}
-      <div
-        className="hidden md:block h-screen overflow-hidden"
-        style={{
-          backgroundImage:
-            "linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)) ,url('/image/paint-bucket.jpg')",
-          backgroundPosition: "center",
-          backgroundSize: "cover",
-          backgroundRepeat: "no-repeat",
-        }}
-      >
-        <div className="grid grid-cols-1 md:grid-cols-2 z-50">
+      <div className="hidden md:block h-screen overflow-hidden relative">
+        <div
+          className="h-screen w-full overflow-hidden absolute top-0 left-0"
+          style={{
+            backgroundImage:
+              "linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)) ,url('/image/paint-bucket.jpg')",
+            backgroundPosition: "center",
+            backgroundSize: "cover",
+            backgroundRepeat: "no-repeat",
+            filter: "blur(3px)",
+            transform: "scale(1.1)",
+          }}
+        ></div>
+        <div className="grid grid-cols-1 md:grid-cols-2 z-50 absolute top-0 left-0">
           <div className="mx-9 md:mx-16 float-left md:left-10  lg:mt-96 md:mt-52">
             <h1 className="text-white text-2xl md:text-3xl font-bold md:font-bold">
               Join <span className="text-yellow-300"> Lakshmi Agency</span>
@@ -81,18 +84,20 @@ function Login({ onLoginFormSubmit, setMobile, mobile }) {
       {/* MOBILE VERSION */}
       <div className="block md:hidden">
         <div className="flex flex-col md:flex-row">
-          <div
-            className="h-60 p-4 "
-            style={{
-              backgroundImage:
-                "linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)) ,url('/image/paint-bucket.jpg')",
-              backgroundPosition: "center",
-              backgroundSize: "cover",
-              backgroundRepeat: "no-repeat",
-            }}
-          >
-            <div className="m-4 mt-4">
-              <h1 className="text-white text-2xl  font-bold mt-9">
+          <div className="h-60 p-4 relative">
+            <div
+              className="h-60 w-full absolute z-1 top-0 left-0"
+              style={{
+                backgroundImage:
+                  "linear-gradient(rgba(0,0,0,0.4),rgba(0,0,0,0.4)) ,url('/image/paint-bucket.jpg')",
+                backgroundPosition: "center",
+                backgroundSize: "cover",
+                backgroundRepeat: "no-repeat",
+                filter: "blur(1px)",
+              }}
+            ></div>
+            <div className="m-4 mt-4 absolute top-0 left-0 z-50">
+              <h1 className="text-white text-2xl font-bold mt-9">
                 Join <span className="text-yellow-300 "> Lakshmi Agency</span>
               </h1>
               <h1 className="mt-3 text-2xl text-white">
@@ -101,7 +106,7 @@ function Login({ onLoginFormSubmit, setMobile, mobile }) {
             </div>
           </div>
           <form onSubmit={onLoginFormSubmit}>
-            <div className="form rounded-t-3xl bg-white -mt-4 p-4 ">
+            <div className="form rounded-t-3xl bg-white -mt-4 p-4 z-100">
               <div className="form-content p-4">
                 <h1 className="text-black text-2xl mt-2 font-semibold">
                   Welcome Back!

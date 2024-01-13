@@ -86,8 +86,8 @@ const DetailsTab = ({ hideDetailsTab, showProductDetail }) => {
   return (
     <div className=" absolute top-0 left-0 h-full w-full z-[100]">
       <div className="w-full h-full flex">
-        <div className="h-full w-[50%] z-[110] bg-gray-400 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10"></div>
-        <div className="bg-white h-full w-[50%] z-[110] relative">
+        <div className="h-full w-[10%] lg:w-[50%] z-[110] bg-gray-400 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10"></div>
+        <div className="bg-white h-full w-[90%] lg:w-[50%] z-[110] relative">
           {/* close btn */}
           <CloseBtn hideDetailsTab={hideDetailsTab} />
           {/* contents */}

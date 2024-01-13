@@ -34,7 +34,7 @@ function TotalCard({ setOrderNow }) {
   }
 
   return (
-    <div className="w-[30%] mt-12">
+    <div className="w-full lg:w-[30%] mt-12">
       <div className="max-w-sm mx-auto bg-white border shadow-md rounded-md overflow-hidden text-center">
         <div className="px-6 py-4">
           <div className="font-semibold text-xl mb-2">Total</div>

@@ -234,7 +234,7 @@ export function Mobilefooter() {
           </div>
         )}
 
-        <footer className="bg-[#004b71] text-white p-3 fixed bottom-0 w-full grid grid-cols-4 rounded-t-2xl md:hidden text-center">
+        <footer className="bg-[#004b71] text-white z-50 p-3 fixed bottom-0 w-full grid grid-cols-4 rounded-t-2xl md:hidden text-center">
           {mobilenav.map((item) => (
             <div
               key={item.id}

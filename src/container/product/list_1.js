@@ -7,7 +7,7 @@ import Link from "next/link";
 const Total = ({ cart }) => {
   const router = useRouter();
   return (
-    <div className="w-full fixed bottom-16 md:bottom-0 lg:bottom-0 lg:relative bg-gray-100 py-8">
+    <div className="w-full fixed bottom-16 md:bottom-0 lg:bottom-0 lg:relative bg-gray-100 py-8 z-10 lg:z-0">
       <div className="lg:mt-36 mx-5 lg:mx-10 text-sm flex justify-between">
         <div>
           <h1 className="text-xl lg:text-2xl mt-3 text-blue-900">
@@ -22,6 +22,7 @@ const Total = ({ cart }) => {
         >
           Cancel
         </button>
+        <div className="lg:hidden h-4"></div>
         <Link href={"profile/address"}>
           <button className="rounded-md w-full lg:w-fit bg-yellow-500 lg:mx-2 mb-4 lg:mb-0 px-14 py-2 font-bold">
             Select Delivery Type

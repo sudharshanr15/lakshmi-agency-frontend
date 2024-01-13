@@ -1,8 +1,9 @@
 "use client";
 
-import { Fragment } from "react";
+import { Fragment, useState } from "react";
 import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { useRouter } from "next/navigation";
 
 export function Mobilenav() {
   const navigation = [
@@ -12,13 +13,21 @@ export function Mobilenav() {
       current: false,
       pincode: "622023",
     },
-    // { name: 'Projects', href: '#', current: false },
-    // { name: 'Calendar', href: '#', current: false },
   ];
+  const [query, setQuery] = useState("");
+  const router = useRouter();
 
   function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
   }
+
+  const routeToSearch = (e) => {
+    e.preventDefault();
+    if (query) {
+      // router.push("/dashboard/search/" + query);
+    }
+    console.log(query);
+  };
 
   return (
     <div className="lg:hidden ">
@@ -239,13 +248,15 @@ export function Mobilenav() {
                 ></path>
               </svg>
             </div>
-            <input
-              type="search"
-              id="default-search"
-              className="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-white focus:ring-blue-500 focus:border-blue-500 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-              placeholder="Search for any products"
-              required
-            />
+            <form onSubmit={routeToSearch}>
+              <input
+                type="search"
+                className="block w-full p-2 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-white focus:ring-blue-500 focus:border-blue-500 dark:border-gray-600 dark:placeholder-gray-400 dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                placeholder="Search for any products"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+              />
+            </form>
           </div>
         </form>
       </div>

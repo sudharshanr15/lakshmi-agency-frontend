@@ -13,12 +13,12 @@ function Address({ setDetailsTab, detailsTab, setOrderNow }) {
 
   return (
     <div
-      className={`relative w-full flex justify-between px-8 text-base ${
-        !detailsTab ? "mt-[10rem]" : ""
+      className={`relative w-full lg:flex justify-between px-4 lg:px-8 text-base ${
+        !detailsTab ? "mt-4 lg:mt-[10rem]" : ""
       } `}
     >
       {/* left */}
-      <div className="w-[69%]">
+      <div className="w-full lg:w-[69%]">
         {/* Delivery Option */}
         <div>
           <h2 className="text-[#0A4E71] font-semibold mb-2">

@@ -99,14 +99,14 @@ export default function Page() {
         <></>
       )}
       <Nav />
-      <div className="mt-[10rem] px-8 min-h-[65vh] flex">
+      <div className="mt-4 lg:mt-[10rem] px-4 lg:px-8 min-h-[65vh] lg:flex">
         <OrderList
           order={order}
           setTheSpecificProduct={setTheSpecificProduct}
         />
-        <hr className="mx-3 h-full min-h-[65vh] border" />
+        <hr className="mx-3 h-full min-h-[65vh] border hidden lg:block" />
         {returnProduct && (
-          <div className="w-[35%]">
+          <div className="w-full lg:w-[35%]">
             <h2 className="text-[#0A4E71] font-semibold ml-1">ABC Promotors</h2>
             <div className="flex justify-between items-center mt-3">
               <div>
@@ -214,7 +214,7 @@ export default function Page() {
 
 function OrderList({ order, setTheSpecificProduct }) {
   return (
-    <div className="rounded-lg w-[65%] mb-6 relative">
+    <div className="rounded-lg w-full lg:w-[65%] mb-6 relative">
       {/*  */}
       <div className="w-full flex justify-between p-2 py-4 border rounded-t-lg">
         <div>
@@ -252,10 +252,12 @@ function OrderList({ order, setTheSpecificProduct }) {
                 <h2 className="text-gray-500 text-xs">Qty : {item.qty}</h2>
               </div>
               <button
-                className="rounded-md flex justify-center items-center w-full border hover:border-2 border-blue-900 text-blue-900 lg:mb-0 px-14 py-2 font-semibold hover:font-bold"
+                className="rounded-md flex justify-center items-center w-full border hover:border-[1.5px] border-blue-900 text-blue-900 lg:mb-0 px-14 py-2 font-semibold hover:font-bold"
                 onClick={() => setTheSpecificProduct(item.item_name)}
               >
-                <h3 className="mr-2">Return or replace this product</h3>
+                <h3 className="mr-2 text-xs lg:text-base">
+                  Return or replace this product
+                </h3>
                 <svg
                   width="8"
                   height="8"

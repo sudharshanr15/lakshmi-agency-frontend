@@ -2,7 +2,10 @@ function DetailsTab({ hideShowDetailsTab, order, returnProduct }) {
   return (
     <div className="absolute top-0 left-0 h-full w-full z-[1000]">
       <div className="w-full h-full flex">
-        <div className="h-full w-[40%] z-[110] bg-gray-400 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10"></div>
+        <div
+          className="h-full w-[40%] z-[110] bg-gray-400 rounded-md bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-10"
+          onClick={() => hideShowDetailsTab("")}
+        ></div>
         <div className="bg-white h-full w-[60%] z-[110] relative p-4">
           {/* close btn */}
           <CloseBtn hideShowDetailsTab={hideShowDetailsTab} />

@@ -1,10 +1,10 @@
 "use client";
 import { Mobilenav } from "./mobileNav";
 import { Mobilefooter } from "./mobileFooter";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
-
+import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import {
   getCategories,
   getSubCategories,
@@ -20,6 +20,7 @@ export function Nav() {
   const [query, setQuery] = useState("");
 
   const router = useRouter();
+  const pathname = usePathname();
 
   const toggleDrawer = () => {
     // console.log("log drawer");
@@ -59,27 +60,30 @@ export function Nav() {
       href: "#",
       current: false,
       icon: (
-        <button
-          className=""
-          type="button"
+        <div
+          className={`flex items-center font-medium cursor-pointer ${
+            isDrawerOpen ? "text-[#F9C74F]" : "text-white"
+          }`}
           onClick={toggleDrawer}
-          aria-controls="drawer-navigation"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={1.5}
-            stroke="currentColor"
-            className="w-6 h-6"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-            />
-          </svg>
-        </button>
+          <span className="mr-1">
+            <div>
+              <svg
+                width="13"
+                height="14"
+                viewBox="0 0 13 14"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M2.33333 6.33203L6 0.332031L9.66667 6.33203H2.33333ZM9.66667 13.6654C8.83333 13.6654 8.12489 13.3736 7.54133 12.79C6.95778 12.2065 6.66622 11.4983 6.66667 10.6654C6.66667 9.83203 6.95844 9.12381 7.542 8.5407C8.12556 7.95759 8.83378 7.66581 9.66667 7.66536C10.5 7.66536 11.2084 7.95714 11.792 8.5407C12.3756 9.12425 12.6671 9.83247 12.6667 10.6654C12.6667 11.4987 12.3749 12.2071 11.7913 12.7907C11.2078 13.3743 10.4996 13.6658 9.66667 13.6654ZM0 13.332V7.9987H5.33333V13.332H0ZM9.66667 12.332C10.1333 12.332 10.5278 12.1709 10.85 11.8487C11.1722 11.5265 11.3333 11.132 11.3333 10.6654C11.3333 10.1987 11.1722 9.80425 10.85 9.48203C10.5278 9.15981 10.1333 8.9987 9.66667 8.9987C9.2 8.9987 8.80556 9.15981 8.48333 9.48203C8.16111 9.80425 8 10.1987 8 10.6654C8 11.132 8.16111 11.5265 8.48333 11.8487C8.80556 12.1709 9.2 12.332 9.66667 12.332ZM1.33333 11.9987H4V9.33203H1.33333V11.9987ZM4.7 4.9987H7.3L6 2.8987L4.7 4.9987Z"
+                  fill={isDrawerOpen ? "#F9C74F" : "white"}
+                />
+              </svg>
+            </div>
+          </span>
+          Categories <span className="mx-1"> | </span>
+        </div>
       ),
     },
     {
@@ -88,20 +92,30 @@ export function Nav() {
       href: "#",
       current: false,
       icon: (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth={1.5}
-          stroke="currentColor"
-          className="w-5 h-5 mr-1"
+        <div
+          className={`flex items-center font-medium cursor-pointer ${
+            pathname.includes("orders") ? "text-[#F9C74F]" : "text-white"
+          }`}
+          onClick={() => router.push("/dashboard/orders")}
         >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M9 12h3.75M9 15h3.75M9 18h3.75m3 .75H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08m-5.801 0c-.065.21-.1.433-.1.664 0 .414.336.75.75.75h4.5a.75.75 0 00.75-.75 2.25 2.25 0 00-.1-.664m-5.8 0A2.251 2.251 0 0113.5 2.25H15c1.012 0 1.867.668 2.15 1.586m-5.8 0c-.376.023-.75.05-1.124.08C9.095 4.01 8.25 4.973 8.25 6.108V8.25m0 0H4.875c-.621 0-1.125.504-1.125 1.125v11.25c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V9.375c0-.621-.504-1.125-1.125-1.125H8.25zM6.75 12h.008v.008H6.75V12zm0 3h.008v.008H6.75V15zm0 3h.008v.008H6.75V18z"
-          />
-        </svg>
+          <span className="mx-1">
+            <div>
+              <svg
+                width="13"
+                height="12"
+                viewBox="0 0 13 12"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M9.45587 0C9.88817 0 10.2912 0.209382 10.5402 0.557469L10.5992 0.64734L12.215 3.34032C12.3748 3.60675 12.4701 3.90612 12.494 4.21449L12.5 4.36931V10.6667C12.5 11.3696 11.9561 11.9454 11.2662 11.9963L11.1667 12H1.83333C1.13043 12 0.554557 11.4561 0.503657 10.7662L0.5 10.6667V4.36931C0.5 4.05861 0.572377 3.75291 0.710502 3.47617L0.785013 3.34032L2.4008 0.64734C2.62323 0.276626 3.01015 0.0387275 3.43673 0.00432126L3.54413 0H9.45587ZM11.1667 4.66667H1.83333V10.6667H11.1667V4.66667ZM5.83333 1.33333H3.54413L2.34413 3.33333H5.83333V1.33333ZM9.45587 1.33333H7.16667V3.33333H10.6559L9.45587 1.33333Z"
+                  fill={pathname.includes("orders") ? "#F9C74F" : "white"}
+                />
+              </svg>
+            </div>
+          </span>
+          Orders
+        </div>
       ),
     },
   ];
@@ -112,11 +126,10 @@ export function Nav() {
   }
 
   function routeToSearch(e) {
-    e.preventDefault()
+    e.preventDefault();
     if (query) {
       router.push("/dashboard/search/" + query);
     }
-    console.log(query);
   }
 
   return (
@@ -124,7 +137,7 @@ export function Nav() {
       {isDrawerOpen && (
         <div
           id="drawer-navigation"
-          className={`fixed top-32 left-0 z-40 w-80 md:mb-32 bg-[#f2f2f2] h-screen p-4 overflow-y-auto transition-transform ${
+          className={`fixed top-[7.5rem] left-0 z-40 w-80 md:mb-32 bg-[#f2f2f2] h-screen p-4 overflow-y-auto transition-transform ${
             isDrawerOpen ? "" : "-translate-x-full"
           } bg-[#f2f2f2] dark:bg-gray-800`}
           tabIndex="-1"
@@ -176,7 +189,7 @@ export function Nav() {
       {isPipeOpen ? (
         <div
           id="drawer-navigation"
-          className={`fixed top-32 left-80 z-40 w-80 md:mb-32 bg-white h-screen p-4 overflow-y-auto transition-transform ${
+          className={`fixed top-[7.5rem] left-80 z-40 w-80 md:mb-32 bg-white h-screen p-4 overflow-y-auto transition-transform ${
             isPipeOpen ? "" : "-translate-x-full"
           } bg-[#f2f2f2] dark:bg-gray-800`}
           tabIndex="-1"
@@ -213,7 +226,7 @@ export function Nav() {
                   onClick={() => routeToSubCategories(item.name)}
                   className="cursor-pointer"
                 >
-                  <li className="px-3 space-x-5 flex py-5 text-gray-700 justify-between dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600 hover:{console.log('Hello')">
+                  <li className="px-3 space-x-5 flex py-5 text-gray-700 justify-between dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600">
                     <div className="flex">
                       <span className="ml-4 underline">{item.name} </span>
                     </div>
@@ -230,15 +243,20 @@ export function Nav() {
       <div className="hidden lg:block">
         <nav className="bg-[#004b71] fixed w-full z-20 top-0 left-0 border-b border-gray-200 dark:border-gray-600">
           <div className="max-w mx-2 flex flex-wrap items-center justify-between p-4">
-            <a href="#" className="flex items-center">
-              <img
-                src="/lakshmi.png"
-                className="h-8 mr-3"
-                alt="Flowbite Logo"
-              />
-              <span className="self-center text-1xl font-semibold whitespace-nowrap text-white">
-                LAKSHMI AGENCY
-              </span>
+            <div className="flex items-center">
+              <Link href={"/dashboard"}>
+                <img
+                  src="/lakshmi.png"
+                  className="h-8 mr-3"
+                  alt="Flowbite Logo"
+                />
+              </Link>
+              <Link href={"/dashboard"}>
+                <span className="self-center text-1xl font-semibold whitespace-nowrap text-white">
+                  LAKSHMI AGENCY
+                </span>
+              </Link>
+
               <div className="flex ml-3">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -267,29 +285,31 @@ export function Nav() {
                   </span>{" "}
                 </span>
               </div>
-            </a>
+            </div>
 
             <div className="flex md:order-2">
-              <div className="flex m-3 md:hidden lg:block ">
-                <div className="flex">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    strokeWidth={1.5}
-                    stroke="currentColor"
-                    className="w-6 h-6 mr-2 text-white cursor-pointer"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
-                    />
-                  </svg>
+              <Link href={"/dashboard/profile"}>
+                <div className="flex m-3 md:hidden lg:block ">
+                  <div className="flex">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth={1.5}
+                      stroke="currentColor"
+                      className="w-6 h-6 mr-2 text-white cursor-pointer"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"
+                      />
+                    </svg>
 
-                  <span className="mr-7 text-white ">John Doe</span>
+                    <span className="mr-7 text-white ">John Doe</span>
+                  </div>
                 </div>
-              </div>
+              </Link>
 
               <button
                 data-collapse-toggle="navbar-sticky"
@@ -330,9 +350,7 @@ export function Nav() {
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
                   />
-                  <div
-                    className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
-                  >
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                     <span>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
@@ -359,23 +377,9 @@ export function Nav() {
           <div className="hidden md:block bg-[#004b71] text-white ">
             <div className=" max-w-2 p-2 flex flex-wrap items-center justify-between mx-auto ">
               <div className="hidden sm:ml-6 sm:block">
-                <div className="flex space-x-3">
+                <div className="flex">
                   {categoryMenu.map((item) => (
-                    <button
-                      key={item.name}
-                      aria-current={item.current ? "page" : undefined}
-                      onClick={() => {
-                        if (item.name == "Categories") toggleDrawer();
-                        else {
-                          router.push("/dashboard/orders");
-                        }
-                      }}
-                    >
-                      <div className="flex">
-                        <span className="mr-1">{item.icon} </span>
-                        {item.name} &nbsp; <span> | </span>
-                      </div>
-                    </button>
+                    <>{item.icon}</>
                   ))}
                 </div>
               </div>
