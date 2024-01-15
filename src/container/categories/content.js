@@ -16,7 +16,7 @@ const Content = ({ product }) => {
   const content = products.map((val, pos) =>
     val.has_variants != 1 ? (
       <Card
-        name={val.name}
+        name={val.web_item_name}
         description={val.description}
         itemCode={val.item_code}
         wished={val.wished}

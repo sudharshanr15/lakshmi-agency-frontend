@@ -1,26 +1,22 @@
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import {
   addProductsInCart,
   removeProductFromCart,
-  setSelectedProduct,
 } from "@/lib/features/productSlice";
-import { useState } from "react";
-import {
-  addToWishlist,
-  removeFromWishlist,
-} from "@/controller/productController";
 
-const Card = ({ name, description, itemCode, wished }) => {
+function Card({ name, description, itemCode, wished, setDetailsTab }) {
   const dispatch = useDispatch();
-  function showProductDetailCard() {
-    // console.log("product clicked", itemCode);
-    window.scrollTo({ top: 0, behavior: "smooth" });
-    dispatch(setSelectedProduct(itemCode));
-  }
 
   const [wishlist, setWishlist] = useState(wished);
   const [qty, setQty] = useState(0);
   const [isChecked, setIsChecked] = useState(false);
+
+  function showProductDetailCard() {
+    // console.log("product clicked", itemCode);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    setDetailsTab(itemCode);
+  }
 
   function checkBoxChanged() {
     setIsChecked(!isChecked);
@@ -73,66 +69,67 @@ const Card = ({ name, description, itemCode, wished }) => {
       removeFromWishlist(itemCode);
     }
   }
-
   return (
-    <div className="p-4 border rounded-md text-gray-500">
-      <div className="flex items-start justify-between">
-        <div className="flex items-start">
-          <input
-            type="checkbox"
-            className="mt-2"
-            checked={isChecked}
-            onChange={checkBoxChanged}
-          />
-          <h3
-            className="ml-2 underline font-medium cursor-pointer"
-            onClick={showProductDetailCard}
-          >
-            {name}
-          </h3>
-        </div>
-        <BookMarkBar isBookMarked={wishlist} postWishList={postWishList} />
-      </div>
-      <div className="flex justify-between py-3 text-sm">
-        <div>
-          <p className="py-1 text-green-400">In Stock</p>
-          <p className="pt-1">{description}</p>
-        </div>
-        <div class="custom-number-input h-10 w-32">
-          <div class="flex flex-row h-10 w-full border rounded-lg relative bg-transparent mt-1">
-            <button
-              data-action="decrement"
-              class=" text-gray-600 hover:text-gray-700 hover:border hover:bg-gray-300 h-full w-20 rounded-l-lg cursor-pointer outline-none"
-              onClick={() => {
-                if (qty == 1) {
-                  checkBoxChanged();
-                } else if (qty != 0) {
-                  changeQty(qty - 1);
-                }
-              }}
-            >
-              <span class="m-auto text-2xl font-thin">−</span>
-            </button>
+    <div className="lg:w-[400px] w-full ml-4 lg:ml-0 mr-4 mt-4">
+      <div className="p-4 border rounded-md text-gray-500">
+        <div className="flex items-start justify-between">
+          <div className="flex items-start">
             <input
-              type="number"
-              class="focus:outline-none text-center w-full bg-white font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700  outline-none"
-              name="custom-input-number"
-              value={qty}
-              min={0}
-            ></input>
-            <button
-              data-action="increment"
-              class="text-gray-600 hover:text-gray-700 hover:bg-gray-300 hover:border h-full w-20 rounded-r-lg cursor-pointer"
-              onClick={(e) => changeQty(qty + 1)}
+              type="checkbox"
+              className="mt-2"
+              checked={isChecked}
+              onChange={checkBoxChanged}
+            />
+            <h3
+              className="ml-2 underline font-medium cursor-pointer"
+              onClick={showProductDetailCard}
             >
-              <span class="m-auto text-2xl font-thin">+</span>
-            </button>
+              {name}
+            </h3>
+          </div>
+          <BookMarkBar isBookMarked={wished} postWishList={postWishList} />
+        </div>
+        <div className="flex justify-between py-3 text-sm">
+          <div>
+            <p className="py-1 text-green-400">In Stock</p>
+            <p className="pt-1">{description}</p>
+          </div>
+          <div class="custom-number-input h-10 w-32">
+            <div class="flex flex-row h-10 w-full border rounded-lg relative bg-transparent mt-1">
+              <button
+                data-action="decrement"
+                class=" text-gray-600 hover:text-gray-700 hover:border hover:bg-gray-300 h-full w-20 rounded-l-lg cursor-pointer outline-none"
+                onClick={() => {
+                  if (qty == 1) {
+                    checkBoxChanged();
+                  } else if (qty != 0) {
+                    changeQty(qty - 1);
+                  }
+                }}
+              >
+                <span class="m-auto text-2xl font-thin">−</span>
+              </button>
+              <input
+                type="number"
+                class="focus:outline-none text-center w-full bg-white font-semibold text-md hover:text-black focus:text-black  md:text-basecursor-default flex items-center text-gray-700  outline-none"
+                name="custom-input-number"
+                value={qty}
+                min={0}
+              ></input>
+              <button
+                data-action="increment"
+                class="text-gray-600 hover:text-gray-700 hover:bg-gray-300 hover:border h-full w-20 rounded-r-lg cursor-pointer"
+                onClick={() => changeQty(qty + 1)}
+              >
+                <span class="m-auto text-2xl font-thin">+</span>
+              </button>
+            </div>
           </div>
         </div>
       </div>
     </div>
   );
-};
+}
 
 function BookMarkBar({ isBookMarked, postWishList }) {
   if (!isBookMarked) {

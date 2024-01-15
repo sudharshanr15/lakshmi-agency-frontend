@@ -1,6 +1,24 @@
 import axios from "axios";
 import { baseUrl, config } from "./config";
 
+export const getProfileDetails = async (setProfile) => {
+  config.method = "GET";
+  config.url = baseUrl + "/lakshmiagency.v1.store.profile.get";
+  config.params = {};
+  // console.log(config);
+
+  axios
+    .request(config)
+    .then((res) => {
+      console.log(res.data);
+      setProfile(res.data.data);
+    })
+    .catch((err) => {
+      console.log("Something went wrong");
+      console.log(err);
+    });
+};
+
 export const getAddressList = async (setAddress) => {
   config.method = "GET";
   config.url = baseUrl + "/lakshmiagency.v1.store.address.get_list";
@@ -14,7 +32,7 @@ export const getAddressList = async (setAddress) => {
   axios
     .request(config)
     .then((res) => {
-      //   console.log(res.data);
+      // console.log(res.data);
       setAddress(res.data.data);
     })
     .catch((err) => {
@@ -46,6 +64,27 @@ export const getBillingAddress = async (setBillingAddress) => {
         "delivery_address",
         JSON.stringify(res.data.data[1])
       );
+    })
+    .catch((err) => {
+      console.log("Something went wrong");
+      console.log(err);
+    });
+};
+
+export const getWishListItems = async (setWishListItems) => {
+  config.method = "GET";
+  config.url = baseUrl + "/lakshmiagency.v1.store.wishlist.get_list";
+  config.params = {
+    start: "0",
+    page_length: "6",
+  };
+  // console.log(config);
+
+  axios
+    .request(config)
+    .then((res) => {
+      console.log(res.data);
+      setWishListItems(res.data.items);
     })
     .catch((err) => {
       console.log("Something went wrong");

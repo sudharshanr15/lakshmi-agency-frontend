@@ -9,7 +9,10 @@ import {
   getCategories,
   getSubCategories,
 } from "@/controller/dashboardController";
-import { getBillingAddress } from "@/controller/profileController";
+import {
+  getBillingAddress,
+  getProfileDetails,
+} from "@/controller/profileController";
 
 export function Nav() {
   const [isDrawerOpen, setDrawerOpen] = useState(false);
@@ -18,6 +21,7 @@ export function Nav() {
   const [subCategories, setSubCategories] = useState([]);
   const [parent, setParent] = useState("");
   const [query, setQuery] = useState("");
+  const [profile, setProfile] = useState(null);
 
   const router = useRouter();
   const pathname = usePathname();
@@ -37,11 +41,12 @@ export function Nav() {
 
   useEffect(() => {
     getBillingAddress(setBillingAddress);
+    getProfileDetails(setProfile);
   }, []);
 
   const toggleClose = () => {
-    setPipeOpen(!isPipeOpen);
-    setDrawerOpen(!isDrawerOpen);
+    setPipeOpen(false);
+    setDrawerOpen(false);
   };
 
   const togglePipe = (parent) => {
@@ -135,56 +140,62 @@ export function Nav() {
   return (
     <div>
       {isDrawerOpen && (
-        <div
-          id="drawer-navigation"
-          className={`fixed top-[7.5rem] left-0 z-40 w-80 md:mb-32 bg-[#f2f2f2] h-screen p-4 overflow-y-auto transition-transform ${
-            isDrawerOpen ? "" : "-translate-x-full"
-          } bg-[#f2f2f2] dark:bg-gray-800`}
-          tabIndex="-1"
-          aria-labelledby="drawer-navigation-label"
-        >
-          {/* list of items */}
-          {isDrawerOpen && (
-            <ul className="py-5">
-              {categories.map((item, i) => (
-                <li
-                  key={i}
-                  className="px-3 space-x-5 flex py-3 text-gray-700 justify-between dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600"
-                  type="button"
-                  onClick={() => togglePipe(item.name)}
-                >
-                  <div className="flex cursor-pointer">
-                    <img
-                      src={"https://test01.lakshmiagency.com/" + item.image}
-                      alt="category image"
-                      className="-mt-3 rounded-full w-12 h-12 border-4 border-yellow-400"
-                    />
-                    <span className="ml-4">{item.name} </span>
-                  </div>
+        <>
+          <div
+            className="w-screen h-screen fixed top-[7.5rem] z-[30]"
+            onClick={toggleClose}
+          ></div>
+          <div
+            id="drawer-navigation"
+            className={`fixed top-[7.5rem] left-0 z-40 w-80 md:mb-32 bg-[#f2f2f2] h-screen p-4 overflow-y-auto transition-transform ${
+              isDrawerOpen ? "" : "-translate-x-full"
+            } bg-[#f2f2f2] dark:bg-gray-800`}
+            tabIndex="-1"
+            aria-labelledby="drawer-navigation-label"
+          >
+            {/* list of items */}
+            {isDrawerOpen && (
+              <ul className="py-5">
+                {categories.map((item, i) => (
+                  <li
+                    key={i}
+                    className="px-3 space-x-5 flex py-3 text-gray-700 justify-between dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600"
+                    type="button"
+                    onClick={() => togglePipe(item.name)}
+                  >
+                    <div className="flex cursor-pointer">
+                      <img
+                        src={"https://test01.lakshmiagency.com/" + item.image}
+                        alt="category image"
+                        className="-mt-3 rounded-full w-12 h-12 border-4 border-yellow-400"
+                      />
+                      <span className="ml-4">{item.name} </span>
+                    </div>
 
-                  <div className="mt-2">
-                    <button>
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        strokeWidth={1.5}
-                        stroke="currentColor"
-                        className="w-4 h-4"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M8.25 4.5l7.5 7.5-7.5 7.5"
-                        />
-                      </svg>
-                    </button>
-                  </div>
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
+                    <div className="mt-2">
+                      <button>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          strokeWidth={1.5}
+                          stroke="currentColor"
+                          className="w-4 h-4"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            d="M8.25 4.5l7.5 7.5-7.5 7.5"
+                          />
+                        </svg>
+                      </button>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        </>
       )}
       {isPipeOpen ? (
         <div
@@ -306,7 +317,9 @@ export function Nav() {
                       />
                     </svg>
 
-                    <span className="mr-7 text-white ">John Doe</span>
+                    <span className="mr-7 text-white ">
+                      {profile && profile.full_name.trim()}
+                    </span>
                   </div>
                 </div>
               </Link>
@@ -378,8 +391,8 @@ export function Nav() {
             <div className=" max-w-2 p-2 flex flex-wrap items-center justify-between mx-auto ">
               <div className="hidden sm:ml-6 sm:block">
                 <div className="flex">
-                  {categoryMenu.map((item) => (
-                    <>{item.icon}</>
+                  {categoryMenu.map((item, i) => (
+                    <div key={i}>{item.icon}</div>
                   ))}
                 </div>
               </div>

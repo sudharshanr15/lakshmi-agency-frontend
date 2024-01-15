@@ -1,131 +1,29 @@
 "use client";
-import axios from "axios"; // Import Axios library
 import "../../globals.css";
 import { useState, useEffect } from "react";
-import { Nav } from "@/components";
-import {
-  myProfile,
-  billingAddress,
-  wishList,
-} from "@/utils/profileContent";
-
-// Define businessDetails component
-const BusinessDetails = () => {
-  const [addressDetails, setAddressDetails] = useState(null);
-
-  // Function to fetch business details from the API
-  const fetchBusinessData = async () => {
-    const baseURL =
-      "https://test01.lakshmiagency.com/api/method/lakshmiagency.v1.store.address.get_personal";
-    const headers = {
-      "Content-Type": "application/json",
-      Authorization: "token 69e0234a0664f91:35470717fb585f3",
-    };
-
-    try {
-      const response = await axios.get(baseURL, { headers });
-      const businessData = response.data.data;
-      setAddressDetails(businessData);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  // Use useEffect to fetch business details when the component mounts
-  useEffect(() => {
-    fetchBusinessData();
-  }, []);
-
-  return (
-    <div className="mt-10 BusinessSection mb-32">
-      <div className="flex flex-col justify-start">
-        <span className="mx-5 font-bold text-[#125476] md:text-2xl lg:ml-4">
-          Hi Yuvanesh!
-        </span>
-        <span className="mx-5 mt-2 text-black md:text-1.5xl lg:ml-4">
-          Fill in the Business Details and make your purchase journey smoother
-        </span>
-      </div>
-
-      <div className="p-6 lg:mt-4">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-3">
-          <div className="border p-6">
-            {addressDetails ? (
-              <>
-                <div className="mt-3 text-[#b0b0b0]">
-                  Name:
-                  <span className="font-semibold text-black ml-2">
-                    {addressDetails.name}
-                  </span>
-                </div>
-                <div className="mt-3 text-[#b0b0b0]">
-                  Address Title:
-                  <span className="font-semibold text-black ml-2">
-                    {addressDetails.address_title}
-                  </span>
-                </div>
-                <div className="mt-3 text-[#b0b0b0]">
-                  Address Type:
-                  <span className="font-semibold text-black ml-2">
-                    {addressDetails.address_type}
-                  </span>
-                </div>
-                <div className="mt-3 text-[#b0b0b0]">
-                  Address Line_1:
-                  <span className="font-semibold text-black ml-2">
-                    {addressDetails.address_line1}
-                  </span>
-                </div>      
-                <div className="mt-3 text-[#b0b0b0]">
-                  City:
-                  <span className="font-semibold text-black ml-2">
-                    {addressDetails.city}
-                  </span>
-                </div>  
-                <div className="mt-3 text-[#b0b0b0]">
-                  State:
-                  <span className="font-semibold text-black ml-2">
-                    {addressDetails.state}
-                  </span>
-                </div>  
-                <div className="mt-3 text-[#b0b0b0]">
-                  Country:
-                  <span className="font-semibold text-black ml-2">
-                    {addressDetails.country}
-                  </span>
-                </div>  
-                <div className="mt-3 text-[#b0b0b0]">
-                  Pincode:
-                  <span className="font-semibold text-black ml-2">
-                    {addressDetails.pincode}
-                  </span>
-                </div>  
-                <div className="mt-3 text-[#b0b0b0]">
-                  Phone:
-                  <span className="font-semibold text-black ml-2">
-                    {addressDetails.phone}
-                  </span>
-                </div>  
-                <div className="mt-3 text-[#b0b0b0]">
-                  GSTin:
-                  <span className="font-semibold text-black ml-2">
-                    {addressDetails.gstin}
-                  </span>
-                </div>  
-                        </>
-            ) : (
-              <p>Loading...</p>
-            )}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
+import { Footer, Nav } from "@/components";
+import { getProfileDetails } from "@/controller/profileController";
+import { useRouter } from "next/navigation";
+import MyProfile from "@/container/profile/MyProfile";
+import DeliveryAddress from "@/container/profile/DeliveryAddress";
+import BuisnessDetails from "@/container/profile/BuisnessDetails";
+import WishList from "@/container/profile/WishList";
+import Notifications from "@/container/profile/Notifications";
+import Settings from "@/container/profile/Settings";
 
 // Define Main component
 export default function Main() {
-  const [selectedCategory, setSelectedCategory] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [userData, setUserData] = useState({
+    email: "",
+    full_name: "",
+    mobile_no: "",
+  });
+  const router = useRouter();
+
+  useEffect(() => {
+    getProfileDetails(setUserData);
+  }, []);
 
   const ProfileItems = [
     {
@@ -133,41 +31,39 @@ export default function Main() {
       name: "My Profile",
       icon: (
         <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        strokeWidth="1.5"
-        stroke="currentColor"
-        className="w-6 h-6 "
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632"
-        />
-      </svg>
-      
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth="1.5"
+          stroke="currentColor"
+          className="w-6 h-6 "
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632"
+          />
+        </svg>
       ),
     },
     {
       id: 2,
-      name: "Billing Address",
+      name: "Delivery Address",
       icon: (
         <svg
-        xmlns="http://www.w3.org/2000/svg"
-        fill="none"
-        viewBox="0 0 24 24"
-        strokeWidth="1.5"
-        stroke="currentColor"
-        className="w-6 h-6"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z"
-        />
-      </svg>
-      
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          strokeWidth="1.5"
+          stroke="currentColor"
+          className="w-6 h-6"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M2.25 18.75a60.07 60.07 0 0115.797 2.101c.727.198 1.453-.342 1.453-1.096V18.75M3.75 4.5v.75A.75.75 0 013 6h-.75m0 0v-.375c0-.621.504-1.125 1.125-1.125H20.25M2.25 6v9m18-10.5v.75c0 .414.336.75.75.75h.75m-1.5-1.5h.375c.621 0 1.125.504 1.125 1.125v9.75c0 .621-.504 1.125-1.125 1.125h-.375m1.5-1.5H21a.75.75 0 00-.75.75v.75m0 0H3.75m0 0h-.375a1.125 1.125 0 01-1.125-1.125V15m1.5 1.5v-.75A.75.75 0 003 15h-.75M15 10.5a3 3 0 11-6 0 3 3 0 016 0zm3 0h.008v.008H18V10.5zm-12 0h.008v.008H6V10.5z"
+          />
+        </svg>
       ),
     },
     {
@@ -180,7 +76,8 @@ export default function Main() {
           viewBox="0 0 24 24"
           strokeWidth="1.5"
           stroke="currentColor"
-          className="w-6 h-6">
+          className="w-6 h-6"
+        >
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -199,7 +96,8 @@ export default function Main() {
           viewBox="0 0 24 24"
           strokeWidth="1.5"
           stroke="currentColor"
-          className="w-6 h-6">
+          className="w-6 h-6"
+        >
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -210,27 +108,6 @@ export default function Main() {
     },
     {
       id: 5,
-      name: "My Orders",
-      icon: (
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          strokeWidth="1.5"
-          stroke="currentColor"
-          className="w-6 h-6">
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            d="M20.25 7.5l-.625 10.632a2.25 2.25 0 01-2.247 2.118H6.622a2.25 2.25 0 01-2.247-2.118L3.75 7.5M10 11.25h4M3.375 7.5h17.25c.621 0 1.125-.504 1.125-1.125v-1.5c0-.621-.504-1.125-1.125-1.125H3.375c-.621 0-1.125.504-1.125 1.125v1.5c0 .621.504 1.125 1.125 1.125z"
-          />
-        </svg>
-      ),
-    },
-    
-    
-    {
-      id: 6,
       name: "Notifications",
       icon: (
         <svg
@@ -239,7 +116,8 @@ export default function Main() {
           viewBox="0 0 24 24"
           strokeWidth="1.5"
           stroke="currentColor"
-          className="w-6 h-6">
+          className="w-6 h-6"
+        >
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -249,7 +127,7 @@ export default function Main() {
       ),
     },
     {
-      id: 7,
+      id: 6,
       name: "Settings",
       icon: (
         <svg
@@ -258,7 +136,8 @@ export default function Main() {
           viewBox="0 0 24 24"
           strokeWidth="1.5"
           stroke="currentColor"
-          className="w-6 h-6">
+          className="w-6 h-6"
+        >
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -274,87 +153,66 @@ export default function Main() {
     },
   ];
 
-  const selectedListItems = (submenu) => {
-    setSelectedCategory(submenu);
-  };
-
-  // Use useEffect to log the updated selectedCategory
-  useEffect(() => {
-    console.log(selectedCategory);
-  }, [selectedCategory]);
-
-  const [modalOpen, setIsModalOpen] = useState(false);
-
-  const openModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false);
+  const selectedListItems = (itemName) => {
+    if (window.innerWidth <= 450) {
+      // route to mobile
+      router.push("/dashboard/profile/" + itemName);
+    } else {
+      // change state
+      setSelectedCategory(itemName);
+    }
   };
 
   return (
     <>
       <Nav />
-
-      <div className="grid grid-cols-1 md:grid-cols-4 lg:mt-44 h-screen">
-        <div className="md:col-span-1 bg-[#f2f2f2] hidden md:block w-full">
-          <div className="md:p-4">
+      <div className="lg:mt-[7.5rem] h-full w-full flex overflow-x-hidden relative">
+        <div className="w-[100%] bg-white lg:w-[25%]">
+          <div className="">
             <ul className="font-medium ">
               {ProfileItems.map((item) => (
                 <li
-                  className={`group ${
+                  key={item.id}
+                  className={`group cursor-pointer border-y-[0.5px] ${
                     selectedCategory === item.name
-                      ? "bg-[#e7eef1] h-full w-full"
+                      ? "bg-[#e7eef1] h-full w-full border-l-4 border-l-[#0A4E71]"
                       : ""
                   } md:space-y-6 md:space-x-6 py-3`}
-                  key={item.id}
+                  onClick={() => selectedListItems(item.name)}
                 >
-                  <button
-                    type="button"
-                    onClick={() => selectedListItems(item.name)}
-                    className="flex items-center md:space-x-6 p-3"
-                  >
+                  <div className="flex items-center md:space-x-6 p-3">
                     <span>{item.icon}</span>
                     <span>{item.name}</span>
-                  </button>
+                  </div>
                 </li>
               ))}
+              <li>
+                <div className="flex items-center md:space-x-6 p-3 cursor-pointer">
+                  <h2 className="underline text-[#23376D] font-medium">
+                    Sign Out
+                  </h2>
+                </div>
+              </li>
             </ul>
           </div>
         </div>
 
-        <div
-          className={`"p-4 md:col-span-3 bg-white
-            ${modalOpen === true ? "bg-gray-300" : ""}`}
-        >
-          <div
-            className={`${
-              selectedCategory === "Billing Address" ||
-              selectedCategory === "Business Details" ||
-              selectedCategory === "Wish list" ||
-              selectedCategory === "My Orders" ||
-              selectedCategory === "My cart" ||
-              selectedCategory === "Referrals" ||
-              selectedCategory === "Notifications" ||
-              selectedCategory === "Settings"
-                ? "hidden"
-                : ""
-            }`}
-          >
-            {myProfile()}
-          </div>
-
-          {selectedCategory === "Billing Address" && billingAddress()}
-          {selectedCategory === "Business Details" && <BusinessDetails />}
-          {selectedCategory === "Wish list" && wishList()}
-          {selectedCategory === "My Orders" && <div>My Orders</div>}
-          {selectedCategory === "My cart" && <div>My cart</div>}
-          {selectedCategory === "Referrals" && <div>Referrals</div>}
-          {selectedCategory === "Notifications" && <div>Notifications</div>}
-          {selectedCategory === "Settings" && <div>Settings</div>}
+        <div className="pl-8 bg-white w-[75%] h-full overflow-x-hidden hidden lg:block">
+          {(selectedCategory == "" || selectedCategory == "My Profile") && (
+            <MyProfile userData={userData} />
+          )}
+          {selectedCategory == "Delivery Address" && (
+            <DeliveryAddress userData={userData} />
+          )}
+          {selectedCategory == "Business Details" && (
+            <BuisnessDetails userData={userData} />
+          )}
+          {selectedCategory == "Wish list" && <WishList />}
+          {selectedCategory == "Notifications" && <Notifications />}
+          {selectedCategory == "Settings" && <Settings />}
         </div>
       </div>
+      <Footer />
     </>
   );
 }
