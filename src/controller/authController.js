@@ -1,4 +1,6 @@
+import { showToast } from "@/utils/showToast";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const baseUrl = "https://test01.lakshmiagency.com/api/method";
 
@@ -56,6 +58,11 @@ export const login = async (body, setTempID, setAuthState) => {
     .catch((err) => {
       console.log("Login failed");
       console.log(err);
+      showToast(
+        toast,
+        "error",
+        err.response.data.message || "Something went wrong"
+      );
     });
 };
 
@@ -81,8 +88,12 @@ export const OTPSubmit = async (body, router) => {
       router.push("/dashboard");
     })
     .catch((err) => {
-      console.log("Login failed");
       console.log(err);
+      showToast(
+        toast,
+        "error",
+        err.response.data.message || "Something went wrong"
+      );
     });
 };
 

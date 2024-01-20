@@ -1,9 +1,12 @@
 "use client";
 import React, { useState } from "react";
 import { login, OTPSubmit } from "@/controller/authController";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/navigation";
 import Login from "./Login";
 import OTP from "./OTP";
+import { showToast } from "@/utils/showToast";
 
 export function Auth() {
   const [authState, setAuthState] = useState("login");
@@ -15,15 +18,16 @@ export function Auth() {
   //
   const router = useRouter();
 
-  function onLoginFormSubmit(e) {
+  async function onLoginFormSubmit(e) {
     e.preventDefault();
     if (validatePhoneNumber(mobile)) {
       let body = {
         user_id: "91" + mobile,
       };
+
       login(body, setTempID, setAuthState);
     } else {
-      console.log("enter correct phone number");
+      showToast(toast, "error", "Enter a valid phone number");
     }
   }
 
@@ -46,21 +50,27 @@ export function Auth() {
 
   if (authState == "login") {
     return (
-      <Login
-        onLoginFormSubmit={onLoginFormSubmit}
-        setMobile={setMobile}
-        setAuthState={setAuthState}
-        mobile={mobile}
-      />
+      <>
+        <ToastContainer />
+        <Login
+          onLoginFormSubmit={onLoginFormSubmit}
+          setMobile={setMobile}
+          setAuthState={setAuthState}
+          mobile={mobile}
+        />
+      </>
     );
   } else {
     return (
-      <OTP
-        otp={otp}
-        setOtp={setOtp}
-        onOTPFormSubmit={onOTPFormSubmit}
-        mobile={mobile}
-      />
+      <>
+        <ToastContainer />
+        <OTP
+          otp={otp}
+          setOtp={setOtp}
+          onOTPFormSubmit={onOTPFormSubmit}
+          mobile={mobile}
+        />
+      </>
     );
   }
 }

@@ -1,12 +1,20 @@
 "use client";
+import { getCategories } from "@/controller/dashboardController";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 export function Mobilefooter() {
   const [isDrawerOpen, setDrawerOpen] = useState(false);
+  const [categories, setCategories] = useState([]);
+
+  const router = useRouter();
 
   const toggleDrawer = () => {
-    console.log("log ");
     setDrawerOpen(!isDrawerOpen);
+    if (!isDrawerOpen) {
+      console.log("opened");
+      getCategories(setCategories);
+    }
   };
 
   const toggleClose = () => {
@@ -68,7 +76,6 @@ export function Mobilefooter() {
     {
       id: 1,
       name: "Home",
-      href: "#",
       current: false,
       icon: (
         <svg
@@ -77,6 +84,7 @@ export function Mobilefooter() {
           viewBox="0 0 14 13"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
+          onClick={() => router.push("/dashboard")}
         >
           <path
             fillRule="evenodd"
@@ -125,7 +133,7 @@ export function Mobilefooter() {
         <button
           className=""
           type="button"
-          onClick={toggleDrawer}
+          onClick={() => router.push("/dashboard/orders")}
           aria-controls="drawer-navigation"
         >
           <svg
@@ -156,6 +164,7 @@ export function Mobilefooter() {
           viewBox="0 0 12 14"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
+          onClick={() => router.push("/dashboard/profile")}
         >
           <path
             fillRule="evenodd"
@@ -179,7 +188,7 @@ export function Mobilefooter() {
               id="drawer-navigation"
               className={`fixed top-0 left-0 bottom-30 z-40 w-full md:mb-32 bg-[#f2f2f2] h-screen p-4 overflow-y-auto transition-transform ${
                 isDrawerOpen ? "" : "-translate-x-full"
-              } bg-[#f2f2f2] dark:bg-gray-800`}
+              } bg-[#f2f2f2] `}
               tabIndex="-1"
               aria-labelledby="drawer-navigation-label"
             >
@@ -218,14 +227,14 @@ export function Mobilefooter() {
               {/* list of items */}
               {isDrawerOpen && (
                 <div className="grid grid-cols-3 m-3 gap-8 mt-16 ">
-                  {categList.map((item) => (
-                    <div className="items-center " key={item.categoryName}>
+                  {categories.map((item, i) => (
+                    <div className="items-center " key={i}>
                       <img
-                        src={item.link}
+                        src={"https://test01.lakshmiagency.com/" + item.image}
                         alt="category image"
                         className="-mt-3 rounded-full w-12 h-12 border-4 border-yellow-400"
                       />
-                      <span className="mt-2">{item.categoryName}</span>
+                      <span className="mt-2">{item.name}</span>
                     </div>
                   ))}
                 </div>

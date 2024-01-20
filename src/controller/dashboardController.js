@@ -134,7 +134,18 @@ export const getChartData = async (setChartData) => {
     .request(config)
     .then((res) => {
       console.log(res.data);
-      setChartData(res.data.data);
+      const data = res.data.data;
+      const labels = Object.keys(data);
+      const values = Object.values(data);
+      // console.log(labels, values);
+      // setChartData({
+      //   labels: labels,
+      //   values: values,
+      // });
+      setChartData({
+        labels: ["Dec", "JAN", "Feb", "Mar"],
+        values: [5500, 8734, 7235, 8530],
+      });
     })
     .catch((err) => {
       console.log("Something went wrong");

@@ -1,59 +1,27 @@
 "use client";
 
-import { useState } from "react";
-import Chart from "chart.js/auto";
-import { CategoryScale } from "chart.js";
-import { Line } from "react-chartjs-2";
-import { Data } from "@/utils/Data";
-
-Chart.register(CategoryScale);
-
-function ChartDiagram({ chartData }) {
-  return (
-    <div className="chart-container bg-gray-300 rounded-md p-5">
-      <h2 style={{ textAlign: "center" }}>Line Chart </h2>
-      <Line
-        data={chartData}
-        options={{
-          plugins: {
-            title: {
-              display: true,
-              text: "Users Gained between 2016-2020",
-            },
-            legend: {
-              display: false,
-            },
-          },
-        }}
-      />
-    </div>
-  );
-}
+import { getChartData } from "@/controller/dashboardController";
+import { useEffect, useState } from "react";
+import Chart from "react-apexcharts";
 
 export function LineChart() {
-  const [chartData, setChartData] = useState({
-    labels: Data.map((data) => data.year),
-    datasets: [
-      {
-        label: "Users Gained ",
-        data: Data.map((data) => data.userGain),
-        backgroundColor: [
-          "rgba(75,192,192,1)",
-          "#50AF95",
-          "#f3ba2f",
-          "#2a71d0",
-        ],
-        borderColor: "black",
-        borderWidth: 2,
-      },
-    ],
-  });
+  const [chatData, setChartData] = useState(null);
+  const [duration, setDuration] = useState("Jan - June");
 
   const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    getChartData(setChartData);
+  }, []);
 
   const toggleDropdown = () => {
     setIsOpen(!isOpen);
   };
+
+  function changeDuration(_duration) {
+    setDuration(_duration);
+    setIsOpen(false);
+  }
 
   return (
     <>
@@ -66,9 +34,9 @@ export function LineChart() {
               <div className="relative">
                 <button
                   onClick={toggleDropdown}
-                  className="px-4 py-2  text-[#004b71] bg-[#e5eef1]   rounded-md focus:outline-none flex font-semibold"
+                  className="lg:px-4 lg:py-2 px-2 py-1 text-xs lg:text-base text-[#004b71] bg-[#e5eef1] rounded-md focus:outline-none flex font-semibold"
                 >
-                  Jan - June{" "}
+                  {duration}
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"
@@ -85,30 +53,21 @@ export function LineChart() {
                   </svg>
                 </button>
                 {isOpen && (
-                  <ul className="absolute right-0 z-0 mt-2 py-2 w-48 bg-white rounded-md shadow-lg">
-                    <li>
-                      <a
-                        href="#"
-                        className="block px-4 py-2 text-gray-800 hover:bg-blue-500 hover:text-white"
-                      >
-                        Option 1
-                      </a>
+                  <ul className="absolute right-0 z-20 mt-2 py-2 w-48 bg-white rounded-md shadow-lg">
+                    <li onClick={() => changeDuration("Last 6 months")}>
+                      <di className="block px-4 py-2 text-gray-800 hover:bg-blue-500 hover:text-white">
+                        Last 6 months
+                      </di>
                     </li>
-                    <li>
-                      <a
-                        href="#"
-                        className="block px-4 py-2 text-gray-800 hover:bg-blue-500 hover:text-white"
-                      >
-                        Option 2
-                      </a>
+                    <li onClick={() => changeDuration("Last year")}>
+                      <div className="block px-4 py-2 text-gray-800 hover:bg-blue-500 hover:text-white">
+                        Last year
+                      </div>
                     </li>
-                    <li>
-                      <a
-                        href="#"
-                        className="block px-4 py-2 text-gray-800 hover:bg-blue-500 hover:text-white"
-                      >
-                        Option 3
-                      </a>
+                    <li onClick={() => changeDuration("All")}>
+                      <div className="block px-4 py-2 text-gray-800 hover:bg-blue-500 hover:text-white">
+                        All
+                      </div>
                     </li>
                   </ul>
                 )}
@@ -117,11 +76,43 @@ export function LineChart() {
           </div>
         </div>
         <div className=" flex justify-center items-center">
-          <div className="w-full p-20">
-            <ChartDiagram chartData={chartData} />
+          <div className="w-full px-0 py-2 lg:px-14 lg:py-10">
+            <div className="col-4">
+              {chatData && (
+                <AreaChart labels={chatData.labels} values={chatData.values} />
+              )}
+            </div>
           </div>
         </div>
       </div>
     </>
+  );
+}
+
+function AreaChart({ labels, values }) {
+  const [graph, setGraph] = useState({
+    options: {
+      colors: ["#F9C74F"],
+      chart: {
+        id: "basic-bar",
+      },
+      xaxis: {
+        categories: labels,
+      },
+    },
+    series: [
+      {
+        name: "Monthly Purchase",
+        data: values,
+      },
+    ],
+  });
+  return (
+    <Chart
+      options={graph.options}
+      series={graph.series}
+      type="area"
+      width="100%"
+    />
   );
 }
