@@ -116,14 +116,14 @@ function OrderList({ order }) {
               Ordered on {order.creation.substring(0, 10)}
             </h2>
           </div>
-          <h2 className="font-semibold text-sm lg:text-base">$ 21,400</h2>
+          <h2 className="font-semibold text-sm lg:text-base">₹ 21,400</h2>
         </div>
         <div className="flex justify-between text-end">
           <h3 className="text-gray-500 text-xs ">
             Total items : {order.items.length}
           </h3>
           <h3 className="text-gray-500 text-xs">
-            $ 12000 + $ 300(delivery fee){" "}
+          ₹ 12000 + ₹ 300{" "}
           </h3>
         </div>
       </div>
@@ -133,9 +133,9 @@ function OrderList({ order }) {
           <h2 className="font-medium text-sm">Order ID : {order.name}</h2>
           <h3 className="text-green-600 text-xs">{order.delivery_status}</h3>
         </div>
-        <div>
+        {/* <div>
           <h2 className="text-[#0A4E71] underline font-medium">Track Order</h2>
-        </div>
+        </div> */}
       </div>
       {/* all products */}
       <div className="w-full p-2 py-4 border rounded-b-lg">

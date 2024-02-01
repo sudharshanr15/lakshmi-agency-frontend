@@ -169,11 +169,11 @@ export default function Main() {
       <div className="lg:mt-[7.5rem] h-full w-full flex overflow-x-hidden relative">
         <div className="w-[100%] bg-white lg:w-[25%]">
           <div className="">
-            <ul className="font-medium ">
+            <ul className="font-medium">
               {ProfileItems.map((item) => (
                 <li
                   key={item.id}
-                  className={`group cursor-pointer border-y-[0.5px] ${
+                  className={`group cursor-pointer border-y-[0.5px] pl-8${
                     selectedCategory === item.name
                       ? "bg-[#e7eef1] h-full w-full border-l-4 border-l-[#0A4E71]"
                       : ""
