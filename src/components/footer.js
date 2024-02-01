@@ -32,7 +32,7 @@ export function Footer() {
 
             <div className="mt-2 md:mt-20 mx-2 p-4 flex justify-evenly">
               {/*  */}
-              <div>
+              {/* <div>
                 <h1 className="text-2xl font-bold mt-5 text-[#004b71]">
                   About us
                 </h1>
@@ -42,7 +42,7 @@ export function Footer() {
                   <p className="mt-3">Our partners</p>
                   <p className="mt-3">Our clients</p>
                 </span>
-              </div>
+              </div> */}
               {/*  */}
               <div>
                 <h1 className="text-2xl text-[#004b71] font-bold mt-5">
@@ -51,9 +51,9 @@ export function Footer() {
                 <p className="mt-4 mx-auto"></p>
                 <span className=" text-1xl">
                   <p className="mt-3">Blogs</p>
-                  <p className="mt-3">Offer page</p>
+                  {/* <p className="mt-3">Offer page</p>
                   <p className="mt-3">Tutorials</p>
-                  <p className="mt-3">Clients page</p>
+                  <p className="mt-3">Clients page</p> */}
                 </span>
               </div>
               {/*  */}

@@ -149,7 +149,7 @@ export function Nav() {
             id="drawer-navigation"
             className={`fixed top-[7.5rem] left-0 z-40 w-80 md:mb-32 bg-[#f2f2f2] h-screen p-4 overflow-y-auto transition-transform ${
               isDrawerOpen ? "" : "-translate-x-full"
-            } bg-[#f2f2f2] dark:bg-gray-800`}
+            } bg-[#E9EBF0]`}
             tabIndex="-1"
             aria-labelledby="drawer-navigation-label"
           >
@@ -159,7 +159,7 @@ export function Nav() {
                 {categories.map((item, i) => (
                   <li
                     key={i}
-                    className="px-3 space-x-5 flex py-3 text-gray-700 justify-between dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600"
+                    className="px-3 space-x-5 flex py-3 justify-between hover:bg-[#EAEAEA]"
                     type="button"
                     onClick={() => togglePipe(item.name)}
                   >
@@ -167,7 +167,7 @@ export function Nav() {
                       <img
                         src={"https://test01.lakshmiagency.com/" + item.image}
                         alt="category image"
-                        className="-mt-3 rounded-full w-12 h-12 border-4 border-yellow-400"
+                        className="-mt-3 rounded-full w-12 h-12 border-4 border-yellow-400 text-[#000000]"
                       />
                       <span className="ml-4">{item.name} </span>
                     </div>
@@ -202,7 +202,7 @@ export function Nav() {
           id="drawer-navigation"
           className={`fixed top-[7.5rem] left-80 z-40 w-80 md:mb-32 bg-white h-screen p-4 overflow-y-auto transition-transform ${
             isPipeOpen ? "" : "-translate-x-full"
-          } bg-[#f2f2f2] dark:bg-gray-800`}
+          } bg-[#f2f2f2]`}
           tabIndex="-1"
           aria-labelledby="drawer-navigation-label"
         >
@@ -237,7 +237,7 @@ export function Nav() {
                   onClick={() => routeToSubCategories(item.name)}
                   className="cursor-pointer"
                 >
-                  <li className="px-3 space-x-5 flex py-5 text-gray-700 justify-between dark:text-white hover:bg-gray-200 dark:hover:bg-gray-600">
+                  <li className="px-3 space-x-5 flex py-5 justify-between text-[#07101F] hover:bg-[#EAEAEA]">
                     <div className="flex">
                       <span className="ml-4 underline">{item.name} </span>
                     </div>
@@ -268,7 +268,7 @@ export function Nav() {
                 </span>
               </Link>
 
-              <div className="flex ml-3">
+              {/* <div className="flex ml-3">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"
@@ -295,7 +295,7 @@ export function Nav() {
                     {billingAddress.pincode}
                   </span>{" "}
                 </span>
-              </div>
+              </div> */}
             </div>
 
             <div className="flex md:order-2">

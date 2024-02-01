@@ -13,7 +13,7 @@ function Login({ onLoginFormSubmit, setMobile, mobile }) {
             backgroundPosition: "center",
             backgroundSize: "cover",
             backgroundRepeat: "no-repeat",
-            filter: "blur(3px)",
+            filter: "blur(10px)",
             transform: "scale(1.1)",
           }}
         ></div>
