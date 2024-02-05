@@ -124,7 +124,7 @@ export const getOrderStatistics = async (setOrdersStatistics, selectedDay) => {
     });
 };
 
-export const getChartData = async (setChartData) => {
+export const getChartData = async ({setChartData}) => {
   config.method = "get";
   config.url = baseUrl + "/lakshmiagency.v1.store.report.purchased.get";
   config.params = {};
@@ -142,14 +142,19 @@ export const getChartData = async (setChartData) => {
       //   labels: labels,
       //   values: values,
       // });
-      setChartData({
-        labels: ["Dec", "JAN", "Feb", "Mar"],
-        values: [5500, 8734, 7235, 8530],
-      });
+      // setChartData({
+      //   labels: ["Dec", "JAN", "Feb", "Mar"],
+      //   values: [5500, 8734, 7235, 8530],
+      // });
+      
     })
     .catch((err) => {
       console.log("Something went wrong");
       console.log(err);
+    });
+    setChartData({
+      labels: ["Dec", "JAN", "Feb", "Mar"],
+      values: [5500, 8734, 7235, 8530],
     });
 };
 
