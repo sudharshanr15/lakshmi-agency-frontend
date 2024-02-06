@@ -11,7 +11,8 @@ export function LineChart() {
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    getChartData(setChartData);
+    getChartData({setChartData});
+    console.log(chatData,"Raaju Debug")
   }, []);
 
   const toggleDropdown = () => {
@@ -22,7 +23,7 @@ export function LineChart() {
     setDuration(_duration);
     setIsOpen(false);
   }
-
+  
   return (
     <>
       <div className="bg-[#F7F7F7] p-5">
