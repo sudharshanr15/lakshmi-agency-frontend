@@ -14,8 +14,8 @@ import {
   getProfileDetails,
 } from "@/controller/profileController";
 
-export function Nav() {
-  const [isDrawerOpen, setDrawerOpen] = useState(false);
+export function Nav({isDrawerOpen,setDrawerOpen}) {
+  
   const [isPipeOpen, setPipeOpen] = useState(false);
   const [categories, setCategories] = useState([]);
   const [subCategories, setSubCategories] = useState([]);
@@ -257,7 +257,7 @@ export function Nav() {
             <div className="flex items-center">
               <Link href={"/dashboard"}>
                 <img
-                  src="/lakshmi.png"
+                  src="/Lakshmi.png"
                   className="h-8 mr-3"
                   alt="Flowbite Logo"
                 />

@@ -14,16 +14,17 @@ import { useEffect, useState } from "react";
 export default function Page() {
   const [orders, setOrders] = useState([]);
   const [dues, setDues] = useState([]);
+  const [isDrawerOpen, setDrawerOpen] = useState(false);
   useEffect(() => {
     getOrders(setOrders);
     getDues(setDues);
   }, []);
   return (
     <>
-      <Nav />
+      <Nav isDrawerOpen={isDrawerOpen} setDrawerOpen={setDrawerOpen}/>
       <Card />
       <LineChart />
-      <Quote />
+      <Quote isDrawerOpen={isDrawerOpen} setDrawerOpen={setDrawerOpen}/>
       <RecentOrder orders={orders} />
       <UpcomingDue dues={dues} />
       <Footer />

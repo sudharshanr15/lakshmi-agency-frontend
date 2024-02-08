@@ -114,6 +114,7 @@ function AreaChart({ labels, values }) {
       series={graph.series}
       type="area"
       width="100%"
+      height="500px"
     />
   );
 }
