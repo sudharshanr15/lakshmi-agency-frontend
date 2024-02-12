@@ -1,4 +1,7 @@
-export function Quote() {
+export function Quote({isDrawerOpen,setDrawerOpen}) {
+  const toggleDrawer = () => {
+    setDrawerOpen(!isDrawerOpen);
+  };
   return (
     <div className="lg:mx-24 mx-6 lg:mt-10 mt-4 bg-[#2e3437] p-5 rounded-md">
       <div className="flex justify-between">
@@ -8,7 +11,9 @@ export function Quote() {
         </h1>
 
         <div className="mr-0">
-          <button className="px-4 py-2  text-[#004b71] bg-[#ffca4d]  rounded-md focus:outline-none flex font-semibold">
+          <button className="px-4 py-2  text-[#004b71] bg-[#ffca4d]  rounded-md focus:outline-none flex font-semibold"
+          onClick={toggleDrawer}
+          >
             Raise Quotes
           </button>
         </div>

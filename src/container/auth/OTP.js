@@ -1,9 +1,11 @@
+import { useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
 import OtpInput from "react18-input-otp";
 
 function OTP({ otp, setOtp, onOTPFormSubmit, mobile }) {
   const initialTime = 360; // 6 minutes in seconds
   const [time, setTime] = useState(initialTime);
+  const router = useRouter();
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -37,11 +39,11 @@ function OTP({ otp, setOtp, onOTPFormSubmit, mobile }) {
             backgroundPosition: "center",
             backgroundSize: "cover",
             backgroundRepeat: "no-repeat",
-            filter: "blur(3px)",
+            filter: "blur(10px)",
             transform: "scale(1.1)",
           }}
         ></div>
-        <div className="grid grid-cols-1 md:grid-cols-2 z-50 absolute top-0 left-0">
+        <div className="h-screen content-center grid grid-cols-1 md:grid-cols-2 z-50 absolute top-0 left-0">
           <div className="mx-9 md:mx-16 float-left md:left-10  lg:mt-96 md:mt-52">
             <h1 className="text-white text-2xl md:text-3xl font-bold md:font-bold">
               Join <span className="text-yellow-300"> Lakshmi Agency</span>
@@ -85,7 +87,13 @@ function OTP({ otp, setOtp, onOTPFormSubmit, mobile }) {
                   </div>
                 </div>
 
-                <div className="flex justify-center mt-6">
+                <div className="flex justify-between gap-[25px] mt-6 ">
+                  <button
+                    className="w-full py-2 bg-white text-[#0A4E71] border-[1px] border-[#0A4E71] border-solid rounded-lg"
+                    type="button" onClick={router.push("/")}
+                  >
+                    Cancel
+                  </button>
                   <button
                     className="w-full py-2 bg-[#f9c650] text-white rounded-lg "
                     type="submit"
@@ -149,7 +157,13 @@ function OTP({ otp, setOtp, onOTPFormSubmit, mobile }) {
                   <div className="text-[#839398]">{formatTime(time)}</div>
                 </div>
                 <div className="flex justify-center m-3">
-                  <div className="absolute bottom-10 left-3 right-3">
+                  <div className="absolute bottom-10 left-3 right-3 gap-[25px]">
+                  <button
+                    className="w-full py-2 bg-white text-[#0A4E71] border-[1px] border-[#0A4E71] border-solid rounded-lg"
+                    type="button" onClick={router.push("/")}
+                  >
+                    Cancel
+                  </button>
                     <button
                       className="w-full py-2 bg-[#f9c650] text-white rounded-lg"
                       type="submit"

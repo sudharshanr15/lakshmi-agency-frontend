@@ -17,7 +17,7 @@ function Login({ onLoginFormSubmit, setMobile, mobile }) {
             transform: "scale(1.1)",
           }}
         ></div>
-        <div className="grid grid-cols-1 md:grid-cols-2 z-50 absolute top-0 left-0">
+        <div className="h-screen  content-center grid grid-cols-1 md:grid-cols-2 z-50 absolute top-0 left-0">
           <div className="mx-9 md:mx-16 float-left md:left-10  lg:mt-96 md:mt-52">
             <h1 className="text-white text-2xl md:text-3xl font-bold md:font-bold">
               Join <span className="text-yellow-300"> Lakshmi Agency</span>
