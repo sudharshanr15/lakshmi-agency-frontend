@@ -5,10 +5,6 @@ import { cookies } from "next/headers";
 
 export async function loginAction(prev, formdata){
     const phone = formdata.get("phone")?.toString()
-    return {
-        status: true,
-        message: ""
-    }
 
     return await axios({
         method: "post",
@@ -39,10 +35,6 @@ export async function loginAction(prev, formdata){
 export async function validateOTP(prev, formdata){
     const otp = formdata.get("otp")?.toString()
     const phone = formdata.get("phone")?.toString()
-    return {
-        status: true,
-        message: ""
-    }
 
     return await axios({
         method: "post",
@@ -58,7 +50,10 @@ export async function validateOTP(prev, formdata){
         let error_message = "Something went wrong. Please try again!"
 
         if(err.response){
-            error_message = JSON.stringify(err.response.data)
+            error_message = JSON.parse(JSON.stringify(err.response.data))
+            if(error_message.message){
+                error_message = error_message.message
+            }
         }
 
         return {

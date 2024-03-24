@@ -5,13 +5,13 @@ import { useFormState } from "react-dom"
 import { validateOTP } from "@/lib/server_actions/Auth";
 
 const formResponse = {
-  status: false,
+  status: undefined,
   message: ""
 }
 
 function OTP({ mobile, setAuthState }) {
   const [otpState, formOTPAction] = useFormState(validateOTP, formResponse)
-  // const [input] = border-rose-400
+  const [isOTPValid, setIsOTPValid] = useState(true)
 
   const [otp, setOtp] = useState("");
   const initialTime = 360; // 6 minutes in seconds
@@ -20,8 +20,11 @@ function OTP({ mobile, setAuthState }) {
 
   useEffect(() => {
     if(otpState.status == true){
-      // setAuthState("login")
+      setIsOTPValid(true)
       redirect("/dashboard")
+    }else if(otpState.status == false){
+      setIsOTPValid(false)
+      setOtp("")
     }
   }, [otpState])
 
@@ -86,20 +89,21 @@ function OTP({ mobile, setAuthState }) {
                       (+91 {mobile})
                     </h1>
 
-                    <div className="flex items-center justify-center mt-9">
+                    <div className="flex flex-col items-center justify-center mt-9">
                       <div className=" w-full flex justify-center space-x-2 sm:space-x-4 md:space-x-6 lg:space-x-8">
-                        <input type="number" hidden value={otp} name="otp" />
-                        <input type="number" hidden value={mobile} name="phone" />
+                        <input type="number" hidden defaultValue={otp} name="otp" />
+                        <input type="number" hidden defaultValue={mobile} name="phone" />
                         <OtpInput
                           value={otp}
                           onChange={(e) => setOtp(e)}
                           numInputs={6}
                           containerStyle="w-[100%] 2xl:w-[75%] flex justify-between"
-                          inputStyle="otp-inputs border-black border-2 scale-105"
+                          inputStyle={`otp-inputs ${isOTPValid ? "border-black" : "border-rose-400"} border-2 scale-105`}
                           isInputNum="true"
                           name="otp"
                         />
                       </div>
+                      {!isOTPValid && (<p className="mt-5 text-rose-600">{otpState.message}</p>)}
                     </div>
                     <div className="flex justify-between mt-6">
                       <div>OTP expires in</div>
@@ -111,7 +115,7 @@ function OTP({ mobile, setAuthState }) {
                 <div className="flex justify-between gap-[25px] mt-6 ">
                   <button
                     className="w-full py-2 bg-white text-[#0A4E71] border-[1px] border-[#0A4E71] border-solid rounded-lg"
-                    type="button" onClick={router.push("/")}
+                    type="button" onClick={() => setAuthState("login")}
                   >
                     Cancel
                   </button>
@@ -161,20 +165,21 @@ function OTP({ mobile, setAuthState }) {
                   registered mobile number. Kindly enter that to Login (+91{" "}
                   {mobile})
                 </h1>
-                <div className="flex items-center justify-center mt-9">
+                <div className="flex flex-col items-center justify-center mt-9">
                   <div className="w-full flex justify-center space-x-2 sm:space-x-4 md:space-x-6 lg:space-x-8">
-                    <input type="number" hidden value={otp} name="otp" />
-                    <input type="number" hidden value={mobile} name="phone" />
+                    <input type="number" hidden defaultValue={otp} name="otp" />
+                    <input type="number" hidden defaultValue={mobile} name="phone" />
                     <OtpInput
                       value={otp}
                       onChange={(e) => setOtp(e)}
                       numInputs={6}
                       containerStyle="w-[100%] flex justify-between"
-                      inputStyle="otp-inputs border-red border-2 scale-105"
+                      inputStyle={`otp-inputs ${isOTPValid ? "border-black" : "border-rose-400"} border-2 scale-105`}
                       isInputNum="true"
                       name="otp"
                     />
                   </div>
+                  {!isOTPValid && (<p className="mt-5 text-rose-600">{otpState.message}</p>)}
                 </div>
                 <div className="flex justify-between mt-6">
                   <div>OTP expires in</div>
@@ -184,7 +189,7 @@ function OTP({ mobile, setAuthState }) {
                   <div className="absolute bottom-10 left-3 right-3 gap-[25px]">
                   <button
                     className="w-full py-2 bg-white text-[#0A4E71] border-[1px] border-[#0A4E71] border-solid rounded-lg"
-                    type="button" onClick={router.push("/")}
+                    type="button" onClick={() => console.log("sdfsdf")}
                   >
                     Cancel
                   </button>

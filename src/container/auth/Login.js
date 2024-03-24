@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useFormState } from "react-dom"
 import { loginAction } from "@/lib/server_actions/Auth";
 
@@ -9,10 +9,14 @@ const formResponse = {
 
 function Login({ setMobile, mobile, setAuthState }) {
   const [loginState, formLoginAction] = useFormState(loginAction, formResponse)
+  const [loginError, setLoginError] = useState(true)
 
   useEffect(() => {
     if(loginState.status == true){
       setAuthState("otp")
+      setLoginError(false)
+    }else if(loginState.status == false){
+      setLoginError(true)
     }
   }, [loginState])
 
@@ -49,7 +53,7 @@ function Login({ setMobile, mobile, setAuthState }) {
                 <h1 className="text-black text-2xl mt-2 font-semibold">
                   Welcome Back!
                 </h1>
-
+                <p className="text-rose-600 mt-4 text-lg">{loginState.message}</p>
                 <div className="w-full mx-auto mt-7">
                   <div className="relative">
                     <label className="text-[#c1c1c1] text-sm font-bold tracking-wide absolute transform -translate-y-full bg-white px-2 left-4 bottom-3">
@@ -127,6 +131,7 @@ function Login({ setMobile, mobile, setAuthState }) {
                 <h1 className="text-black text-2xl mt-2 font-semibold">
                   Welcome Back!
                 </h1>
+                <p className="text-rose-600 mt-4 text-md">{loginState.message}</p>
                 <div className="w-full mx-auto mt-7">
                   <div className="relative">
                     <label className="text-[#c1c1c1] text-sm font-bold tracking-wide absolute transform -translate-y-full bg-white px-2 left-4 bottom-6">
