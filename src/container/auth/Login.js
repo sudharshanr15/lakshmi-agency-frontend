@@ -1,6 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { useFormState } from "react-dom"
+import { loginAction } from "@/lib/server_actions/Auth";
 
-function Login({ onLoginFormSubmit, setMobile, mobile }) {
+const formResponse = {
+  status: false,
+  message: ""
+}
+
+function Login({ setMobile, mobile, setAuthState }) {
+  const [loginState, formLoginAction] = useFormState(loginAction, formResponse)
+
+  useEffect(() => {
+    if(loginState.status == true){
+      setAuthState("otp")
+    }
+  }, [loginState])
+
   return (
     <>
       {/* DESKTOP VERSION */}
@@ -27,7 +42,7 @@ function Login({ onLoginFormSubmit, setMobile, mobile }) {
             </h1>
           </div>
 
-          <form onSubmit={onLoginFormSubmit}>
+          <form action={formLoginAction}>
             <div className="bg-white md:mx-3 lg:mx-12 p-4 lg:py-40 md:mt-10">
               <div className="flex flex-col justify-center mx-2 mt-8 md:mt-0 md:ml-9 md:mr-16">
                 <h1 className="text-center font-bold text-2xl mb-10">Login</h1>
@@ -53,6 +68,7 @@ function Login({ onLoginFormSubmit, setMobile, mobile }) {
                       <input
                         type="text"
                         required
+                        name="phone"
                         value={mobile}
                         onChange={(e) => setMobile(e.target.value)}
                         className="-ml-1 p-5 py-1   w-full focus:ring-blue-500 focus:outline-none"
@@ -105,7 +121,7 @@ function Login({ onLoginFormSubmit, setMobile, mobile }) {
               </h1>
             </div>
           </div>
-          <form onSubmit={onLoginFormSubmit}>
+          <form onSubmit={formLoginAction}>
             <div className="form rounded-t-3xl bg-white -mt-4 p-4 z-100">
               <div className="form-content p-4">
                 <h1 className="text-black text-2xl mt-2 font-semibold">
@@ -128,6 +144,7 @@ function Login({ onLoginFormSubmit, setMobile, mobile }) {
                       <input
                         type="text"
                         required
+                        name="phone"
                         className="-ml-1 p-5 py-1 border-0 w-full focus:ring-blue-500 focus:outline-none"
                         defaultValue={"6382344165"}
                         onChange={(e) => setMobile(e.target.value)}

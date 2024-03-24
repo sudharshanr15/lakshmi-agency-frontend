@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import { useFormState } from "react-dom";
 import { login, OTPSubmit } from "@/controller/authController";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -7,14 +8,19 @@ import { useRouter } from "next/navigation";
 import Login from "./Login";
 import OTP from "./OTP";
 import { showToast } from "@/utils/showToast";
+import { loginAction, validateOTP } from "@/lib/server_actions/Auth";
+
+const formResponse = {
+  status: false,
+  message: ""
+}
 
 export function Auth() {
   const [authState, setAuthState] = useState("login");
   //
-  const [mobile, setMobile] = useState("6382344165");
+  const [mobile, setMobile] = useState("");
   // temp ID
   const [tempID, setTempID] = useState("");
-  const [otp, setOtp] = useState("");
   //
   const router = useRouter();
 
@@ -53,22 +59,19 @@ export function Auth() {
       <>
         <ToastContainer />
         <Login
-          onLoginFormSubmit={onLoginFormSubmit}
           setMobile={setMobile}
           setAuthState={setAuthState}
           mobile={mobile}
         />
       </>
     );
-  } else {
+  } else if(authState == "otp") {
     return (
       <>
         <ToastContainer />
         <OTP
-          otp={otp}
-          setOtp={setOtp}
-          onOTPFormSubmit={onOTPFormSubmit}
           mobile={mobile}
+          setAuthState={setAuthState}
         />
       </>
     );

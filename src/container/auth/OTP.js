@@ -1,11 +1,29 @@
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import React, { useState, useEffect } from "react";
 import OtpInput from "react18-input-otp";
+import { useFormState } from "react-dom"
+import { validateOTP } from "@/lib/server_actions/Auth";
 
-function OTP({ otp, setOtp, onOTPFormSubmit, mobile }) {
+const formResponse = {
+  status: false,
+  message: ""
+}
+
+function OTP({ mobile, setAuthState }) {
+  const [otpState, formOTPAction] = useFormState(validateOTP, formResponse)
+  // const [input] = border-rose-400
+
+  const [otp, setOtp] = useState("");
   const initialTime = 360; // 6 minutes in seconds
   const [time, setTime] = useState(initialTime);
   const router = useRouter();
+
+  useEffect(() => {
+    if(otpState.status == true){
+      // setAuthState("login")
+      redirect("/dashboard")
+    }
+  }, [otpState])
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -53,7 +71,7 @@ function OTP({ otp, setOtp, onOTPFormSubmit, mobile }) {
             </h1>
           </div>
 
-          <form onSubmit={onOTPFormSubmit}>
+          <form action={formOTPAction}>
             <div className="bg-white md:mx-3 lg:mx-12 p-4 lg:py-40 md:mt-10">
               <div className="flex flex-col justify-center mx-2 mt-8 md:mt-0 md:ml-9 md:mr-16">
                 <div className="w-full mx-auto mt-7">
@@ -70,6 +88,8 @@ function OTP({ otp, setOtp, onOTPFormSubmit, mobile }) {
 
                     <div className="flex items-center justify-center mt-9">
                       <div className=" w-full flex justify-center space-x-2 sm:space-x-4 md:space-x-6 lg:space-x-8">
+                        <input type="number" hidden value={otp} name="otp" />
+                        <input type="number" hidden value={mobile} name="phone" />
                         <OtpInput
                           value={otp}
                           onChange={(e) => setOtp(e)}
@@ -77,6 +97,7 @@ function OTP({ otp, setOtp, onOTPFormSubmit, mobile }) {
                           containerStyle="w-[100%] 2xl:w-[75%] flex justify-between"
                           inputStyle="otp-inputs border-black border-2 scale-105"
                           isInputNum="true"
+                          name="otp"
                         />
                       </div>
                     </div>
@@ -130,7 +151,7 @@ function OTP({ otp, setOtp, onOTPFormSubmit, mobile }) {
               </h1>
             </div>
           </div>
-          <form onSubmit={onOTPFormSubmit}>
+          <form onSubmit={formOTPAction}>
             <div className="form rounded-t-3xl bg-white -mt-4 p-4 flex-grow">
               <div className="form-content p-4">
                 <h1 className="text-black text-2xl mt-2 font-semibold">OTP</h1>
@@ -142,13 +163,16 @@ function OTP({ otp, setOtp, onOTPFormSubmit, mobile }) {
                 </h1>
                 <div className="flex items-center justify-center mt-9">
                   <div className="w-full flex justify-center space-x-2 sm:space-x-4 md:space-x-6 lg:space-x-8">
+                    <input type="number" hidden value={otp} name="otp" />
+                    <input type="number" hidden value={mobile} name="phone" />
                     <OtpInput
                       value={otp}
                       onChange={(e) => setOtp(e)}
                       numInputs={6}
                       containerStyle="w-[100%] flex justify-between"
-                      inputStyle="otp-inputs border-black border-2 scale-105"
+                      inputStyle="otp-inputs border-red border-2 scale-105"
                       isInputNum="true"
+                      name="otp"
                     />
                   </div>
                 </div>
