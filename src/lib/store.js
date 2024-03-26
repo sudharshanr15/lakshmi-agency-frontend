@@ -4,6 +4,7 @@ import productReducer from "./features/productSlice";
 import { persistReducer } from "redux-persist";
 import storage from "./customStorage";
 import logger from "redux-logger";
+import CategoriesReducer from "./state/items/CategoriesSlicer";
 
 const persistConfig = {
   key: "root",
@@ -13,6 +14,7 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   product: persistReducer(persistConfig, productReducer),
+  categories: CategoriesReducer
 });
 
 export const store = () => {

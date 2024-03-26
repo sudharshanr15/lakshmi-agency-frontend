@@ -4,6 +4,8 @@ import { Mobilefooter } from "./mobileFooter";
 import { useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { updateAsync } from "@/lib/state/items/CategoriesSlicer";
 import Link from "next/link";
 import {
   getCategories,
@@ -13,9 +15,22 @@ import {
   getBillingAddress,
   getProfileDetails,
 } from "@/controller/profileController";
+import { category } from "@/lib/server_api/api";
 
 export function Nav({isDrawerOpen,setDrawerOpen}) {
-  
+  const categories_test = useSelector((state) => state.categories.value)
+  const action_dispatch = useDispatch()
+
+  useEffect(() => {
+    // action_dispatch(updateAsync())
+    category()
+  }, [])
+
+  useEffect(() => {
+    console.log("Categories updated")
+    console.log(categories_test)
+  }, [categories_test])
+
   const [isPipeOpen, setPipeOpen] = useState(false);
   const [categories, setCategories] = useState([]);
   const [subCategories, setSubCategories] = useState([]);
@@ -156,7 +171,7 @@ export function Nav({isDrawerOpen,setDrawerOpen}) {
             {/* list of items */}
             {isDrawerOpen && (
               <ul className="py-5">
-                {categories.map((item, i) => (
+                {categories_test.map((item, i) => (
                   <li
                     key={i}
                     className="px-3 space-x-5 flex py-3 justify-between hover:bg-[#EAEAEA]"

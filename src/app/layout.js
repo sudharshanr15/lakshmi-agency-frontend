@@ -1,5 +1,5 @@
 "use client";
-// import TanstackProvider from "@/providers/TanstackProvider";
+import TanstackProvider from "@/providers/TanstackProvider";
 import { Provider } from "react-redux";
 import { store } from "@/lib/store";
 import { Poppins } from "next/font/google";
@@ -16,8 +16,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={poppins.className}>
-        {/* <TanstackProvider>{children}</TanstackProvider> */}
-        <Provider store={store()}>{children}</Provider>
+        <TanstackProvider>
+          <Provider store={store()}>{children}</Provider>
+        </TanstackProvider>
       </body>
     </html>
   );

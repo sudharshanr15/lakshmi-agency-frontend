@@ -14,7 +14,7 @@ import { useEffect, useState } from "react";
 export default function Page() {
   const [orders, setOrders] = useState([]);
   const [dues, setDues] = useState([]);
-  const [isDrawerOpen, setDrawerOpen] = useState(false);
+  const [isDrawerOpen, setDrawerOpen] = useState(true);
   useEffect(() => {
     getOrders(setOrders);
     getDues(setDues);
