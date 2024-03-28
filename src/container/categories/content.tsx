@@ -49,9 +49,11 @@ function Content({ product }){
           ))
         }
       </div>
-      <div className="text-center mb-4">
-        <button onClick={() => items_data.fetchNextPage()} className="bg-black text-white p-4">Load More</button>
-      </div>
+      {items_data.hasNextPage && (
+        <div className="text-center mb-4">
+          <button onClick={() => items_data.fetchNextPage()} className="bg-black text-white p-4">Load More</button>
+        </div>
+      )}
     </>
   );
 };
