@@ -23,7 +23,7 @@ export function Nav({isDrawerOpen,setDrawerOpen}) {
 
   useEffect(() => {
     // action_dispatch(updateAsync())
-    category()
+    // category()
   }, [])
 
   useEffect(() => {

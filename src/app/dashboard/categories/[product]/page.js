@@ -5,9 +5,29 @@ import { Total, Example, Mobilenav, Sort } from "@/container/categories";
 import { useSelector, useDispatch } from "react-redux";
 import { setSelectedProduct } from "@/lib/features/productSlice";
 import DetailsTab from "@/container/categories/DetailsTab";
+import { useEffect } from "react";
+import { category_items, get_category_items } from "@/lib/server_api/api";
+import { updateData, updateItemsAsync } from "@/lib/state/items/CategoryItemsSlicer";
+import { useQuery } from "@tanstack/react-query";
 
 const Page = ({ params }) => {
   const dispatch = useDispatch();
+  const product_id = params.product
+
+  const items_data = useQuery({
+    queryKey: ["category", product_id],
+    queryFn: () => get_category_items(product_id),
+    staleTime: 1000 * 60 * 5
+  })
+
+  useEffect(() => {
+    if(items_data.data?.status == true){
+      dispatch(updateData(items_data.data.data))
+      return
+    }
+    console.log("calling")
+  }, [items_data.data])
+
   const showProductDetail = useSelector(
     (state) => state.product.selectedProduct
   );

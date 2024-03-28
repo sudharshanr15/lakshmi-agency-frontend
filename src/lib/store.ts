@@ -5,6 +5,7 @@ import { persistReducer } from "redux-persist";
 import storage from "./customStorage";
 import logger from "redux-logger";
 import CategoriesReducer from "./state/items/CategoriesSlicer";
+import CategoryItemsReducer from "./state/items/CategoryItemsSlicer";
 
 const persistConfig = {
   key: "root",
@@ -14,13 +15,14 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   product: persistReducer(persistConfig, productReducer),
-  categories: CategoriesReducer
+  categories: CategoriesReducer,
+  category_items: CategoryItemsReducer
 });
 
-export const store = () => {
-  return configureStore({
+export const store = configureStore({
     reducer: rootReducer,
     middleware: (getDefaultMiddleware) =>
       getDefaultMiddleware({ serializableCheck: false }),
   });
-};
+
+export type RootState = ReturnType<typeof store.getState>

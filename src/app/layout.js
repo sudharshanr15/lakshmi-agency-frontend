@@ -10,14 +10,14 @@ const poppins = Poppins({
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
 
-persistStore(store());
+persistStore(store);
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={poppins.className}>
         <TanstackProvider>
-          <Provider store={store()}>{children}</Provider>
+          <Provider store={store}>{children}</Provider>
         </TanstackProvider>
       </body>
     </html>
