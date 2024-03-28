@@ -1,16 +1,18 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   addProductsInCart,
   removeProductFromCart,
   setSelectedProduct,
 } from "@/lib/features/productSlice";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   addToWishlist,
   removeFromWishlist,
 } from "@/controller/productController";
 
 const Card = ({ name, description, itemCode, wished }) => {
+  const cart = useSelector((state) => state.product.cart)
+
   const dispatch = useDispatch();
   function showProductDetailCard() {
     // console.log("product clicked", itemCode);
@@ -73,6 +75,14 @@ const Card = ({ name, description, itemCode, wished }) => {
       removeFromWishlist(itemCode);
     }
   }
+
+  useEffect(() => {
+    let getItem = cart.map(data => data.item_code).indexOf(itemCode)
+    if(getItem > -1){
+      setIsChecked(true)
+      setQty(cart[getItem].qty)
+    }
+  }, [])
 
   return (
     <div className="p-4 border rounded-md text-gray-500">

@@ -18,19 +18,14 @@ export const productSlice = createSlice({
     addProductsInCart(state, action) {
       console.log("Adding to Cart");
       const prevCart = state.cart;
-      let isPresent = false;
-      prevCart.forEach((val, i) => {
-        if (val.item_code == action.payload.item_code) {
-          isPresent = true;
-          // increase qty
-          prevCart[i].qty = action.payload.qty;
-        }
-      });
-      if (!isPresent) {
-        state.cart = [...prevCart, action.payload];
-      } else {
+      let presentItem = prevCart.map(data => data.item_code).indexOf(action.payload.item_code)
+      if(presentItem > -1){
+        prevCart[presentItem].qty = action.payload.qty;
         state.cart = prevCart;
+      }else{
+        state.cart = [...prevCart, action.payload];
       }
+
       sessionStorage.setItem("cart", JSON.stringify(state.cart));
     },
     removeProductFromCart(state, action) {
