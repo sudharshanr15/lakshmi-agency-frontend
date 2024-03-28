@@ -18,7 +18,7 @@ export const CategoryItemsSlicer = createSlice({
     },
     reducers: {
         updateData: (state: CategoryItemStateResponse, action: PayloadAction<CategoryItemServerResponse[]>) => {
-            state.value.data = [...state.value.data, ...action.payload]
+            state.value.data = [...action.payload]
         }
     }
 })

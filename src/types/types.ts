@@ -1,7 +1,8 @@
 export interface ApiResponse {
     status: Boolean,
     data: any,
-    statusCode: Number
+    statusCode: Number,
+    nextPage?: number
 }
 
 export interface CategoryItemServerResponse {

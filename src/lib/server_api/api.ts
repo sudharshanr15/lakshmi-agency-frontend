@@ -29,10 +29,13 @@ export async function category(): Promise<ApiResponse>{
     })
 }
 
-export async function get_category_items(category: string): Promise<CategoryItemResponse>{
+export async function get_category_items(category: string, pageParam: number): Promise<CategoryItemResponse>{
+    const page_limit = 10;
+    let next_page = null;
+
     return await axios({
         method: "get",
-        url: `http://64.227.146.248/api/resource/Item?filters={"item_group":["descendants of (inclusive)","${category}"]}&fields=["name", "item_name", "item_code", "description"]&limit_start=0&limit_page_length=10`,
+        url: `http://64.227.146.248/api/resource/Item?filters={"item_group":["descendants of (inclusive)","${category}"]}&fields=["name", "item_name", "item_code", "description"]&limit_start=${pageParam}&limit_page_length=${page_limit}`,
         headers: {
             "Authorization": "Bearer " + (await getSessionToken())
         },
@@ -40,17 +43,22 @@ export async function get_category_items(category: string): Promise<CategoryItem
             return status == 200
         }
     }).then((res) => {
+        if(res.data?.data.length == page_limit){
+            next_page = pageParam + page_limit
+        }
         return {
             status: true,
             data: res.data?.data,
-            statusCode: res.status
+            statusCode: res.status,
+            nextPage: next_page
         }
     }).catch(err => {
         // console.log(err)
         return {
             status: false,
             data: [],
-            statusCode: err.request.status
+            statusCode: err.request.status,
+            nextPage: next_page
         }
     })
 }
