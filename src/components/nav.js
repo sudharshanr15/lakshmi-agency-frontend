@@ -272,7 +272,7 @@ export function Nav({isDrawerOpen,setDrawerOpen}) {
             <div className="flex items-center">
               <Link href={"/dashboard"}>
                 <img
-                  src="/Lakshmi.png"
+                  src="/image/Lakshmi.png"
                   className="h-8 mr-3"
                   alt="Flowbite Logo"
                 />

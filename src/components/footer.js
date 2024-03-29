@@ -14,7 +14,7 @@ export function Footer() {
             <div className="mx-2">
               <div className="flex items-center p-5">
                 <img
-                  src={"/logo_with_name.svg"}
+                  src={"/image/logo_with_name.svg"}
                   alt="Logo"
                   className="w-40 h-20"
                 />

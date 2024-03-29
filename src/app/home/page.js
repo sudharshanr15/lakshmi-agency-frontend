@@ -47,7 +47,7 @@ export default function Page() {
         {/* NAV */}
         <div className="w-full h-[78px] bg-blue-highlight flex justify-center items-center">
           <div className="flex items-center w-[12rem] justify-between">
-            <Image src="/lakshmi.png" width={30} height={30} alt="logo" />
+            <Image src="/image/lakshmi.png" width={30} height={30} alt="logo" />
             <h3 className="font-medium text-white">LAKSHMI AGENCY</h3>
           </div>
         </div>
