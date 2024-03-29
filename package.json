@@ -52,6 +52,7 @@
   },
   "devDependencies": {
     "@tailwindcss/aspect-ratio": "^0.4.2",
-    "@tanstack/eslint-plugin-query": "^5.28.6"
+    "@tanstack/eslint-plugin-query": "^5.28.6",
+    "@types/node": "20.11.30"
   }
 }

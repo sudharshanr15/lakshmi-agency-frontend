@@ -1,6 +1,5 @@
 "use client";
 import "../globals.css";
-import { Nav, Footer } from "@/components/";
 import {
   Card,
   RecentOrder,
@@ -21,13 +20,11 @@ export default function Page() {
   }, []);
   return (
     <>
-      <Nav isDrawerOpen={isDrawerOpen} setDrawerOpen={setDrawerOpen}/>
       <Card />
       <LineChart />
       <Quote isDrawerOpen={isDrawerOpen} setDrawerOpen={setDrawerOpen}/>
       <RecentOrder orders={orders} />
       <UpcomingDue dues={dues} />
-      <Footer />
     </>
   );
 }

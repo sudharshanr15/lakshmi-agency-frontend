@@ -1,6 +1,5 @@
 "use client";
 import "@/app/globals.css";
-import { Nav, Footer } from "@/components/";
 import Address from "@/container/address/address";
 import DetailsTab from "@/container/address/detailsTab";
 import { useState } from "react";
@@ -28,7 +27,6 @@ export default function Page() {
       ) : (
         <></>
       )}
-      <Nav />
       {orderNow ? (
         <OrderResult />
       ) : (
@@ -38,7 +36,6 @@ export default function Page() {
           setOrderNow={setOrderNow}
         />
       )}
-      <Footer />
     </div>
   );
 }

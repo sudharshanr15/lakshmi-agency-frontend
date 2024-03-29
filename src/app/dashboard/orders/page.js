@@ -1,6 +1,5 @@
 "use client";
 import "@/app/globals.css";
-import { Nav, Footer } from "@/components/";
 import { getOrders } from "@/controller/dashboardController";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -17,7 +16,6 @@ export default function Page() {
 
   return (
     <>
-      <Nav />
       <div className="mt-4 lg:mt-[10rem] px-4 lg:px-8 min-h-[60vh]">
         <div className="flex font-medium">
           <h3
@@ -52,7 +50,6 @@ export default function Page() {
           <OrderList key={i} order={order} />
         ))}
       </div>
-      <Footer />
     </>
   );
 }

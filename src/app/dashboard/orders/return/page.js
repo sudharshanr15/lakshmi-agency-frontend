@@ -1,9 +1,6 @@
 "use client";
 import "@/app/globals.css";
-import { Nav, Footer } from "@/components/";
-import { getOrderByID } from "@/controller/dashboardController";
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
 import DetailsTab from "@/container/orders/detailsTab";
 
 const hostUrl = "https://test01.lakshmiagency.com";
@@ -18,7 +15,7 @@ export default function Page() {
       address_line1: "new ship addresses",
       city: "Tiruch",
       state: "Tamil Nadu",
-      country: "India",
+      country: "Inddia",
       pincode: "637098",
     },
     courier_status: "Delivery on the way",
@@ -98,7 +95,6 @@ export default function Page() {
       ) : (
         <></>
       )}
-      <Nav />
       <div className="mt-4 lg:mt-[10rem] px-4 lg:px-8 min-h-[65vh] lg:flex">
         <OrderList
           order={order}
@@ -207,7 +203,6 @@ export default function Page() {
           </div>
         )}
       </div>
-      <Footer />
     </div>
   );
 }

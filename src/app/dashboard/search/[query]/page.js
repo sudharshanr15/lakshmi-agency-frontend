@@ -1,6 +1,5 @@
 "use client";
 import "../../../globals.css";
-import { Nav } from "@/components/";
 import { Total, Mobilenav } from "@/container/categories";
 import { useSelector, useDispatch } from "react-redux";
 import { setSelectedProduct } from "@/lib/features/productSlice";
@@ -28,9 +27,6 @@ const Page = ({ params }) => {
       ) : (
         <></>
       )}
-      <div className="hidden lg:block">
-        <Nav />
-      </div>
       <div className="block lg:hidden xl:hidden">
         <Mobilenav />
       </div>

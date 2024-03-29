@@ -1,7 +1,6 @@
 "use client";
 import "@/app/globals.css";
 import { useState, useEffect } from "react";
-import { Footer, Nav } from "@/components";
 import MyProfile from "@/container/profile/MyProfile";
 import DeliveryAddress from "@/container/profile/DeliveryAddress";
 import { getProfileDetails } from "@/controller/profileController";
@@ -9,7 +8,6 @@ import BuisnessDetails from "@/container/profile/BuisnessDetails";
 import WishList from "@/container/profile/WishList";
 import Notifications from "@/container/profile/Notifications";
 import Settings from "@/container/profile/Settings";
-import Link from "next/link";
 
 // Define Main component
 export default function Main({ params }) {
@@ -28,7 +26,6 @@ export default function Main({ params }) {
 
   return (
     <>
-      <Nav />
       <div className="h-full w-full flex overflow-x-hidden relative">
         <div className="bg-white w-full h-full overflow-x-hidden">
           {selectedCategory == "My Profile" && (
@@ -45,7 +42,6 @@ export default function Main({ params }) {
           {selectedCategory == "Settings" && <Settings />}
         </div>
       </div>
-      <Footer />
     </>
   );
 }

@@ -1,7 +1,6 @@
 "use client";
 import "../../globals.css";
 import { useState, useEffect } from "react";
-import { Footer, Nav } from "@/components";
 import { getProfileDetails } from "@/controller/profileController";
 import { useRouter } from "next/navigation";
 import MyProfile from "@/container/profile/MyProfile";
@@ -165,7 +164,6 @@ export default function Main() {
 
   return (
     <>
-      <Nav />
       <div className="lg:mt-[7.5rem] h-full w-full flex overflow-x-hidden relative">
         <div className="w-[100%] bg-white lg:w-[25%]">
           <div className="">
@@ -212,7 +210,6 @@ export default function Main() {
           {selectedCategory == "Settings" && <Settings />}
         </div>
       </div>
-      <Footer />
     </>
   );
 }

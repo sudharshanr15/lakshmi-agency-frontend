@@ -1,6 +1,5 @@
 "use client";
 import "../../globals.css";
-import { Nav, Footer } from "@/components/";
 import { List } from "@/container/product";
 import { setCartItems } from "@/lib/features/productSlice";
 import { useEffect } from "react";
@@ -15,9 +14,7 @@ export default function Page() {
 
   return (
     <>
-      <Nav />
       <List />
-      <Footer />
     </>
   );
 }

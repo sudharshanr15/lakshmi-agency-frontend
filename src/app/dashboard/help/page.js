@@ -1,13 +1,10 @@
 "use client";
-import axios from "axios"; // Import Axios library
 import "../../globals.css";
-import { Nav } from "@/components";
 
 // Define Main component
 export default function Main() {
   return (
     <>
-      <Nav />
       <div className="mt-60 p-8 md:mx-24 bg-gray-200 justify-center">
         <span className="font-bold text-1xl">Orders & Returns</span>
         <div>
