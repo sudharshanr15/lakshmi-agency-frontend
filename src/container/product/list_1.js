@@ -23,11 +23,9 @@ const Total = ({ cart }) => {
           Cancel
         </button>
         <div className="lg:hidden h-4"></div>
-        <Link href={"profile/address"}>
-          <button className="rounded-md w-full lg:w-fit bg-yellow-500 lg:mx-2 mb-4 lg:mb-0 px-14 py-2 font-bold">
+          <Link href={"profile/address"} className="rounded-md w-full lg:w-fit bg-yellow-500 lg:mx-2 mb-4 lg:mb-0 px-14 py-2 font-bold">
             Select Delivery Type
-          </button>
-        </Link>
+          </Link>
       </div>
     </div>
   );

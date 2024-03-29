@@ -16,7 +16,10 @@ const Page = ({ params }) => {
   const showProductDetail = useSelector(
     (state) => state.product.selectedProduct
   );
-  const cart = useSelector((state) => state.product.cart);
+  const cart = useSelector((state) => state.product.cart) || [];
+
+  console.log("This is cart")
+  console.log(cart)
 
   function hideDetailsTab() {
     dispatch(setSelectedProduct(""));

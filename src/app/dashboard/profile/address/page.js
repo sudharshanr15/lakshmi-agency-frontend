@@ -5,6 +5,7 @@ import Address from "@/container/address/address";
 import DetailsTab from "@/container/address/detailsTab";
 import { useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Page() {
   const [detailsTab, setDetailsTab] = useState("");
@@ -57,9 +58,9 @@ function OrderResult() {
         <button className="bg-[#F9C74F] text-black py-2 px-24 rounded mb-2">
           Go to Orders
         </button>
-        <button className="text-[#0A4E71] border border-[#0A4E71] py-2 px-24 rounded">
+        <Link href={"/dashboard"} className="text-[#0A4E71] border border-[#0A4E71] py-2 px-24 rounded">
           Back to Home
-        </button>
+        </Link>
       </div>
     </div>
   );

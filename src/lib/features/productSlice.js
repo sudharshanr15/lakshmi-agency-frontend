@@ -52,6 +52,10 @@ export const productSlice = createSlice({
         JSON.stringify(state.billing_address)
       );
     },
+    emptyCart(state){
+      state.cart = []
+      sessionStorage.setItem("cart", JSON.stringify(state.cart));
+    }
   },
 });
 export const {
@@ -61,6 +65,7 @@ export const {
   setCartItems,
   setDeliveryAddress,
   setBillingAddress,
+  emptyCart
 } = productSlice.actions;
 
 export default productSlice.reducer;

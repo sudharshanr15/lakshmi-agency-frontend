@@ -11,7 +11,7 @@ import {
 } from "@/controller/productController";
 
 const Card = ({ name, description, itemCode, wished }) => {
-  const cart = useSelector((state) => state.product.cart)
+  const cart = useSelector((state) => state.product.cart) || []
 
   const dispatch = useDispatch();
   function showProductDetailCard() {
