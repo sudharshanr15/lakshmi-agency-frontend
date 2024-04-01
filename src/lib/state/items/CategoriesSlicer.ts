@@ -1,5 +1,29 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
+const categoriesList = [
+    {
+        "name": "CRI"
+    },
+    {
+        "name": "OTHERS"
+    },
+    {
+        "name": "Primary"
+    },
+    {
+        "name": "Prince Pipe"
+    },
+    {
+        "name": "PVC BEND COUPLER"
+    },
+    {
+        "name": "PVC FITTINGS"
+    },
+    {
+        "name": "STAR"
+    }
+]
+
 export const CategoriesSlice = createSlice({
     name: "categories_slicer",
     initialState: {
@@ -20,20 +44,7 @@ export const updateAsync = createAsyncThunk(
     "categories_slicer/updateAsync",
     async() => {
         await new Promise((res) => setTimeout(res, 1000))
-        return [
-            {
-                name: "first one",
-                image: "",
-            },
-            {
-                name: "second one",
-                image: "",
-            },
-            {
-                name: "third one",
-                image: "",
-            },
-        ]
+        return categoriesList
     }
 )
 

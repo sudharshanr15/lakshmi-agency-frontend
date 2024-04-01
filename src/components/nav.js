@@ -1,7 +1,7 @@
 "use client";
 import { Mobilenav } from "./mobileNav";
 import { Mobilefooter } from "./mobileFooter";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
@@ -22,7 +22,7 @@ export function Nav({isDrawerOpen,setDrawerOpen}) {
   const action_dispatch = useDispatch()
 
   useEffect(() => {
-    // action_dispatch(updateAsync())
+    action_dispatch(updateAsync())
     // category()
   }, [])
 
@@ -174,37 +174,38 @@ export function Nav({isDrawerOpen,setDrawerOpen}) {
                 {categories_test.map((item, i) => (
                   <li
                     key={i}
-                    className="px-3 space-x-5 flex py-3 justify-between hover:bg-[#EAEAEA]"
-                    type="button"
-                    onClick={() => togglePipe(item.name)}
+                    className="px-3 space-x-5 py-3 hover:bg-[#EAEAEA]"
+                    // onClick={() => togglePipe(item.name)}
                   >
-                    <div className="flex cursor-pointer">
-                      <img
-                        src={"https://test01.lakshmiagency.com/" + item.image}
-                        alt="category image"
-                        className="-mt-3 rounded-full w-12 h-12 border-4 border-yellow-400 text-[#000000]"
-                      />
-                      <span className="ml-4">{item.name} </span>
-                    </div>
+                    <Link href={"/dashboard/categories/" + item.name} className="flex justify-between">
+                      <div className="flex cursor-pointer">
+                        <img
+                          src={""}
+                          alt="category image"
+                          className="-mt-3 rounded-full w-12 h-12 border-4 border-yellow-400 text-[#000000]"
+                        />
+                        <span className="ml-4">{item.name} </span>
+                      </div>
 
-                    <div className="mt-2">
-                      <button>
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          fill="none"
-                          viewBox="0 0 24 24"
-                          strokeWidth={1.5}
-                          stroke="currentColor"
-                          className="w-4 h-4"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            d="M8.25 4.5l7.5 7.5-7.5 7.5"
-                          />
-                        </svg>
-                      </button>
-                    </div>
+                      <div className="mt-2">
+                        <button>
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth={1.5}
+                            stroke="currentColor"
+                            className="w-4 h-4"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M8.25 4.5l7.5 7.5-7.5 7.5"
+                            />
+                          </svg>
+                        </button>
+                      </div>
+                    </Link>
                   </li>
                 ))}
               </ul>
