@@ -174,11 +174,35 @@ export function Nav({isDrawerOpen,setDrawerOpen}) {
                 {categories_test.map((item, i) => (
                   <li
                     key={i}
-                    className="px-3 space-x-5 py-3 hover:bg-[#EAEAEA]"
+                    className="p-3 hover:bg-[#EAEAEA]"
                     // onClick={() => togglePipe(item.name)}
                   >
-                    <Link href={"/dashboard/categories/" + item.name} className="flex justify-between">
-                      <div className="flex cursor-pointer">
+                    <Link href={"/dashboard/categories/" + item.name} className="">
+                      <div className="flex justify-between items-center">
+                        <div className="flex items-center">
+                          <img src={""} alt={item.name + " Category"} className="w-12 h-12 rounded-full border-4 border-yellow-400 text-[#000]" />
+                          <span className="ml-4">{item.name} </span>
+                        </div>
+                        <div className="mt-2">
+                          <button>
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              fill="none"
+                              viewBox="0 0 24 24"
+                              strokeWidth={1.5}
+                              stroke="currentColor"
+                              className="w-4 h-4"
+                            >
+                              <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                d="M8.25 4.5l7.5 7.5-7.5 7.5"
+                              />
+                            </svg>
+                          </button>
+                        </div>
+                      </div>
+                      {/* <div className="flex cursor-pointer">
                         <img
                           src={""}
                           alt="category image"
@@ -204,7 +228,7 @@ export function Nav({isDrawerOpen,setDrawerOpen}) {
                             />
                           </svg>
                         </button>
-                      </div>
+                      </div> */}
                     </Link>
                   </li>
                 ))}
