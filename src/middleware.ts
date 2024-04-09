@@ -9,7 +9,7 @@ export async function middleware(request: NextRequest){
     if(!authenticated && !(request.nextUrl.pathname == "/")){
         return NextResponse.redirect( new URL("/", request.url))
     }else if(authenticated && !request.nextUrl.pathname.startsWith("/dashboard")){
-        return NextResponse.redirect( new URL("/dashboard", request.url))
+        return NextResponse.redirect( new URL("/dashboard?auth=" + authenticated, request.url))
     }
 }
 
