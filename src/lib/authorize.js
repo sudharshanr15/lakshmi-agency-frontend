@@ -24,23 +24,9 @@ export async function authorize_user(){
                 message: "success"
             }
         }else{
-            const response = await fetch("http://64.227.146.248/api/method/frappe.auth.get_logged_user", {
-                method: "get",
-                headers: {
-                    "Authorization": `Bearer ${session_token}`
-                },
-            })
-
-            if(response.ok){
-                return {
-                    status: true,
-                    message: "success"
-                }
-            }else{
-                return {
-                    status: false,
-                    message: "error occured"
-                }
+            return {
+                status: false,
+                message: await response.text()
             }
         }
     }catch(e){
