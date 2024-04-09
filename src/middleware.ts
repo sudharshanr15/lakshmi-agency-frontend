@@ -7,7 +7,7 @@ export async function middleware(request: NextRequest){
     let authenticated = await authorize_user()
 
     if(!authenticated && !(request.nextUrl.pathname == "/")){
-        return NextResponse.redirect( new URL("/", request.url))
+        return NextResponse.redirect( new URL("/?auth=" + authenticated, request.url))
     }else if(authenticated && !request.nextUrl.pathname.startsWith("/dashboard")){
         return NextResponse.redirect( new URL("/dashboard?auth=" + authenticated, request.url))
     }
